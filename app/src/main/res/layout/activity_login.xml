@@ -7,18 +7,65 @@
     tools:context=".activity.LoginActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_background"
         android:orientation="vertical"
+        android:paddingHorizontal="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        >
+        <TextView
+            android:id="@+id/LoginActivity_TextView_Logo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="20dp"
+            android:text="Firebase Chat"
+            android:textAlignment="center"
+            android:textColor="@color/colorBackground"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/LoginActivity_TextView_Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Connect friends"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+            android:textColor="@color/colorBackground"
+            android:textSize="85dp" />
+
+        <TextView
+            android:id="@+id/LoginActivity_TextView_TitleBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="easily &amp; quickly"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+            android:textColor="@color/colorBackground"
+            android:textSize="85dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/LoginActivity_TextView_Description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="30dp"
+            android:text="Our chat app is the perfect way to stay connected with friends and family."
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/colorTextSecondary" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp" />
 
         <Button
             android:id="@+id/LoginActivity_Button_LoginWithGoogle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login with Google" />
+            android:layout_marginVertical="20dp"
+            android:backgroundTint="@color/colorBackground"
+            android:text="Login with Google"
+            android:textColor="@color/colorTextPrimary" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
