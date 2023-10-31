@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/BottomNav_item_message"
+        android:icon="@drawable/baseline_message_24"
+        android:title="@string/BottomNav_title_message"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/BottomNav_item_profile"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="@string/BottomNav_title_profile"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/BottomNav_item_setting"
+        android:icon="@drawable/baseline_settings_24"
+        android:title="@string/BottomNav_title_setting"
+        app:showAsAction="ifRoom" />
+
+</menu>

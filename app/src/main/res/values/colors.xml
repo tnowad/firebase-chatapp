@@ -20,6 +20,9 @@
     <!-- Divider Color -->
     <color name="colorDivider">#B6B6B6</color>
 
+    <!-- BottomNavigation color -->
+    <color name="white">#FFFFFF</color>
+
     <!-- Other Colors -->
     <color name="colorRed">#FF5722</color>
     <color name="colorGreen">#4CAF50</color>
