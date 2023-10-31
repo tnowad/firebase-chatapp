@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary Color -->
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorPrimaryLight">#BBDEFB</color>
+
+    <!-- Accent Color -->
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Text Colors -->
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#727272</color>
+
+    <!-- Background Colors -->
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorBackgroundSecondary">#F5F5F5</color>
+
+    <!-- Divider Color -->
+    <color name="colorDivider">#B6B6B6</color>
+
+    <!-- Custom Colors -->
+    <color name="colorCustom1">#FF5722</color>
+    <color name="colorCustom2">#4CAF50</color>
+
 </resources>
