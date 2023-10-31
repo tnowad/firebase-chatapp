@@ -6,11 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".activity.LoginActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="358dp" />
+    <LinearLayout
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        >
+
+        <Button
+            android:id="@+id/LoginActivity_Button_LoginWithGoogle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login with Google" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
