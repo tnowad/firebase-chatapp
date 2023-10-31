@@ -1,6 +1,11 @@
 package com.firebase.chat.model;
 
+import java.util.List;
+
 public class User {
-    String email, username, bio;
-    Boolean gender;
+    private String gmail;
+    private String id;
+    private String fullName;
+    private String bio;
+    private Boolean gender;
 }
