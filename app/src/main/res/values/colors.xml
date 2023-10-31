@@ -20,8 +20,11 @@
     <!-- Divider Color -->
     <color name="colorDivider">#B6B6B6</color>
 
-    <!-- Custom Colors -->
-    <color name="colorCustom1">#FF5722</color>
-    <color name="colorCustom2">#4CAF50</color>
+    <!-- Other Colors -->
+    <color name="colorRed">#FF5722</color>
+    <color name="colorGreen">#4CAF50</color>
+    <color name="colorBlue">#1976D2</color>
+    <color name="colorYellow">#FFFF00</color>
+    <color name="colorPurple">#9C27B0</color>
 
 </resources>
