@@ -1,4 +1,4 @@
-package com.firebase.chat;
+package com.firebase.chat.activity;
 
 import android.app.Application;
 

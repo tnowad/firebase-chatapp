@@ -1,8 +1,10 @@
-package com.firebase.chat;
+package com.firebase.chat.activity;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.firebase.chat.R;
 
 public class SplashActivity extends AppCompatActivity {
     @Override
