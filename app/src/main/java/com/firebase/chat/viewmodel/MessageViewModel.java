@@ -79,18 +79,19 @@ public class MessageViewModel {
     }
 
     public void onClickDemo() {
-        fAuth.createUserWithEmailAndPassword("benlun1201@gmail.com", "123")
-            .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser curr_user = fAuth.getCurrentUser();
-                        Log.d("demo", curr_user.getUid());
-                    }
-                    else {
-                        Toast.makeText(context.getApplicationContext(), "Lỗi!!!", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+//        fAuth.createUserWithEmailAndPassword("benlun1201@gmail.com", "123456")
+//            .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
+//                @Override
+//                public void onComplete(@NonNull Task<AuthResult> task) {
+//                    if (task.isSuccessful()) {
+//                        FirebaseUser curr_user = fAuth.getCurrentUser();
+//                        Log.d("demo", curr_user.getUid());
+//                    }
+//                    else {
+//                        Toast.makeText(context.getApplicationContext(), "Lỗi!!!", Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//            });
+        listMessage.add(new Message("Ben", "Dai", "Hello"));
     }
 }

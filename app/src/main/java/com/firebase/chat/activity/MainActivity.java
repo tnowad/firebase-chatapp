@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseAuth fAuth = FirebaseAuth.getInstance();
     FirebaseFirestore fStore;
     private MainViewModel mMainViewModel;
 
@@ -36,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
         ActivityMainBinding activityMessageBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mMainViewModel = new MainViewModel();
         activityMessageBinding.setMainViewModel(mMainViewModel);
-        activityMessageBinding.executePendingBindings();
 
         AdapterViewPager adapterViewPager = new AdapterViewPager(this);
         activityMessageBinding.MainActivityViewpg2.setAdapter(adapterViewPager);
@@ -76,19 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        fAuth.createUserWithEmailAndPassword("benlun1201@gmail.com", "123")
-            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseUser curr_user = fAuth.getCurrentUser();
-                        Log.d("demo", curr_user.getUid());
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "Lỗi!!!", Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
+        activityMessageBinding.executePendingBindings();
     }
 }
