@@ -4,7 +4,7 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
-        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/colorBackground</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>
 

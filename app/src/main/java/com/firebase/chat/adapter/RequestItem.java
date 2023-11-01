@@ -1,4 +1,4 @@
 package com.firebase.chat.adapter;
 
-public class FriendMessageItem {
+public class RequestItem {
 }

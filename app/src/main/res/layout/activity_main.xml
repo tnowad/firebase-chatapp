@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.MessageActivity">
+    tools:context=".activity.MainActivity">
     <data>
         <variable
-            name="MessageViewModel"
-            type="com.firebase.chat.viewmodel.MessageViewModel" />
+            name="MainViewModel"
+            type="com.firebase.chat.viewmodel.MainViewModel" />
 
     </data>
 
@@ -16,7 +16,7 @@
         android:layout_height="match_parent">
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/MessageAct_viewpg2"
+            android:id="@+id/MainActivity_viewpg2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
@@ -31,10 +31,10 @@
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/MessageAct_bottomnav"
+                android:id="@+id/MainActivity_bottomnav"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/colorBackground"
                 app:itemIconTint="@color/color_item_bottom_nav"
                 app:itemTextColor="@color/color_item_bottom_nav"
                 app:menu="@menu/bottom_nav_menu"/>

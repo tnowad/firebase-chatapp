@@ -16,12 +16,10 @@
     <!-- Background Colors -->
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorBackgroundSecondary">#F5F5F5</color>
+    <color name="colorBlack">#000000</color>
 
     <!-- Divider Color -->
     <color name="colorDivider">#B6B6B6</color>
-
-    <!-- BottomNavigation color -->
-    <color name="white">#FFFFFF</color>
 
     <!-- Other Colors -->
     <color name="colorRed">#FF5722</color>

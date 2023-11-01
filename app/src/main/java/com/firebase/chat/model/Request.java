@@ -1,5 +1,5 @@
 package com.firebase.chat.model;
 
-public class Friend {
+public class Request {
     private String id;
 }
