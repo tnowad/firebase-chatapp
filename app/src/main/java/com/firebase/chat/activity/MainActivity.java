@@ -5,20 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.firebase.chat.R;
 import com.firebase.chat.adapter.AdapterViewPager;
 import com.firebase.chat.databinding.ActivityMainBinding;
 import com.firebase.chat.viewmodel.MainViewModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseAuth fAuth;
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();
     FirebaseFirestore fStore;
+    private MainViewModel mMainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ActivityMainBinding activityMessageBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        MainViewModel mainViewModel = new MainViewModel();
-        activityMessageBinding.setMainViewModel(mainViewModel);
+        mMainViewModel = new MainViewModel();
+        activityMessageBinding.setMainViewModel(mMainViewModel);
+        activityMessageBinding.executePendingBindings();
 
         AdapterViewPager adapterViewPager = new AdapterViewPager(this);
         activityMessageBinding.MainActivityViewpg2.setAdapter(adapterViewPager);
@@ -67,5 +76,19 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        fAuth.createUserWithEmailAndPassword("benlun1201@gmail.com", "123")
+            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        FirebaseUser curr_user = fAuth.getCurrentUser();
+                        Log.d("demo", curr_user.getUid());
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Lỗi!!!", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
     }
 }
