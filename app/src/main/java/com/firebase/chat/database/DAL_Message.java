@@ -4,7 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.firebase.chat.model.Chat;
 import com.firebase.chat.model.Message;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -16,7 +15,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +31,23 @@ public class DAL_Message extends Connection {
         CollectionReference messageRef = fStore.collection("Message");
 
         messageRef.whereArrayContainsAny("user1", Collections.singletonList(collectionId));
+        messageRef.get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("get", document.getId() + " => " + document.getData());
+                                Map<String, Object> message = new HashMap<>();
+                                message = document.getData();
+                                result.add(new Message(message.get("user1") + "", message.get("user2") + "", message.get("lastMess") + ""));
+
+                            }
+                        } else {
+                            Log.d("get", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
         messageRef.whereArrayContainsAny("user2", Collections.singletonList(collectionId));
         messageRef.get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -43,7 +58,7 @@ public class DAL_Message extends Connection {
                                 Log.d("get", document.getId() + " => " + document.getData());
                                 Map<String, Object> message = new HashMap<>();
                                 message = document.getData();
-                                result.add()
+                                result.add(new Message(message.get("user1") + "", message.get("user2") + "", message.get("lastMess") + ""));
 
                             }
                         } else {
@@ -51,6 +66,7 @@ public class DAL_Message extends Connection {
                         }
                     }
                 });
+        Log.d("size", result.size() + "");
         return result;
     }
 

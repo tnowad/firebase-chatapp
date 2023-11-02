@@ -1,19 +1,17 @@
 package com.firebase.chat.activity;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
-
 import com.firebase.chat.R;
 import com.firebase.chat.adapter.AdapterViewPager;
 import com.firebase.chat.databinding.ActivityMainBinding;
+import com.firebase.chat.utils.Utils;
 import com.firebase.chat.viewmodel.MainViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,9 +19,9 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MainViewModel mMainViewModel;
 
     @Override
@@ -42,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 switch (position) {
-                    case 0 :
+                    case 0:
                         activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNav_item_message);
                         break;
-                    case 1 :
+                    case 1:
                         activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNav_item_profile);
                         break;
-                    case 2 :
+                    case 2:
                         activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNav_item_setting);
                         break;
                 }
@@ -63,16 +61,26 @@ public class MainActivity extends AppCompatActivity {
                 int setting = R.id.BottomNav_item_setting;
                 if (item.getItemId() == message) {
                     activityMessageBinding.MainActivityViewpg2.setCurrentItem(0);
-                }
-                else if (item.getItemId() == profile) {
+                } else if (item.getItemId() == profile) {
                     activityMessageBinding.MainActivityViewpg2.setCurrentItem(1);
-                }
-                else if (item.getItemId() == setting) {
+                } else if (item.getItemId() == setting) {
                     activityMessageBinding.MainActivityViewpg2.setCurrentItem(2);
                 }
                 return true;
             }
         });
         activityMessageBinding.executePendingBindings();
+    }
+
+    private void loginDemo() {
+        firebaseAuth.signInWithEmailAndPassword("benlun1201@gmail.com", "123456")
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                        Utils.CURRENT_UID = currentUser.getUid();
+                    }
+
+                });
     }
 }

@@ -5,9 +5,7 @@
     tools:context=".fragment.MessageFragment">
 
     <data>
-        <!--        <variable-->
-        <!--            name="Utils"-->
-        <!--            type="com.firebase.chat.utils.Utils" />-->
+
         <variable
             name="MessageViewModel"
             type="com.firebase.chat.viewmodel.MessageViewModel" />
