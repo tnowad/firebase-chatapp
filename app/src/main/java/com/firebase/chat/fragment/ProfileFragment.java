@@ -9,14 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.chat.R;
+import com.firebase.chat.databinding.FragmentMessageBinding;
+import com.firebase.chat.databinding.FragmentProfileBinding;
+import com.firebase.chat.viewmodel.MessageViewModel;
+import com.firebase.chat.viewmodel.ProfileViewModel;
 
 
 public class ProfileFragment extends Fragment {
+    private ProfileViewModel mProfileViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        FragmentProfileBinding fragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false);
+
+        mProfileViewModel = new ProfileViewModel();
+        fragmentProfileBinding.setProfileViewModel(mProfileViewModel);
+        fragmentProfileBinding.executePendingBindings();
+
+        return fragmentProfileBinding.getRoot();
     }
 }
