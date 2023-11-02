@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.firebase.chat.model.Chat;
 import com.firebase.chat.model.Message;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,7 +43,7 @@ public class DAL_Message extends Connection {
                                 Log.d("get", document.getId() + " => " + document.getData());
                                 Map<String, Object> message = new HashMap<>();
                                 message = document.getData();
-                                Log.d("get", message.get("listChat") + "");
+                                result.add()
 
                             }
                         } else {
