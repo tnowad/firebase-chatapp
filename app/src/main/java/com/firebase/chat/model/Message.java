@@ -1,17 +1,19 @@
 package com.firebase.chat.model;
 
-import androidx.databinding.ObservableField;
+import java.util.List;
 
 public class Message {
     private String me, myFriend, lastMessage;
+    private List<Chat> listChat;
 
     public Message() {
     }
 
-    public Message(String me, String myFriend, String lastMessage) {
+    public Message(String me, String myFriend, String lastMessage, List<Chat> listChat) {
         this.me = me;
         this.myFriend = myFriend;
         this.lastMessage = lastMessage;
+        this.listChat = listChat;
     }
 
     public String getMe() {
@@ -36,5 +38,13 @@ public class Message {
 
     public void setLastMessage(String lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    public List<Chat> getListChat() {
+        return listChat;
+    }
+
+    public void setListChat(List<Chat> listChat) {
+        this.listChat = listChat;
     }
 }

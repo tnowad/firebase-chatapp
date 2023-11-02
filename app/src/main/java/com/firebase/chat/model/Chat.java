@@ -3,6 +3,15 @@ package com.firebase.chat.model;
 public class Chat {
     private String fromUser, toUser, content;
 
+    public Chat() {
+    }
+
+    public Chat(String fromUser, String toUser, String content) {
+        this.fromUser = fromUser;
+        this.toUser = toUser;
+        this.content = content;
+    }
+
     public String getFromUser() {
         return fromUser;
     }
