@@ -35,10 +35,5 @@ public class DAL_Message extends Connection {
             });
     }
 
-    public void insertChat(String collectionId, Chat item) {
-
-        DocumentReference washingtonRef = fStore.collection("User").document(collectionId);
-        washingtonRef.update("listChat", FieldValue.arrayUnion(item));
-    }
 
 }
