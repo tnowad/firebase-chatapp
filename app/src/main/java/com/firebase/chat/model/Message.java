@@ -1,35 +1,45 @@
 package com.firebase.chat.model;
 
+import com.firebase.chat.utils.Utils;
+
 import java.util.List;
 
 public class Message {
-    private String me, myFriend, lastMessage;
+    private String user1, user2, lastMessage;
     private List<Chat> listChat;
 
     public Message() {
     }
 
-    public Message(String me, String myFriend, String lastMessage, List<Chat> listChat) {
-        this.me = me;
-        this.myFriend = myFriend;
+    public Message(String user1, String user2, String lastMessage, List<Chat> listChat) {
+        this.user1 = user1;
+        this.user2 = user2;
         this.lastMessage = lastMessage;
         this.listChat = listChat;
     }
 
-    public String getMe() {
-        return me;
+    public String getUser1() {
+        if (user1.equals(Utils.CURRENT_UID)) {
+            return user1;
+        }
+        else {
+            String temp = user2;
+            user2 = user1;
+            user1 = temp;
+        }
+        return user1;
     }
 
-    public void setMe(String me) {
-        this.me = me;
+    public void setUser1(String user1) {
+        this.user1 = user1;
     }
 
-    public String getMyFriend() {
-        return myFriend;
+    public String getUser2() {
+        return user2;
     }
 
-    public void setMyFriend(String myFriend) {
-        this.myFriend = myFriend;
+    public void setUser2(String user2) {
+        this.user2 = user2;
     }
 
     public String getLastMessage() {

@@ -44,16 +44,14 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 public class MessageViewModel {
-    private Context context;
-    DAL_User dalUser = new DAL_User();
-    DAL_Message dalMessage = new DAL_Message();
+    private DAL_User dalUser = new DAL_User();
+    private DAL_Message dalMessage = new DAL_Message();
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     public ObservableList<Message> listMessage = new ObservableArrayList<>();
 
     private static MessageItem adapter;
 
-    public MessageViewModel(Context context) {
-        this.context = context;
+    public MessageViewModel() {
         getListMessage();
     }
 
@@ -73,11 +71,13 @@ public class MessageViewModel {
 
         Utils.LIST_MESSAGE = new ObservableArrayList<>();
         listMessage = Utils.LIST_MESSAGE;
-        Utils.LIST_MESSAGE.add(new Message("Ben", "Phat", "Hello", new ArrayList<Chat>()));
-        Utils.LIST_MESSAGE.add(new Message("Ben", "Dat", "Hello", new ArrayList<Chat>()));
-        Utils.LIST_MESSAGE.add(new Message("Ben", "Tuan", "Hello", new ArrayList<Chat>()));
-        Utils.LIST_MESSAGE.add(new Message("Ben", "Dai", "Hello", new ArrayList<Chat>()));
+//        Utils.LIST_MESSAGE.add(new Message("Ben", "Phat", "Hello", new ArrayList<Chat>()));
+//        Utils.LIST_MESSAGE.add(new Message("Ben", "Dat", "Hello", new ArrayList<Chat>()));
+//        Utils.LIST_MESSAGE.add(new Message("Ben", "Tuan", "Hello", new ArrayList<Chat>()));
+//        Utils.LIST_MESSAGE.add(new Message("Ben", "Dai", "Hello", new ArrayList<Chat>()));
         //listMessage.addAll(Utils.LIST_MESSAGE);
+
+        Utils.LIST_MESSAGE.addAll(dalMessage.getList("io11lEV4hfXKgMWA4J8aHZsCwFX2"));
     }
 
     @BindingAdapter({"list_mess"})
@@ -97,10 +97,6 @@ public class MessageViewModel {
             listMessage.clear();
         }
         adapter.notifyDataSetChanged();
-    }
-
-    public void release() {
-        context = null;
     }
 
     public void onClickDemo() {

@@ -40,16 +40,11 @@ public class MessageFragment extends Fragment {
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentMessageBinding fragmentMessageBinding = FragmentMessageBinding.inflate(inflater, container, false);
 
-        mMessageViewModel = new MessageViewModel(getActivity());
+        mMessageViewModel = new MessageViewModel();
         fragmentMessageBinding.setMessageViewModel(mMessageViewModel);
         fragmentMessageBinding.executePendingBindings();
 
         return fragmentMessageBinding.getRoot();
     }
 
-    @Override
-    public void onStop() {
-        mMessageViewModel.release();
-        super.onStop();
-    }
 }

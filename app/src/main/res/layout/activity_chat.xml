@@ -8,7 +8,7 @@
     tools:context=".activity.ChatActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_sanpham"
+        android:id="@+id/ChatActivity_Toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorBackground"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/MessageItem_TextView_avatar"
+            android:id="@+id/ChatActivity_ImageView_avatar"
             android:layout_width="?attr/actionBarSize"
             android:layout_height="match_parent"
             android:layout_marginLeft="50dp"
@@ -41,13 +41,12 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/MessageFragment_RecyclerView_listMessage"
+        android:id="@+id/ChatActivity_RecyclerView_listChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginHorizontal="20dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_sanpham"
-        app:list_mess="@{MessageViewModel.listMessage}"
+        app:layout_constraintTop_toBottomOf="@+id/ChatActivity_Toolbar"
         tools:layout_editor_absoluteX="20dp" />
 
     <androidx.cardview.widget.CardView
@@ -64,14 +63,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
             android:orientation="horizontal"
-            android:padding="10dp"
             android:weightSum="10"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
-                android:id="@+id/edtxt_chat"
+                android:id="@+id/ChatActivity_EditText_inputMess"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_weight="8"
@@ -81,12 +80,13 @@
                 android:textColor="@color/colorTextSecondary"
                 android:textColorHint="@color/colorTextSecondary" />
 
-            <ImageView
-                android:id="@+id/imgvw_sendmess"
+            <ImageButton
+                android:id="@+id/ChatActivity_ImageButton_sendMess"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
-                android:layout_weight="2"
-                android:src="@drawable/baseline_send_24" />
+                android:layout_weight="1.5"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/baseline_send_24" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
