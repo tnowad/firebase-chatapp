@@ -3,6 +3,7 @@ package com.firebase.chat.model;
 import java.util.List;
 
 public class User {
+    private String id;
     private String email;
     private String username;
     private String bio;
@@ -12,12 +13,21 @@ public class User {
     public User() {
     }
 
-    public User(String email, String username, String bio, Boolean gender, List<String> listFriend) {
+    public User(String id, String email, String username, String bio, Boolean gender, List<String> listFriend) {
+        this.id = id;
         this.email = email;
         this.username = username;
         this.bio = bio;
         this.gender = gender;
         this.listFriend = listFriend;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getEmail() {
