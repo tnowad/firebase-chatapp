@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getSimpleName();
     private static final int RC_SIGN_IN = 5;
     private Button loginWithGoogleButton;
-    private GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInClient googleSignInClient;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -36,13 +36,13 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
         loginWithGoogleButton = findViewById(R.id.LoginActivity_Button_LoginWithGoogle);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
         loginWithGoogleButton.setOnClickListener(v -> {
-            Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+            Intent signInIntent = googleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         });
     }
@@ -62,14 +62,15 @@ public class LoginActivity extends AppCompatActivity {
             String idToken = account.getIdToken();
             String name = account.getDisplayName();
             String email = account.getEmail();
-            // you can store user data to SharedPreference
+            // You can store user data to SharedPreferences
             AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
             firebaseAuthWithGoogle(credential);
+
+            startMainActivity();
         } else {
             Toast.makeText(this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void firebaseAuthWithGoogle(AuthCredential credential) {
         firebaseAuth.signInWithCredential(credential)
@@ -78,10 +79,14 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
                     } else {
                         task.getException().printStackTrace();
-                        Toast.makeText(this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
-
                 });
+    }
+
+    private void startMainActivity() {
+        Intent mainActivityIntent = new Intent(this, MainActivity.class);
+        startActivity(mainActivityIntent);
+        finish();
     }
 }
