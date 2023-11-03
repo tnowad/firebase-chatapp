@@ -1,4 +1,4 @@
-package com.firebase.chat.database;
+package com.firebase.chat.service;
 
 import android.util.Log;
 
@@ -20,15 +20,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DAL_Message extends Connection {
-    public DAL_Message() {
-        super();
+public class MessageService extends BaseService {
+    public MessageService() {
+        super("Message");
     }
 
     public List<Message> getList(String collectionId) {
         List<Message> result = new ArrayList<>();
 
-        CollectionReference messageRef = fStore.collection("Message");
+        CollectionReference messageRef = firestore.collection("Message");
 
         messageRef.whereArrayContainsAny("user1", Collections.singletonList(collectionId));
         messageRef.get()
@@ -72,7 +72,7 @@ public class DAL_Message extends Connection {
 
     public void insert(Message item) {
 
-        fStore.collection("Message")
+        firestore.collection("Message")
                 .add(item)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

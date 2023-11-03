@@ -10,16 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.adapter.MessageItem;
-import com.firebase.chat.database.DAL_Message;
-import com.firebase.chat.database.DAL_User;
 import com.firebase.chat.model.Message;
+import com.firebase.chat.service.MessageService;
+import com.firebase.chat.service.UserService;
 import com.firebase.chat.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MessageViewModel {
     private static MessageItem adapter;
-    private final DAL_User dalUser = new DAL_User();
-    private final DAL_Message dalMessage = new DAL_Message();
+    private final UserService dalUser = new UserService();
+    private final MessageService dalMessage = new MessageService();
     private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
     public ObservableList<Message> listMessage = new ObservableArrayList<>();
 
