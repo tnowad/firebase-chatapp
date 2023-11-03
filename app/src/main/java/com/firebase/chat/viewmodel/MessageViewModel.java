@@ -1,6 +1,8 @@
 package com.firebase.chat.viewmodel;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
+import android.widget.ProgressBar;
 
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
@@ -15,12 +17,13 @@ import com.firebase.chat.service.MessageService;
 import com.firebase.chat.service.UserService;
 import com.firebase.chat.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MessageViewModel {
     private static MessageItem adapter;
-    private final UserService dalUser = new UserService();
-    private final MessageService dalMessage = new MessageService();
-    private final FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private final UserService userService = new UserService();
+    private final MessageService messageService = new MessageService();
+    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public ObservableList<Message> listMessage = new ObservableArrayList<>();
 
     public MessageViewModel() {
@@ -59,7 +62,11 @@ public class MessageViewModel {
 //        Utils.LIST_MESSAGE.add(new Message("Ben", "Dai", "Hello", new ArrayList<Chat>()));
         //listMessage.addAll(Utils.LIST_MESSAGE);
 
-        Utils.LIST_MESSAGE.addAll(dalMessage.getList(Utils.CURRENT_UID));
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        Utils.CURRENT_EMAIL = currentUser.getEmail();
+
+        messageService.getList(Utils.CURRENT_EMAIL);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -113,6 +120,6 @@ public class MessageViewModel {
 
         Message newMessage = new Message("user1", "user2", "lastmess");
 
-        dalMessage.insert(newMessage);
+        messageService.insert(newMessage);
     }
 }

@@ -12,16 +12,15 @@ public class Message {
         this.user1 = user1;
         this.user2 = user2;
         this.lastMessage = lastMessage;
+
+        if (!user1.equals(Utils.CURRENT_EMAIL)) {
+            String temp = this.user2;
+            this.user2 = this.user1;
+            this.user1 = temp;
+        }
     }
 
     public String getUser1() {
-        if (user1.equals(Utils.CURRENT_UID)) {
-            return user1;
-        } else {
-            String temp = user2;
-            user2 = user1;
-            user1 = temp;
-        }
         return user1;
     }
 

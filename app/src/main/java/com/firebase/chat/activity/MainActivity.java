@@ -1,7 +1,9 @@
 package com.firebase.chat.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.firebase.chat.R;
 import com.firebase.chat.adapter.AdapterViewPager;
 import com.firebase.chat.databinding.ActivityMainBinding;
+import com.firebase.chat.model.User;
+import com.firebase.chat.service.UserService;
 import com.firebase.chat.utils.Utils;
 import com.firebase.chat.viewmodel.MainViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +23,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -70,6 +76,27 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         activityMessageBinding.executePendingBindings();
+
+//        UserService userService = new UserService();
+//        String email = "benlun99999@gmail.com";
+//        String pass = "123456";
+//        firebaseAuth.createUserWithEmailAndPassword(email, pass)
+//                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            FirebaseUser curr_user = firebaseAuth.getCurrentUser();
+//                            User newUser = new User(email, "benlun99", "", true, Arrays.asList("RCfoLiabTQS290XhukHHP5jod4C3"));
+//
+//                            userService.insert(curr_user.getUid(), newUser);
+//
+//                        } else {
+//                            Toast.makeText(getApplicationContext(), "Lỗi!!!", Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
+
+        loginDemo();
     }
 
     private void loginDemo() {
@@ -77,8 +104,14 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                        Utils.CURRENT_UID = currentUser.getUid();
+//                        User newUser1 = new User("test1@gmail.com", "test1", "", true, Arrays.asList("RCfoLiabTQS290XhukHHP5jod4C3"));
+//                        User newUser2 = new User("test2@gmail.com", "test2", "", true, Arrays.asList("RCfoLiabTQS290XhukHHP5jod4C3"));
+//                        User newUser3 = new User("test3@gmail.com", "test3", "", true, Arrays.asList("RCfoLiabTQS290XhukHHP5jod4C3"));
+//
+//                        UserService userService = new UserService();
+//                        userService.insert("1", newUser1);
+//                        userService.insert("2", newUser2);
+//                        userService.insert("3", newUser3);
                     }
 
                 });

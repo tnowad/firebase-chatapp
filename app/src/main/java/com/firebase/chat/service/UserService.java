@@ -15,8 +15,8 @@ public class UserService extends BaseService<User> {
         super("User");
     }
 
-    public void insert(String collectionId, User item) {
-        DocumentReference userRef = firestore.collection("User").document(collectionId);
+    public void insert(String documentId, User item) {
+        DocumentReference userRef = collection.document(documentId);
         userRef.set(item)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
