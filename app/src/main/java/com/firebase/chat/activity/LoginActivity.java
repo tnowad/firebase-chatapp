@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.chat.R;
@@ -25,6 +27,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button loginWithGoogleButton;
     private GoogleSignInClient googleSignInClient;
     private FirebaseAuth firebaseAuth;
+    ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            o -> {
+                Intent data = o.getData();
+                GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+                handleSignInResult(result);
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +53,8 @@ public class LoginActivity extends AppCompatActivity {
 
         loginWithGoogleButton.setOnClickListener(v -> {
             Intent signInIntent = googleSignInClient.getSignInIntent();
-            startActivityForResult(signInIntent, RC_SIGN_IN);
+            signInLauncher.launch(signInIntent);
         });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
