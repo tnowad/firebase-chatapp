@@ -2,6 +2,7 @@ package com.firebase.chat.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.chat.R;
+import com.firebase.chat.services.AuthService;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -18,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignInActivity extends AppCompatActivity {
@@ -57,29 +60,59 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        if (result.isSuccess()) {
-            GoogleSignInAccount account = result.getSignInAccount();
-            String idToken = account.getIdToken();
-            // You can store user data to SharedPreferences
-            AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-            firebaseAuthWithGoogle(credential);
-
-            startMainActivity();
-        } else {
+        if (!result.isSuccess()) {
             Toast.makeText(this, "Login Unsuccessful", Toast.LENGTH_SHORT).show();
+            return;
         }
-    }
 
-    private void firebaseAuthWithGoogle(AuthCredential credential) {
+        GoogleSignInAccount account = result.getSignInAccount();
+        if (account == null) {
+            onSignInFailure(new Exception("GoogleSignInAccount is null"));
+            return;
+        }
+
+        String idToken = account.getIdToken();
+        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+                        FirebaseUser currentUser = task.getResult().getUser();
+                        if (currentUser != null) {
+                            String uid = currentUser.getUid();
+                            String email = currentUser.getEmail();
+                            String displayName = currentUser.getDisplayName();
+                            String photoUrl = currentUser.getPhotoUrl() != null ? currentUser.getPhotoUrl().toString() : "";
+
+                            AuthService authService = AuthService.getInstance();
+                            authService.createAccountIfNotExists(uid, email, displayName, photoUrl)
+                                    .addOnCompleteListener(this, createAccountTask -> {
+                                        Log.d(TAG, createAccountTask.toString());
+                                        if (createAccountTask.isComplete()) {
+                                            onSignInSuccess();
+                                        } else {
+                                            onSignInFailure(createAccountTask.getException());
+                                        }
+                                    });
+                        } else {
+                            onSignInFailure(new Exception("Firebase user is null"));
+                            firebaseAuth.signOut();
+                        }
                     } else {
-                        task.getException().printStackTrace();
-                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        onSignInFailure(task.getException());
+                        firebaseAuth.signOut();
                     }
                 });
+    }
+
+    private void onSignInSuccess() {
+        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
+        startMainActivity();
+    }
+
+    private void onSignInFailure(Exception exception) {
+        Log.e(TAG, exception.toString());
+        exception.printStackTrace();
+        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
     }
 
     private void startMainActivity() {
