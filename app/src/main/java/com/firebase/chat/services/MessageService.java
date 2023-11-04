@@ -33,7 +33,7 @@ public class MessageService extends BaseService {
 
     public MessageService() {
         super("messages");
-        collection.where(Filter.or(Filter.equalTo("user1", Utils.CURRENT_EMAIL), Filter.equalTo("user2", Utils.CURRENT_EMAIL))).orderBy("time", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        collection.where(Filter.or(Filter.equalTo("user1", Utils.CURRENT_UID), Filter.equalTo("user2", Utils.CURRENT_UID))).orderBy("time", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
@@ -61,7 +61,7 @@ public class MessageService extends BaseService {
 
 
     public void getList() {
-        collection.where(Filter.or(Filter.equalTo("user1", Utils.CURRENT_EMAIL), Filter.equalTo("user2", Utils.CURRENT_EMAIL))).orderBy("time", Query.Direction.DESCENDING).get()
+        collection.where(Filter.or(Filter.equalTo("user1", Utils.CURRENT_UID), Filter.equalTo("user2", Utils.CURRENT_UID))).orderBy("time", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

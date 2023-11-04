@@ -3,6 +3,7 @@ package com.firebase.chat.services;
 import com.firebase.chat.models.User;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -37,5 +38,9 @@ public class AuthService {
                 return userRef.set(newUser);
             }
         });
+    }
+
+    public FirebaseUser getCurrentUser() {
+        return this.firebaseAuth.getCurrentUser();
     }
 }

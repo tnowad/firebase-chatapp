@@ -50,7 +50,7 @@ public class ChatItem extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        return (listChat.get(position).getFromUser().equals(Utils.CURRENT_EMAIL)) ? MESSAGE_TYPE_SENDING : MESSAGE_TYPE_RECEIVING;
+        return (listChat.get(position).getFromUser().equals(Utils.CURRENT_UID)) ? MESSAGE_TYPE_SENDING : MESSAGE_TYPE_RECEIVING;
     }
 
     @Override

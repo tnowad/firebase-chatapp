@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.chat.adapters.MessageItem;
 import com.firebase.chat.models.Message;
 import com.firebase.chat.services.MessageService;
-import com.firebase.chat.services.UserService;
 import com.firebase.chat.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -65,7 +64,7 @@ public class MessageViewModel {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
         if (currentUser != null) {
-            Utils.CURRENT_EMAIL = currentUser.getEmail();
+            Utils.CURRENT_UID = currentUser.getEmail();
         }
 
 

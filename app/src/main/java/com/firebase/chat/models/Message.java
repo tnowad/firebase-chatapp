@@ -15,7 +15,7 @@ public class Message {
         this.time = time;
         this.displayName = displayName;
 
-        if (!user1.equals(Utils.CURRENT_EMAIL)) {
+        if (!user1.equals(Utils.CURRENT_UID)) {
             String temp = this.user2;
             this.user2 = this.user1;
             this.user1 = temp;
