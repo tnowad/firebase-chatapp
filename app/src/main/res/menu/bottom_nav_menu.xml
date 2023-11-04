@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/BottomNav_item_message"
+        android:id="@+id/BottomNavManu_Item_Message"
         android:icon="@drawable/baseline_message_24"
         android:title="@string/BottomNav_title_message"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/BottomNav_item_profile"
+        android:id="@+id/BottomNavMenu_Item_Profile"
         android:icon="@drawable/baseline_account_circle_24"
         android:title="@string/BottomNav_title_profile"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/BottomNav_item_setting"
+        android:id="@+id/BottomNavMenu_Item_Setting"
         android:icon="@drawable/baseline_settings_24"
         android:title="@string/BottomNav_title_setting"
         app:showAsAction="ifRoom" />

@@ -39,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
                 super.onPageSelected(position);
                 switch (position) {
                     case 0:
-                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNav_item_message);
+                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNavManu_Item_Message);
                         break;
                     case 1:
-                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNav_item_profile);
+                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNavMenu_Item_Profile);
                         break;
                     case 2:
-                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNav_item_setting);
+                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNavMenu_Item_Setting);
                         break;
                 }
             }
@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         activityMessageBinding.MainActivityBottomnav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int message = R.id.BottomNav_item_message;
-                int profile = R.id.BottomNav_item_profile;
-                int setting = R.id.BottomNav_item_setting;
+                int message = R.id.BottomNavManu_Item_Message;
+                int profile = R.id.BottomNavMenu_Item_Profile;
+                int setting = R.id.BottomNavMenu_Item_Setting;
                 if (item.getItemId() == message) {
                     activityMessageBinding.MainActivityViewpg2.setCurrentItem(0);
                 } else if (item.getItemId() == profile) {

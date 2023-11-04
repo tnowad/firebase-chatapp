@@ -23,7 +23,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    private static final int RC_SIGN_IN = 5;
     private Button loginWithGoogleButton;
     private GoogleSignInClient googleSignInClient;
     private FirebaseAuth firebaseAuth;
