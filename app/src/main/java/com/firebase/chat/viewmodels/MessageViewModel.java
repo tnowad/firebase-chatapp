@@ -61,11 +61,16 @@ public class MessageViewModel {
 //        Utils.LIST_MESSAGE.add(new Message("Ben", "Dai", "Hello", new ArrayList<Chat>()));
         //listMessage.addAll(Utils.LIST_MESSAGE);
 
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+//        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+//
+//        if (currentUser != null) {
+//            Utils.CURRENT_UID = currentUser.getEmail();
+//        }
 
-        if (currentUser != null) {
-            Utils.CURRENT_UID = currentUser.getEmail();
-        }
+        Utils.LIST_MESSAGE.add(new Message("Ben", "Phat", "Hello", "12/01/2023 12:01:11", "toi la ai"));
+        Utils.LIST_MESSAGE.add(new Message("Ben", "Dat", "Hello", "12/01/2023 12:01:11", "toi la ai"));
+        Utils.LIST_MESSAGE.add(new Message("Ben", "Tuan", "Hello", "12/01/2023 12:01:11", "toi la ai"));
+        Utils.LIST_MESSAGE.add(new Message("Ben", "Dai", "Hello", "12/01/2023 12:01:11", "toi la ai"));
 
 
         messageService.getList();
