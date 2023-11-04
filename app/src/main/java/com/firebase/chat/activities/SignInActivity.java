@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.chat.R;
 import com.firebase.chat.services.AuthService;
+import com.firebase.chat.utils.Utils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -116,6 +117,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
+        Utils.CURRENT_UID = firebaseAuth.getCurrentUser().getUid();
         Intent mainActivityIntent = new Intent(this, MainActivity.class);
         startActivity(mainActivityIntent);
         finish();

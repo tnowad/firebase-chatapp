@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.chat.R;
+import com.firebase.chat.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -30,8 +31,9 @@ public class SplashActivity extends AppCompatActivity {
             Intent loginIntent = new Intent(SplashActivity.this, SignInActivity.class);
             startActivity(loginIntent);
         } else {
-            Intent chatIntent = new Intent(SplashActivity.this, MainActivity.class);
-            startActivity(chatIntent);
+            Utils.CURRENT_UID = firebaseAuth.getCurrentUser().getUid();
+            Intent mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(mainIntent);
         }
 
         finish();

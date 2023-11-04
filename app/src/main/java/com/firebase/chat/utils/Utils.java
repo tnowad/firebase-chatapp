@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 public class Utils {
     public static ObservableArrayList<Message> LIST_MESSAGE;
     public static ObservableArrayList<Chat> LIST_CHAT;
-    public static String CURRENT_EMAIL;
+    public static String CURRENT_UID;
     public static Message SELECTED_MESSAGE;
     public static SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 }
