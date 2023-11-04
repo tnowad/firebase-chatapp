@@ -60,8 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
             String idToken = account.getIdToken();
-            String name = account.getDisplayName();
-            String email = account.getEmail();
             // You can store user data to SharedPreferences
             AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
             firebaseAuthWithGoogle(credential);

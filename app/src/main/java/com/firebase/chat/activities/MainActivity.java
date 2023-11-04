@@ -12,10 +12,7 @@ import com.firebase.chat.R;
 import com.firebase.chat.adapters.AdapterViewPager;
 import com.firebase.chat.databinding.ActivityMainBinding;
 import com.firebase.chat.viewmodels.MainViewModel;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,43 +66,6 @@ public class MainActivity extends AppCompatActivity {
         });
         activityMessageBinding.executePendingBindings();
 
-//        UserService userService = new UserService();
-//        String email = "benlun99999@gmail.com";
-//        String pass = "123456";
-//        firebaseAuth.createUserWithEmailAndPassword(email, pass)
-//                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            FirebaseUser curr_user = firebaseAuth.getCurrentUser();
-//                            User newUser = new User(email, "benlun99", "", true, Arrays.asList("RCfoLiabTQS290XhukHHP5jod4C3"));
-//
-//                            userService.insert(curr_user.getUid(), newUser);
-//
-//                        } else {
-//                            Toast.makeText(getApplicationContext(), "Lỗi!!!", Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
-
-        loginDemo();
     }
 
-    private void loginDemo() {
-        firebaseAuth.signInWithEmailAndPassword("benlun1201@gmail.com", "123456")
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        User newUser1 = new User("test1@gmail.com", "test1", "", true, Arrays.asList("RCfoLiabTQS290XhukHHP5jod4C3"));
-//                        User newUser2 = new User("test2@gmail.com", "test2", "", true, Arrays.asList("RCfoLiabTQS290XhukHHP5jod4C3"));
-//                        User newUser3 = new User("test3@gmail.com", "test3", "", true, Arrays.asList("RCfoLiabTQS290XhukHHP5jod4C3"));
-//
-//                        UserService userService = new UserService();
-//                        userService.insert("1", newUser1);
-//                        userService.insert("2", newUser2);
-//                        userService.insert("3", newUser3);
-                    }
-
-                });
-    }
 }
