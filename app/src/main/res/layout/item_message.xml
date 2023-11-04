@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="@{Message.user2}"
+            android:text="@{Message.displayName}"
             android:textColor="@color/colorBlack"
             android:textSize="20sp"
             android:textStyle="bold"

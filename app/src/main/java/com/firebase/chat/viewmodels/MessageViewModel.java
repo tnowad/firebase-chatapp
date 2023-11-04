@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class MessageViewModel {
     private static Context context;
     private static MessageItem adapter;
-    private final UserService userService = new UserService();
     private final MessageService messageService = new MessageService();
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public ObservableList<Message> listMessage = new ObservableArrayList<>();
@@ -70,7 +69,7 @@ public class MessageViewModel {
         }
 
 
-        messageService.getList(Utils.CURRENT_EMAIL);
+        messageService.getList();
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -122,8 +121,8 @@ public class MessageViewModel {
 //            });
         //listMessage.add(new Message("Ben", "Dai", "Hello"));
 
-        Message newMessage = new Message("user1", "user2", "lastmess", "");
+        //Message newMessage = new Message("user1", "user2", "lastmess", "");
 
-        messageService.insert(newMessage);
+        //messageService.insert(newMessage);
     }
 }

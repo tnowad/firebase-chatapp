@@ -13,8 +13,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -25,42 +29,39 @@ import java.util.List;
 import java.util.Map;
 
 public class MessageService extends BaseService {
-    List<Message> result;
+    private UserService userService = new UserService();
 
     public MessageService() {
         super("messages");
-        collection.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        collection.where(Filter.or(Filter.equalTo("user1", Utils.CURRENT_EMAIL), Filter.equalTo("user2", Utils.CURRENT_EMAIL))).orderBy("time", Query.Direction.DESCENDING).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot snapshots,
-                                @Nullable FirebaseFirestoreException e) {
+            public void onEvent(@Nullable QuerySnapshot snapshots, @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
                     Log.w("error", "listen:error", e);
                     return;
                 }
-
-                for (DocumentChange dc : snapshots.getDocumentChanges()) {
-                    switch (dc.getType()) {
-                        case ADDED:
-                            Log.d("add", "New mess: " + dc.getDocument().getData());
-                            break;
-                        case MODIFIED:
-                            Log.d("mod", "Modified mess: " + dc.getDocument().getData());
-                            break;
-                        case REMOVED:
-                            Log.d("remove", "Removed mess: " + dc.getDocument().getData());
-                            break;
-                    }
+                Utils.LIST_MESSAGE.clear();
+                for (DocumentSnapshot snapshot : snapshots.getDocuments()) {
+                    Map<String, Object> message = new HashMap<>();
+                    message = snapshot.getData();
+                    //if ((message.get("user1") + "").equals(Utils.CURRENT_EMAIL) || (message.get("user2") + "").equals(Utils.CURRENT_EMAIL)) {
+                    //Log.d("success", document.getId() + " => " + document.getData());
+                    String timestamp = message.get("time") + "";
+                    //Log.d("success", timestamp.split(", ")[0].replace("Timestamp(seconds=", "") + "");
+                    //Log.d("success", timestamp.split(", ")[1].replace("nanoseconds=", "").replace(")", "") + "");
+                    Date netDate = new Date(Long.parseLong(timestamp.split(", ")[0].replace("Timestamp(seconds=", "")) * 1000);
+                    Message newMess = new Message(message.get("user1") + "", message.get("user2") + "", message.get("lastMess") + "", Utils.TIME_FORMAT.format(netDate), "");
+                    newMess.setDisplayName(userService.getDisplayName(newMess.getUser2()));
+                    Utils.LIST_MESSAGE.add(newMess);
+                    //}
                 }
-
             }
         });
-
     }
 
-    public void getList(String email) {
-        result = new ArrayList<>();
-        collection
-                .get()
+
+    public void getList() {
+        collection.where(Filter.or(Filter.equalTo("user1", Utils.CURRENT_EMAIL), Filter.equalTo("user2", Utils.CURRENT_EMAIL))).orderBy("time", Query.Direction.DESCENDING).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -68,29 +69,31 @@ public class MessageService extends BaseService {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> message = new HashMap<>();
                                 message = document.getData();
-                                if ((message.get("user1") + "").equals(email) || (message.get("user2") + "").equals(email)) {
-                                    //Log.d("success", document.getId() + " => " + document.getData());
-                                    String timestamp = message.get("time") + "";
-                                    //Log.d("success", timestamp.split(", ")[0].replace("Timestamp(seconds=", "") + "");
-                                    //Log.d("success", timestamp.split(", ")[1].replace("nanoseconds=", "").replace(")", "") + "");
-                                    Date netDate = new Date(Long.parseLong(timestamp.split(", ")[0].replace("Timestamp(seconds=", "")) * 1000);
-                                    Message newMess = new Message(message.get("user1") + "", message.get("user2") + "", message.get("lastMess") + "", Utils.TIME_FORMAT.format(netDate));
-                                    Utils.LIST_MESSAGE.add(newMess);
-                                }
+                                //if ((message.get("user1") + "").equals(Utils.CURRENT_EMAIL) || (message.get("user2") + "").equals(Utils.CURRENT_EMAIL)) {
+                                //Log.d("success", document.getId() + " => " + document.getData());
+                                String timestamp = message.get("time") + "";
+                                //Log.d("success", timestamp.split(", ")[0].replace("Timestamp(seconds=", "") + "");
+                                //Log.d("success", timestamp.split(", ")[1].replace("nanoseconds=", "").replace(")", "") + "");
+                                Date netDate = new Date(Long.parseLong(timestamp.split(", ")[0].replace("Timestamp(seconds=", "")) * 1000);
+                                Message newMess = new Message(message.get("user1") + "", message.get("user2") + "", message.get("lastMessage") + "", Utils.TIME_FORMAT.format(netDate), "");
+                                newMess.setDisplayName(userService.getDisplayName(newMess.getUser2()));
+                                Utils.LIST_MESSAGE.add(newMess);
+                                //}
                             }
                         } else {
                             Log.d("error", "Error getting documents: ", task.getException());
                         }
                     }
                 });
-
-        Log.d("size", result.size() + "");
     }
 
     public void insert(Message item) {
-
-        firestore.collection("Message")
-                .add(item)
+        Map<String, Object> message = new HashMap<>();
+        message.put("user1", item.getUser1());
+        message.put("user2", item.getUser2());
+        message.put("lastMessage", item.getLastMessage());
+        message.put("time", FieldValue.serverTimestamp());
+        collection.add(item)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
