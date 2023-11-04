@@ -6,7 +6,7 @@ import com.google.firebase.firestore.FieldValue;
 
 public class ChatService extends BaseService {
     public ChatService() {
-        super("Chat");
+        super("chats");
     }
 
     public void insert(String messageId, Chat item) {

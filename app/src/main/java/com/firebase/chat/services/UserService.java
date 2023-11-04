@@ -12,7 +12,7 @@ import com.google.firebase.firestore.FieldValue;
 
 public class UserService extends BaseService<User> {
     public UserService() {
-        super("User");
+        super("users");
     }
 
     public void insert(String documentId, User item) {

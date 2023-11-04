@@ -28,7 +28,7 @@ public class MessageService extends BaseService {
     List<Message> result;
 
     public MessageService() {
-        super("Message");
+        super("messages");
         collection.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshots,
