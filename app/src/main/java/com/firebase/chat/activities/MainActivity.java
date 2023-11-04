@@ -17,55 +17,60 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private MainViewModel mMainViewModel;
+    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        ActivityMainBinding activityMessageBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mMainViewModel = new MainViewModel();
-        activityMessageBinding.setMainViewModel(mMainViewModel);
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mainViewModel = new MainViewModel();
+        binding.setMainViewModel(mainViewModel);
 
+        setupViewPager(binding);
+        setupBottomNavigationBar(binding);
+    }
+
+    private void setupViewPager(ActivityMainBinding binding) {
         AdapterViewPager adapterViewPager = new AdapterViewPager(this);
-        activityMessageBinding.MainActivityViewpg2.setAdapter(adapterViewPager);
-        activityMessageBinding.MainActivityViewpg2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        ViewPager2 viewPager = binding.MainActivityViewPager2;
+        viewPager.setAdapter(adapterViewPager);
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 switch (position) {
                     case 0:
-                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNavManu_Item_Message);
+                        binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Message);
                         break;
                     case 1:
-                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNavMenu_Item_Profile);
+                        binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Profile);
                         break;
                     case 2:
-                        activityMessageBinding.MainActivityBottomnav.setSelectedItemId(R.id.BottomNavMenu_Item_Setting);
+                        binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Setting);
                         break;
                 }
             }
         });
+    }
 
-        activityMessageBinding.MainActivityBottomnav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+    private void setupBottomNavigationBar(ActivityMainBinding binding) {
+        binding.MainActivityBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int message = R.id.BottomNavManu_Item_Message;
-                int profile = R.id.BottomNavMenu_Item_Profile;
-                int setting = R.id.BottomNavMenu_Item_Setting;
-                if (item.getItemId() == message) {
-                    activityMessageBinding.MainActivityViewpg2.setCurrentItem(0);
-                } else if (item.getItemId() == profile) {
-                    activityMessageBinding.MainActivityViewpg2.setCurrentItem(1);
-                } else if (item.getItemId() == setting) {
-                    activityMessageBinding.MainActivityViewpg2.setCurrentItem(2);
+                int messageItemId = R.id.BottomNavMenu_Item_Message;
+                int profileItemId = R.id.BottomNavMenu_Item_Profile;
+                int settingItemId = R.id.BottomNavMenu_Item_Setting;
+
+                if (item.getItemId() == messageItemId) {
+                    binding.MainActivityViewPager2.setCurrentItem(0);
+                } else if (item.getItemId() == profileItemId) {
+                    binding.MainActivityViewPager2.setCurrentItem(1);
+                } else if (item.getItemId() == settingItemId) {
+                    binding.MainActivityViewPager2.setCurrentItem(2);
                 }
                 return true;
             }
         });
-        activityMessageBinding.executePendingBindings();
-
     }
-
 }

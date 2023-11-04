@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/BottomNavManu_Item_Message"
+        android:id="@+id/BottomNavMenu_Item_Message"
         android:icon="@drawable/baseline_message_24"
         android:title="@string/BottomNav_title_message"
         app:showAsAction="ifRoom" />
