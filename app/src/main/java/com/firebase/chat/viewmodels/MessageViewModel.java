@@ -65,7 +65,10 @@ public class MessageViewModel {
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
-        Utils.CURRENT_EMAIL = currentUser.getEmail();
+        if (currentUser != null) {
+            Utils.CURRENT_EMAIL = currentUser.getEmail();
+        }
+
 
         messageService.getList(Utils.CURRENT_EMAIL);
     }
