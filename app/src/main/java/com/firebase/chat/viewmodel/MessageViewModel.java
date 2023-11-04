@@ -1,6 +1,7 @@
 package com.firebase.chat.viewmodel;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.util.Log;
 import android.widget.ProgressBar;
 
@@ -20,13 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MessageViewModel {
+    private static Context context;
     private static MessageItem adapter;
     private final UserService userService = new UserService();
     private final MessageService messageService = new MessageService();
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public ObservableList<Message> listMessage = new ObservableArrayList<>();
 
-    public MessageViewModel() {
+    public MessageViewModel(Context context) {
+        this.context = context;
         getListMessage();
     }
 
@@ -37,7 +40,7 @@ public class MessageViewModel {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter = new MessageItem(list);
+        adapter = new MessageItem(context, list);
         recyclerView.setAdapter(adapter);
     }
 
