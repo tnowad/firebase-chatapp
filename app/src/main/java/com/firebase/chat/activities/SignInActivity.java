@@ -20,9 +20,9 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LoginActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
+    private static final String TAG = SignInActivity.class.getSimpleName();
     private Button loginWithGoogleButton;
     private GoogleSignInClient googleSignInClient;
     private FirebaseAuth firebaseAuth;

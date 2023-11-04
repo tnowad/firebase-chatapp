@@ -32,7 +32,7 @@
             android:name=".activities.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.LoginActivity"
+            android:name=".activities.SignInActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
