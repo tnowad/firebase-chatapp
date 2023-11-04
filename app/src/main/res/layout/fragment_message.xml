@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragment.MessageFragment">
+    tools:context=".fragments.MessageFragment">
 
     <data>
 
         <variable
             name="MessageViewModel"
-            type="com.firebase.chat.viewmodel.MessageViewModel" />
+            type="com.firebase.chat.viewmodels.MessageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

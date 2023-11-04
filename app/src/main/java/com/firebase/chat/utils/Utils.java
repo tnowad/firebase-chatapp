@@ -1,13 +1,11 @@
 package com.firebase.chat.utils;
 
 import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableList;
 
-import com.firebase.chat.model.Chat;
-import com.firebase.chat.model.Message;
+import com.firebase.chat.models.Chat;
+import com.firebase.chat.models.Message;
 
 import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 
 public class Utils {

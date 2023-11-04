@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.MainActivity">
+    tools:context=".activities.MainActivity">
 
     <data>
 
         <variable
             name="MainViewModel"
-            type="com.firebase.chat.viewmodel.MainViewModel" />
+            type="com.firebase.chat.viewmodels.MainViewModel" />
 
     </data>
 

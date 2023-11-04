@@ -7,13 +7,13 @@
 
         <variable
             name="ChatViewMode"
-            type="com.firebase.chat.viewmodel.ChatViewModel" />
+            type="com.firebase.chat.viewmodels.ChatViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.ChatActivity">
+        tools:context=".activities.ChatActivity">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/ChatActivity_Toolbar"
