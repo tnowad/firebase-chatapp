@@ -3,15 +3,16 @@ package com.firebase.chat.model;
 import com.firebase.chat.utils.Utils;
 
 public class Message {
-    private String user1, user2, lastMessage;
+    private String user1, user2, lastMessage, time;
 
     public Message() {
     }
 
-    public Message(String user1, String user2, String lastMessage) {
+    public Message(String user1, String user2, String lastMessage, String time) {
         this.user1 = user1;
         this.user2 = user2;
         this.lastMessage = lastMessage;
+        this.time = time;
 
         if (!user1.equals(Utils.CURRENT_EMAIL)) {
             String temp = this.user2;
@@ -44,4 +45,11 @@ public class Message {
         this.lastMessage = lastMessage;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

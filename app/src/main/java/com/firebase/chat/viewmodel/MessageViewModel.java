@@ -121,7 +121,7 @@ public class MessageViewModel {
 //            });
         //listMessage.add(new Message("Ben", "Dai", "Hello"));
 
-        Message newMessage = new Message("user1", "user2", "lastmess");
+        Message newMessage = new Message("user1", "user2", "lastmess", "");
 
         messageService.insert(newMessage);
     }

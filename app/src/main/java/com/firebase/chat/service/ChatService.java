@@ -9,9 +9,9 @@ public class ChatService extends BaseService {
         super("Chat");
     }
 
-    public void insert(String collectionId, Chat item) {
+    public void insert(String messageId, Chat item) {
 
-        DocumentReference washingtonRef = firestore.collection("User").document(collectionId);
+        DocumentReference washingtonRef = firestore.collection("User").document("collectionId");
         washingtonRef.update("listChat", FieldValue.arrayUnion(item));
     }
 }
