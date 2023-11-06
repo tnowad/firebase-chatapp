@@ -7,22 +7,18 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.firebase.chat.databinding.FragmentProfileBinding;
-import com.firebase.chat.viewmodels.ProfileViewModel;
+import com.firebase.chat.R;
 
 
 public class ProfileFragment extends Fragment {
-    private ProfileViewModel mProfileViewModel;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentProfileBinding fragmentProfileBinding = FragmentProfileBinding.inflate(inflater, container, false);
 
-        mProfileViewModel = new ProfileViewModel();
-        fragmentProfileBinding.setProfileViewModel(mProfileViewModel);
-        fragmentProfileBinding.executePendingBindings();
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        return fragmentProfileBinding.getRoot();
+        return rootView;
     }
 }
