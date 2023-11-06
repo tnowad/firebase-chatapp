@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Firebase Chat</string>
 
-    <string name="BottomNav_title_message">Message</string>
+    <string name="BottomNav_title_message">Chat</string>
     <string name="BottomNav_title_profile">Profile</string>
     <string name="BottomNav_title_setting">Setting</string>
 

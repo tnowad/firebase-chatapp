@@ -15,7 +15,6 @@ import com.firebase.chat.models.Message;
 import com.firebase.chat.services.MessageService;
 import com.firebase.chat.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class MessageViewModel {
     private static Context context;
@@ -67,7 +66,7 @@ public class MessageViewModel {
 //            Utils.CURRENT_UID = currentUser.getEmail();
 //        }
 
-        Utils.LIST_MESSAGE.add(new Message("Ben", "Phat", "Hello", "12/01/2023 12:01:11", "toi la ai"));
+        Utils.LIST_MESSAGE.add(new Message("Ben", "Phat", "Hello", "12/01/2023 12:01:11", "John Doe"));
         Utils.LIST_MESSAGE.add(new Message("Ben", "Dat", "Hello", "12/01/2023 12:01:11", "toi la ai"));
         Utils.LIST_MESSAGE.add(new Message("Ben", "Tuan", "Hello", "12/01/2023 12:01:11", "toi la ai"));
         Utils.LIST_MESSAGE.add(new Message("Ben", "Dai", "Hello", "12/01/2023 12:01:11", "toi la ai"));
