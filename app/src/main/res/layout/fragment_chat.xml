@@ -7,7 +7,7 @@
     <data>
 
         <variable
-            name="MessageViewModel"
+            name="ChatViewModel"
             type="com.firebase.chat.viewmodels.ChatViewModel" />
     </data>
 
@@ -69,7 +69,8 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="80dp"
-                app:list_mess="@{MessageViewModel.listChat}" />
+                app:list_chat="@{ChatViewModel.listChat}" />
+
         </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

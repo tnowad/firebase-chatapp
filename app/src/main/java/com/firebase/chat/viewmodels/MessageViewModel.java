@@ -12,6 +12,7 @@ import com.firebase.chat.adapters.ListMessageItemAdapter;
 import com.firebase.chat.models.Message;
 import com.firebase.chat.services.MessageService;
 import com.firebase.chat.utils.Utils;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MessageViewModel {
@@ -52,11 +53,16 @@ public class MessageViewModel {
 
         Utils.LIST_MESSAGE = new ObservableArrayList<>();
         listMessage = Utils.LIST_MESSAGE;
-        Utils.LIST_MESSAGE.add(new Message());
-        Utils.LIST_MESSAGE.add(new Message());
-        Utils.LIST_MESSAGE.add(new Message());
-        Utils.LIST_MESSAGE.add(new Message());
-        Utils.LIST_MESSAGE.add(new Message());
+        Message message = new Message();
+        message.setChatId("123");
+        message.setContent("Hello, Can I talk with you!");
+        message.setTimestamp(Timestamp.now().toDate().toString());
+        message.setSenderId("123");
+        Utils.LIST_MESSAGE.add(message);
+        Utils.LIST_MESSAGE.add(message);
+        Utils.LIST_MESSAGE.add(message);
+        Utils.LIST_MESSAGE.add(message);
+        Utils.LIST_MESSAGE.add(message);
     }
 
     @SuppressLint("NotifyDataSetChanged")

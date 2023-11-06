@@ -25,7 +25,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/MessageItem_ImageView_avatar"
+            android:id="@+id/ChatItem_ImageView_Avatar"
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:src="@drawable/ic_user"
@@ -40,7 +40,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/MessageItem_TextView_username"
+                android:id="@+id/ChatItem_TextView_DisplayName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{User.displayName}"
@@ -49,7 +49,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/MessageItem_TextView_lastMess"
+                android:id="@+id/ChatItem_TextView_LastMessageContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -58,7 +58,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/MessageItem_TextView_dateTime"
+            android:id="@+id/ChatItem_TextView_LastMessageTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

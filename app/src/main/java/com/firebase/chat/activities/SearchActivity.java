@@ -10,7 +10,7 @@ import com.firebase.chat.R;
 
 public class SearchActivity extends AppCompatActivity {
 
-    private ImageButton backButton;
+    private ImageButton backImageButton;
     private EditText searchEditText;
 
     @Override
@@ -18,11 +18,11 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        backButton = findViewById(R.id.SearchActivity_ImageButton_Back);
+        backImageButton = findViewById(R.id.SearchActivity_ImageButton_Back);
         searchEditText = findViewById(R.id.SearchActivity_EditText_Search);
         searchEditText.requestFocus();
 
-        backButton.setOnClickListener(v -> {
+        backImageButton.setOnClickListener(v -> {
             finish();
             overridePendingTransition(0, 0);
         });

@@ -15,9 +15,12 @@ import com.firebase.chat.models.Chat;
 import com.firebase.chat.services.MessageService;
 import com.firebase.chat.utils.Utils;
 
+import java.util.Arrays;
+
 public class ChatViewModel {
+    private static final String TAG = ChatViewModel.class.getSimpleName();
     private static Context context;
-    private static ListChatItemAdapter adapter;
+    private static ListChatItemAdapter listChatItemAdapter;
     private final MessageService messageService = new MessageService();
     public ObservableList<Chat> listChat = new ObservableArrayList<>();
 
@@ -26,15 +29,15 @@ public class ChatViewModel {
         getListChat();
     }
 
-    @BindingAdapter({"list_mess"})
+    @BindingAdapter({"list_chat"})
     public static void loadListMess(RecyclerView recyclerView, ObservableList<Chat> list) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter = new ListChatItemAdapter(context, list);
-        recyclerView.setAdapter(adapter);
+        listChatItemAdapter = new ListChatItemAdapter(context, list);
+        recyclerView.setAdapter(listChatItemAdapter);
     }
 
     public void getListChat() {
@@ -47,16 +50,18 @@ public class ChatViewModel {
         Utils.LIST_CHAT = new ObservableArrayList<>();
         listChat = Utils.LIST_CHAT;
 
-        Utils.LIST_CHAT.add(new Chat());
-        Utils.LIST_CHAT.add(new Chat());
-        Utils.LIST_CHAT.add(new Chat());
-        Utils.LIST_CHAT.add(new Chat());
-        Utils.LIST_CHAT.add(new Chat());
-        Utils.LIST_CHAT.add(new Chat());
-        Utils.LIST_CHAT.add(new Chat());
-        Utils.LIST_CHAT.add(new Chat());
-        Utils.LIST_CHAT.add(new Chat());
+        Chat chat = new Chat();
+        chat.setId("123");
+        chat.setParticipants(Arrays.asList("123", "234"));
 
+        Utils.LIST_CHAT.add(chat);
+        Utils.LIST_CHAT.add(chat);
+        Utils.LIST_CHAT.add(chat);
+        Utils.LIST_CHAT.add(chat);
+        Utils.LIST_CHAT.add(chat);
+        Utils.LIST_CHAT.add(chat);
+        Utils.LIST_CHAT.add(chat);
+        Utils.LIST_CHAT.add(chat);
 
         messageService.getList();
     }
@@ -66,7 +71,7 @@ public class ChatViewModel {
         if (listChat != null) {
             listChat.clear();
         }
-        adapter.notifyDataSetChanged();
+        listChatItemAdapter.notifyDataSetChanged();
     }
 
 }

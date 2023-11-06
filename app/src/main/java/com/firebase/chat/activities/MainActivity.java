@@ -10,10 +10,8 @@ import com.firebase.chat.R;
 import com.firebase.chat.adapters.ViewPagerAdapter;
 import com.firebase.chat.databinding.ActivityMainBinding;
 import com.firebase.chat.viewmodels.MainViewModel;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private MainViewModel mainViewModel;
 
     @Override

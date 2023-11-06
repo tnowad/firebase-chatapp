@@ -15,10 +15,10 @@
         android:paddingVertical="15dp">
 
         <TextView
-            android:id="@+id/SentMessItem_TextView_content"
+            android:id="@+id/ItemMessage_TextView_MessageContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/textview_sentmess"
+            android:background="@drawable/textview_message_mine"
             android:paddingHorizontal="15dp"
             android:paddingVertical="5dp"
             android:text="@{Message.content}"
@@ -28,13 +28,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/SentMessItem_TextView_time"
+            android:id="@+id/ItemMessage_TextView_MessageTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:text="@{Message.timestamp}"
             android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="@+id/SentMessItem_TextView_content"
-            app:layout_constraintTop_toBottomOf="@+id/SentMessItem_TextView_content" />
+            app:layout_constraintEnd_toEndOf="@+id/ItemMessage_TextView_MessageContent"
+            app:layout_constraintTop_toBottomOf="@+id/ItemMessage_TextView_MessageContent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

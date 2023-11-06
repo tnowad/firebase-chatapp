@@ -10,12 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.Interfaces.OnMessageItemListener;
+import com.firebase.chat.R;
 import com.firebase.chat.activities.MessageActivity;
 import com.firebase.chat.databinding.ItemChatBinding;
 import com.firebase.chat.models.Chat;
+import com.firebase.chat.models.Message;
+import com.firebase.chat.models.User;
 import com.firebase.chat.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapter.ChatItemViewHolder> {
 
@@ -42,6 +48,11 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
             return;
         }
         holder.itemMessageBinding.setChat(chat);
+        holder.itemMessageBinding.setMessage(new Message("123", "123", "Hello!", "3 seconds"));
+        holder.itemMessageBinding.setUser(new User("123", "123", "John Doe", ""));
+        CircleImageView profileCircleImageView = holder.itemMessageBinding.getRoot().findViewById(R.id.ChatItem_ImageView_Avatar);
+        Picasso.get().load("https://lh3.googleusercontent.com/a/ACg8ocLIhqRgdV9L_YlarsQj4iJaSWFP2pQqg3oHdmchRiudZh8=s96-c").into(profileCircleImageView);
+
         holder.setOnMessageItemListener(new OnMessageItemListener() {
             @Override
             public void onMessageItem(View view, int pos) {

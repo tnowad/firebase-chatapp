@@ -17,7 +17,7 @@ import com.firebase.chat.viewmodels.ChatViewModel;
 
 
 public class ChatFragment extends Fragment {
-    private ChatViewModel mChatViewModel;
+    private ChatViewModel chatViewModel;
     private ImageButton searchImageButton;
 
     @Nullable
@@ -25,8 +25,8 @@ public class ChatFragment extends Fragment {
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentChatBinding fragmentChatBinding = FragmentChatBinding.inflate(inflater, container, false);
 
-        mChatViewModel = new ChatViewModel(getActivity());
-        fragmentChatBinding.setMessageViewModel(mChatViewModel);
+        chatViewModel = new ChatViewModel(getActivity());
+        fragmentChatBinding.setChatViewModel(chatViewModel);
         fragmentChatBinding.executePendingBindings();
 
         searchImageButton = fragmentChatBinding.getRoot().findViewById(R.id.ChatFragment_ImageButton_Search);
