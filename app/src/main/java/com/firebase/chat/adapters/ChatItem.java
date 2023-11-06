@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.Interfaces.OnMessageItemListener;
-import com.firebase.chat.activities.ChatActivity;
+import com.firebase.chat.activities.MessageActivity;
 import com.firebase.chat.databinding.ItemChatBinding;
 import com.firebase.chat.models.Message;
 import com.firebase.chat.utils.Utils;
@@ -45,7 +45,7 @@ public class ChatItem extends RecyclerView.Adapter<ChatItem.ChatItemViewHolder> 
         holder.setOnMessageItemListener(new OnMessageItemListener() {
             @Override
             public void onMessageItem(View view, int pos) {
-                Intent intent = new Intent(context, ChatActivity.class);
+                Intent intent = new Intent(context, MessageActivity.class);
                 Utils.SELECTED_MESSAGE = message;
                 context.startActivity(intent);
             }

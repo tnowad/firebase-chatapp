@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.chat.databinding.ItemReceivedmessBinding;
-import com.firebase.chat.databinding.ItemSentmessBinding;
+import com.firebase.chat.databinding.ItemMessageMineBinding;
+import com.firebase.chat.databinding.ItemMessageOtherBinding;
 import com.firebase.chat.models.Chat;
 import com.firebase.chat.utils.Utils;
 
@@ -26,11 +26,11 @@ public class MessageItem extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == MESSAGE_TYPE_SENDING) {
-            ItemSentmessBinding itemSentmessBinding = ItemSentmessBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-            return new SentMessItemViewHolder(itemSentmessBinding);
+            ItemMessageMineBinding itemMessageMineBinding = ItemMessageMineBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new ItemMessageMineViewHolder(itemMessageMineBinding);
         } else {
-            ItemReceivedmessBinding itemReceivedmessBinding = ItemReceivedmessBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
-            return new ReceivedMessItemViewHolder(itemReceivedmessBinding);
+            ItemMessageOtherBinding itemMessageOtherBinding = ItemMessageOtherBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new ItemMessageOtherViewHolder(itemMessageOtherBinding);
         }
 
     }
@@ -41,10 +41,10 @@ public class MessageItem extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (chat == null) {
             return;
         }
-        if (holder instanceof SentMessItemViewHolder) {
-            ((SentMessItemViewHolder) holder).itemSentmessBinding.setChat(chat);
+        if (holder instanceof ItemMessageMineViewHolder) {
+            ((ItemMessageMineViewHolder) holder).itemMessageMineBinding.setChat(chat);
         } else {
-            ((ReceivedMessItemViewHolder) holder).itemReceivedmessBinding.setChat(chat);
+            ((ItemMessageOtherViewHolder) holder).itemMessageOtherBinding.setChat(chat);
         }
     }
 
@@ -61,21 +61,21 @@ public class MessageItem extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return listChat.size();
     }
 
-    public class SentMessItemViewHolder extends RecyclerView.ViewHolder {
-        private final ItemSentmessBinding itemSentmessBinding;
+    public class ItemMessageMineViewHolder extends RecyclerView.ViewHolder {
+        private final ItemMessageMineBinding itemMessageMineBinding;
 
-        public SentMessItemViewHolder(@NonNull ItemSentmessBinding itemSentmessBinding) {
-            super(itemSentmessBinding.getRoot());
-            this.itemSentmessBinding = itemSentmessBinding;
+        public ItemMessageMineViewHolder(@NonNull ItemMessageMineBinding itemMessageMineBinding) {
+            super(itemMessageMineBinding.getRoot());
+            this.itemMessageMineBinding = itemMessageMineBinding;
         }
     }
 
-    public class ReceivedMessItemViewHolder extends RecyclerView.ViewHolder {
-        private final ItemReceivedmessBinding itemReceivedmessBinding;
+    public class ItemMessageOtherViewHolder extends RecyclerView.ViewHolder {
+        private final ItemMessageOtherBinding itemMessageOtherBinding;
 
-        public ReceivedMessItemViewHolder(@NonNull ItemReceivedmessBinding itemReceivedmessBinding) {
-            super(itemReceivedmessBinding.getRoot());
-            this.itemReceivedmessBinding = itemReceivedmessBinding;
+        public ItemMessageOtherViewHolder(@NonNull ItemMessageOtherBinding itemMessageOtherBinding) {
+            super(itemMessageOtherBinding.getRoot());
+            this.itemMessageOtherBinding = itemMessageOtherBinding;
         }
     }
 }
