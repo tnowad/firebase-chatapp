@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.chat.databinding.ItemMessageMineBinding;
 import com.firebase.chat.databinding.ItemMessageOtherBinding;
 import com.firebase.chat.models.Message;
-import com.firebase.chat.utils.Utils;
 
 import java.util.List;
 
@@ -51,7 +50,8 @@ public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemViewType(int position) {
         // TODO: check current user from firebase
-        return (listMessage.get(position).getSenderId().equals(Utils.CURRENT_UID)) ? MESSAGE_TYPE_SENDING : MESSAGE_TYPE_RECEIVING;
+//        return (listMessage.get(position).getSenderId().equals(Utils.CURRENT_UID)) ? MESSAGE_TYPE_SENDING : MESSAGE_TYPE_RECEIVING;
+        return MESSAGE_TYPE_RECEIVING;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class MessageActivity extends AppCompatActivity {
 
         ActivityMessageBinding activityMessageBinding = DataBindingUtil.setContentView(this, R.layout.activity_message);
         messageViewModel = new MessageViewModel();
-        activityMessageBinding.setChatViewMode(messageViewModel);
+        activityMessageBinding.setMessageViewModel(messageViewModel);
         activityMessageBinding.ChatActivityImageButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

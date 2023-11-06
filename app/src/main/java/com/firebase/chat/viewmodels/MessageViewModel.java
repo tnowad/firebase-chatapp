@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.adapters.MessageItemAdapter;
-import com.firebase.chat.models.Chat;
 import com.firebase.chat.models.Message;
 import com.firebase.chat.services.MessageService;
 import com.firebase.chat.utils.Utils;
@@ -20,19 +19,19 @@ public class MessageViewModel {
     private final MessageService messageService = new MessageService();
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public ObservableList<Message> listMessage = new ObservableArrayList<>();
-    private String selectedUser;
+    public String selectedUser;
 
     public MessageViewModel() {
         selectedUser = Utils.SELECTED_CHAT.getId();
         getListMessage();
     }
 
-    @BindingAdapter({"list_chat"})
-    public static void loadListChat(RecyclerView recyclerView, ObservableList<Chat> list) {
+    @BindingAdapter({"list_message"})
+    public static void loadListMessage(RecyclerView recyclerView, ObservableList<Message> listMessage) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-//        adapter = new MessageItemAdapter(list);
+        messageItemAdapter = new MessageItemAdapter(listMessage);
         recyclerView.setAdapter(messageItemAdapter);
     }
 
