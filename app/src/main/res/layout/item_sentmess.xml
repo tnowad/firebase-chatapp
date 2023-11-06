@@ -22,7 +22,7 @@
             android:paddingHorizontal="15dp"
             android:paddingVertical="5dp"
             android:text="@{Chat.content}"
-            android:textColor="@color/colorBackground"
+            android:textColor="@color/background"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:background="@color/colorBackground"
+        android:background="@color/background"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -21,7 +21,7 @@
             android:layout_width="52dp"
             android:layout_height="52dp"
             android:src="@drawable/ic_user"
-            app:civ_border_color="@color/colorBlack" />
+            app:civ_border_color="@color/black" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{Message.displayName}"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 

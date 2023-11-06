@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">Firebase Chat</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="BottomNav_title_message">message</string>
-    <string name="BottomNav_title_profile">proflie</string>
-    <string name="BottomNav_title_setting">setting</string>
+    <string name="BottomNav_title_message">Message</string>
+    <string name="BottomNav_title_profile">Profile</string>
+    <string name="BottomNav_title_setting">Setting</string>
 
     <string name="default_web_client_id">270562782952-q7on4qvecartpjls249a3sjes25f1lu3.apps.googleusercontent.com</string>
 

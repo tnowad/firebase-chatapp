@@ -19,7 +19,7 @@
             android:id="@+id/ChatActivity_Toolbar"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="@color/colorBackground"
+            android:background="@color/background"
             android:elevation="10dp"
             android:translationZ="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
                 android:layout_marginVertical="10dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/demoavatar"
-                app:civ_border_color="@color/colorBlack"
+                app:civ_border_color="@color/black"
                 app:civ_border_width="2dp" />
 
             <TextView
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="@{ChatViewMode.toUser}"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:translationY="-10dp" />
@@ -68,7 +68,7 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:backgroundTint="@color/colorBackground"
+            android:backgroundTint="@color/background"
             android:elevation="5dp"
             android:translationZ="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -92,8 +92,8 @@
                     android:background="@drawable/edittext_inputmess"
                     android:hint="Write your message"
                     android:paddingLeft="20dp"
-                    android:textColor="@color/colorTextSecondary"
-                    android:textColorHint="@color/colorTextSecondary" />
+                    android:textColor="@color/text_secondary"
+                    android:textColorHint="@color/text_secondary" />
 
                 <ImageButton
                     android:id="@+id/ChatActivity_ImageButton_sendMess"

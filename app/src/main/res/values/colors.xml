@@ -2,30 +2,30 @@
 <resources>
 
     <!-- Primary Color -->
-    <color name="colorPrimary">#2196F3</color>
-    <color name="colorPrimaryDark">#1976D2</color>
-    <color name="colorPrimaryLight">#BBDEFB</color>
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
 
     <!-- Accent Color -->
-    <color name="colorAccent">#FF4081</color>
+    <color name="accent">#FF4081</color>
 
     <!-- Text Colors -->
-    <color name="colorTextPrimary">#212121</color>
-    <color name="colorTextSecondary">#727272</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#727272</color>
 
     <!-- Background Colors -->
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="colorBackgroundSecondary">#F5F5F5</color>
-    <color name="colorBlack">#000000</color>
+    <color name="background">#FFFFFF</color>
+    <color name="background_secondary">#F5F5F5</color>
 
     <!-- Divider Color -->
-    <color name="colorDivider">#B6B6B6</color>
+    <color name="divider">#B6B6B6</color>
 
     <!-- Other Colors -->
-    <color name="colorRed">#FF5722</color>
-    <color name="colorGreen">#4CAF50</color>
-    <color name="colorBlue">#1976D2</color>
-    <color name="colorYellow">#FFFF00</color>
-    <color name="colorPurple">#9C27B0</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF5722</color>
+    <color name="green">#4CAF50</color>
+    <color name="blue">#1976D2</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="purple">#9C27B0</color>
 
 </resources>
