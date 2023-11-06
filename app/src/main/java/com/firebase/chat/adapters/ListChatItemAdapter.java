@@ -17,12 +17,12 @@ import com.firebase.chat.utils.Utils;
 
 import java.util.List;
 
-public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ChatItemViewHolder> {
+public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapter.ChatItemViewHolder> {
 
     private final Context context;
     private final List<Chat> listChat;
 
-    public ChatItemAdapter(Context context, List<Chat> listChat) {
+    public ListChatItemAdapter(Context context, List<Chat> listChat) {
         this.context = context;
         this.listChat = listChat;
     }

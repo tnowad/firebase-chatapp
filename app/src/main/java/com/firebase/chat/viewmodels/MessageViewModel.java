@@ -8,14 +8,14 @@ import androidx.databinding.ObservableList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.chat.adapters.MessageItemAdapter;
+import com.firebase.chat.adapters.ListMessageItemAdapter;
 import com.firebase.chat.models.Message;
 import com.firebase.chat.services.MessageService;
 import com.firebase.chat.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MessageViewModel {
-    private static MessageItemAdapter messageItemAdapter;
+    private static ListMessageItemAdapter listMessageItemAdapter;
     private final MessageService messageService = new MessageService();
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public ObservableList<Message> listMessage = new ObservableArrayList<>();
@@ -31,8 +31,8 @@ public class MessageViewModel {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        messageItemAdapter = new MessageItemAdapter(listMessage);
-        recyclerView.setAdapter(messageItemAdapter);
+        listMessageItemAdapter = new ListMessageItemAdapter(listMessage);
+        recyclerView.setAdapter(listMessageItemAdapter);
     }
 
     public String getSelectedUser() {
@@ -64,7 +64,7 @@ public class MessageViewModel {
         if (listMessage != null) {
             listMessage.clear();
         }
-        messageItemAdapter.notifyDataSetChanged();
+        listMessageItemAdapter.notifyDataSetChanged();
     }
 
 }

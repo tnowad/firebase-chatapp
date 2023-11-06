@@ -12,12 +12,12 @@ import com.firebase.chat.models.Message;
 
 import java.util.List;
 
-public class MessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ListMessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int MESSAGE_TYPE_SENDING = 0;
     private static final int MESSAGE_TYPE_RECEIVING = 1;
     private final List<Message> listMessage;
 
-    public MessageItemAdapter(List<Message> listMessage) {
+    public ListMessageItemAdapter(List<Message> listMessage) {
         this.listMessage = listMessage;
     }
 

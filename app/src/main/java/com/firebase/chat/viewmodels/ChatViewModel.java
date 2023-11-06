@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.chat.adapters.ChatItemAdapter;
+import com.firebase.chat.adapters.ListChatItemAdapter;
 import com.firebase.chat.models.Chat;
 import com.firebase.chat.services.MessageService;
 import com.firebase.chat.utils.Utils;
 
 public class ChatViewModel {
     private static Context context;
-    private static ChatItemAdapter adapter;
+    private static ListChatItemAdapter adapter;
     private final MessageService messageService = new MessageService();
     public ObservableList<Chat> listChat = new ObservableArrayList<>();
 
@@ -33,7 +33,7 @@ public class ChatViewModel {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        adapter = new ChatItemAdapter(context, list);
+        adapter = new ListChatItemAdapter(context, list);
         recyclerView.setAdapter(adapter);
     }
 
