@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="Chat"
-            type="com.firebase.chat.models.Chat" />
+            name="Message"
+            type="com.firebase.chat.models.Message" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             android:background="@drawable/textview_receivedmess"
             android:paddingHorizontal="15dp"
             android:paddingVertical="5dp"
-            android:text="@{Chat.content}"
+            android:text="@{Message.content}"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:id="@+id/ReceivedMessItem_TextView_time"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="12 Jan 2023 07:00:00"
+            android:text="@{Message.timestamp}"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@+id/ReceivedMessItem_TextView_content"
             app:layout_constraintTop_toBottomOf="@+id/ReceivedMessItem_TextView_content" />

@@ -8,11 +8,11 @@ import androidx.databinding.DataBindingUtil;
 
 import com.firebase.chat.R;
 import com.firebase.chat.databinding.ActivityMessageBinding;
-import com.firebase.chat.viewmodels.ChatViewModel;
+import com.firebase.chat.viewmodels.MessageViewModel;
 
 public class MessageActivity extends AppCompatActivity {
 
-    private ChatViewModel messageViewModel;
+    private MessageViewModel messageViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +20,8 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
 
         ActivityMessageBinding activityMessageBinding = DataBindingUtil.setContentView(this, R.layout.activity_message);
-        messageViewModel = new ChatViewModel();
-        activityMessageBinding.setChatViewMode(messageViewModel);
+        messageViewModel = new MessageViewModel();
+        activityMessageBinding.setMessageViewModel(messageViewModel);
         activityMessageBinding.ChatActivityImageButtonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

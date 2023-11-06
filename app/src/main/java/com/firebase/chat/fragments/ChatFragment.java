@@ -13,11 +13,11 @@ import androidx.fragment.app.Fragment;
 import com.firebase.chat.R;
 import com.firebase.chat.activities.SearchActivity;
 import com.firebase.chat.databinding.FragmentChatBinding;
-import com.firebase.chat.viewmodels.MessageViewModel;
+import com.firebase.chat.viewmodels.ChatViewModel;
 
 
 public class ChatFragment extends Fragment {
-    private MessageViewModel mMessageViewModel;
+    private ChatViewModel mChatViewModel;
     private ImageButton searchImageButton;
 
     @Nullable
@@ -25,8 +25,8 @@ public class ChatFragment extends Fragment {
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentChatBinding fragmentChatBinding = FragmentChatBinding.inflate(inflater, container, false);
 
-        mMessageViewModel = new MessageViewModel(getActivity());
-        fragmentChatBinding.setMessageViewModel(mMessageViewModel);
+        mChatViewModel = new ChatViewModel(getActivity());
+        fragmentChatBinding.setMessageViewModel(mChatViewModel);
         fragmentChatBinding.executePendingBindings();
 
         searchImageButton = fragmentChatBinding.getRoot().findViewById(R.id.ChatFragment_ImageButton_Search);

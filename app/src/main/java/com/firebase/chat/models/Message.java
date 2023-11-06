@@ -1,64 +1,50 @@
 package com.firebase.chat.models;
 
-import com.firebase.chat.utils.Utils;
-
 public class Message {
-    private String user1, user2, lastMessage, time, displayName;
+    private String chatId;
+    private String senderId;
+    private String content;
+    private String timestamp;
 
     public Message() {
     }
 
-    public Message(String user1, String user2, String lastMessage, String time, String displayName) {
-        this.user1 = user1;
-        this.user2 = user2;
-        this.lastMessage = lastMessage;
-        this.time = time;
-        this.displayName = displayName;
-
-        if (!user1.equals(Utils.CURRENT_UID)) {
-            String temp = this.user2;
-            this.user2 = this.user1;
-            this.user1 = temp;
-        }
+    public Message(String chatId, String senderId, String content, String timestamp) {
+        this.chatId = chatId;
+        this.senderId = senderId;
+        this.content = content;
+        this.timestamp = timestamp;
     }
 
-    public String getUser1() {
-        return user1;
+    public String getChatId() {
+        return chatId;
     }
 
-    public void setUser1(String user1) {
-        this.user1 = user1;
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
     }
 
-    public String getUser2() {
-        return user2;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setUser2(String user2) {
-        this.user2 = user2;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
+    public String getContent() {
+        return content;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getTime() {
-        return time;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

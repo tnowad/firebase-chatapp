@@ -12,19 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.chat.Interfaces.OnMessageItemListener;
 import com.firebase.chat.activities.MessageActivity;
 import com.firebase.chat.databinding.ItemChatBinding;
-import com.firebase.chat.models.Message;
+import com.firebase.chat.models.Chat;
 import com.firebase.chat.utils.Utils;
 
 import java.util.List;
 
-public class ChatItem extends RecyclerView.Adapter<ChatItem.ChatItemViewHolder> {
+public class ChatItemAdapter extends RecyclerView.Adapter<ChatItemAdapter.ChatItemViewHolder> {
 
     private final Context context;
-    private final List<Message> listMessage;
+    private final List<Chat> listChat;
 
-    public ChatItem(Context context, List<Message> listMessage) {
+    public ChatItemAdapter(Context context, List<Chat> listChat) {
         this.context = context;
-        this.listMessage = listMessage;
+        this.listChat = listChat;
     }
 
     @NonNull
@@ -37,16 +37,16 @@ public class ChatItem extends RecyclerView.Adapter<ChatItem.ChatItemViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ChatItemViewHolder holder, int position) {
-        Message message = listMessage.get(position);
-        if (message == null) {
+        Chat chat = listChat.get(position);
+        if (chat == null) {
             return;
         }
-        holder.itemMessageBinding.setMessage(message);
+        holder.itemMessageBinding.setChat(chat);
         holder.setOnMessageItemListener(new OnMessageItemListener() {
             @Override
             public void onMessageItem(View view, int pos) {
                 Intent intent = new Intent(context, MessageActivity.class);
-                Utils.SELECTED_MESSAGE = message;
+                Utils.SELECTED_CHAT = chat;
                 context.startActivity(intent);
             }
         });
@@ -55,10 +55,10 @@ public class ChatItem extends RecyclerView.Adapter<ChatItem.ChatItemViewHolder> 
 
     @Override
     public int getItemCount() {
-        if (listMessage == null) {
+        if (listChat == null) {
             return 0;
         }
-        return listMessage.size();
+        return listChat.size();
     }
 
     public static class ChatItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

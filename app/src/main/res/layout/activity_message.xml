@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="ChatViewMode"
-            type="com.firebase.chat.viewmodels.ChatViewModel" />
+            name="MessageViewModel"
+            type="com.firebase.chat.viewmodels.MessageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="@{ChatViewMode.toUser}"
+                android:text="@{MessageViewModel.selectedUser}"
                 android:textColor="@color/black"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -62,7 +62,7 @@
             android:layout_marginHorizontal="20dp"
             app:layout_constraintBottom_toTopOf="@+id/cardView"
             app:layout_constraintTop_toBottomOf="@+id/ChatActivity_Toolbar"
-            app:list_chat="@{ChatViewMode.listChat}"
+            app:list_message="@{MessageViewModel.listMessage}"
             tools:layout_editor_absoluteX="20dp" />
 
         <androidx.cardview.widget.CardView
