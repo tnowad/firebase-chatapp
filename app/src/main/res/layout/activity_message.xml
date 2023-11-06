@@ -54,6 +54,7 @@
                 android:translationY="-10dp" />
         </androidx.appcompat.widget.Toolbar>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ChatActivity_RecyclerView_listChat"
             android:layout_width="match_parent"
