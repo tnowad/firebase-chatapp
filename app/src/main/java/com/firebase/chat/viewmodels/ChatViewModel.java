@@ -8,14 +8,14 @@ import androidx.databinding.ObservableList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.chat.adapters.ChatItem;
+import com.firebase.chat.adapters.MessageItem;
 import com.firebase.chat.models.Chat;
 import com.firebase.chat.services.MessageService;
 import com.firebase.chat.utils.Utils;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ChatViewModel {
-    private static ChatItem adapter;
+    private static MessageItem adapter;
     private final MessageService messageService = new MessageService();
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     public ObservableList<Chat> listChat = new ObservableArrayList<>();
@@ -31,7 +31,7 @@ public class ChatViewModel {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        adapter = new ChatItem(list);
+        adapter = new MessageItem(list);
         recyclerView.setAdapter(adapter);
     }
 
