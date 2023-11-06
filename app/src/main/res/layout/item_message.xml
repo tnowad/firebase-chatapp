@@ -9,58 +9,54 @@
             type="com.firebase.chat.models.Message" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:background="@color/colorBackground">
+        android:background="@color/colorBackground"
+        android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/MessageItem_ImageView_avatar"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/demoavatar"
-            app:civ_border_color="@color/colorBlack"
-            app:civ_border_width="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/MessageItem_TextView_username"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:src="@drawable/ic_user"
+            app:civ_border_color="@color/colorBlack" />
 
-        <TextView
-            android:id="@+id/MessageItem_TextView_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@{Message.displayName}"
-            android:textColor="@color/colorBlack"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/MessageItem_ImageView_avatar"
-            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/MessageItem_TextView_lastMess"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:text="@{Message.lastMessage}"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/MessageItem_ImageView_avatar"
-            app:layout_constraintTop_toBottomOf="@+id/MessageItem_TextView_username" />
+            <TextView
+                android:id="@+id/MessageItem_TextView_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Message.displayName}"
+                android:textColor="@color/colorBlack"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/MessageItem_TextView_lastMess"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@{Message.lastMessage}"
+                android:textSize="12dp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/MessageItem_TextView_dateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
             android:layout_marginEnd="10dp"
             android:text="@{Message.time}"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textSize="13sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </layout>
