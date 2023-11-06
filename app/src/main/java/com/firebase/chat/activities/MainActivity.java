@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.firebase.chat.R;
-import com.firebase.chat.adapters.AdapterViewPager;
+import com.firebase.chat.adapters.AdapterViewPagerAdapter;
 import com.firebase.chat.databinding.ActivityMainBinding;
 import com.firebase.chat.viewmodels.MainViewModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ActivityMainBinding binding) {
-        AdapterViewPager adapterViewPager = new AdapterViewPager(this);
+        AdapterViewPagerAdapter adapterViewPagerAdapter = new AdapterViewPagerAdapter(this);
         ViewPager2 viewPager = binding.MainActivityViewPager2;
-        viewPager.setAdapter(adapterViewPager);
+        viewPager.setAdapter(adapterViewPagerAdapter);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

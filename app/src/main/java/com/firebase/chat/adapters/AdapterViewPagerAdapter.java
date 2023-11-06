@@ -11,10 +11,10 @@ import com.firebase.chat.fragments.SettingFragment;
 
 import java.util.ArrayList;
 
-public class AdapterViewPager extends FragmentStateAdapter {
+public class AdapterViewPagerAdapter extends FragmentStateAdapter {
     ArrayList<Fragment> list = new ArrayList<>();
 
-    public AdapterViewPager(@NonNull FragmentActivity fragmentActivity) {
+    public AdapterViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
         this.list.add(new ChatFragment());
         this.list.add(new ProfileFragment());

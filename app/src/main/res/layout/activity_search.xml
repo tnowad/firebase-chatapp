@@ -59,7 +59,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/MessageFragment_RecyclerView_listMessage"
+                android:id="@+id/MessageFragment_RecyclerView_ListChat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="20dp"
