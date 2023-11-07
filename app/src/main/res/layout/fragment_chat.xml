@@ -33,7 +33,7 @@
 
 
             <TextView
-                android:id="@+id/MessageFragment_TextView_Title"
+                android:id="@+id/ChatFragment_TextView_Title"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_weight="1"
@@ -63,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/MessageFragment_RecyclerView_ListChat"
+                android:id="@+id/ChatFragment_RecyclerView_ListChat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="20dp"
