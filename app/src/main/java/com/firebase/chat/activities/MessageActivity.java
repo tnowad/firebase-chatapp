@@ -25,6 +25,7 @@ public class MessageActivity extends AppCompatActivity {
 
         activityMessageBinding.ChatActivityImageButtonBack.setOnClickListener(v -> {
             finish();
+            overridePendingTransition(0, 0);
         });
     }
 }

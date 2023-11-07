@@ -1,5 +1,6 @@
 package com.firebase.chat.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -59,6 +60,8 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
                 Intent intent = new Intent(context, MessageActivity.class);
                 Utils.SELECTED_CHAT = chat;
                 context.startActivity(intent);
+                Activity activity = (Activity) context;
+                activity.overridePendingTransition(0, 0);
             }
         });
         holder.itemMessageBinding.executePendingBindings();
