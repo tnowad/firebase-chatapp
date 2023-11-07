@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -33,6 +34,30 @@ public class FriendService {
         friendsRef.add(friend)
                 .addOnSuccessListener(documentReference -> {
                     taskCompletionSource.setResult(documentReference);
+                })
+                .addOnFailureListener(e -> {
+                    taskCompletionSource.setException(e);
+                });
+
+        return taskCompletionSource.getTask();
+    }
+
+    public Task<Void> unfriend(String senderId, String receiverId) {
+        TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
+
+        friendsRef.whereEqualTo("senderId", senderId)
+                .whereEqualTo("receiverId", receiverId)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        document.getReference().delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    taskCompletionSource.setResult(null);
+                                })
+                                .addOnFailureListener(e -> {
+                                    taskCompletionSource.setException(e);
+                                });
+                    }
                 })
                 .addOnFailureListener(e -> {
                     taskCompletionSource.setException(e);

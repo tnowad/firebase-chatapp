@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.firebase.chat.R;
 import com.firebase.chat.models.User;
 import com.firebase.chat.services.AuthService;
+import com.firebase.chat.services.FriendService;
 import com.firebase.chat.services.UserService;
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageButton generateQRCodeButton;
     private ImageButton otherOptionsButton;
 
+    private FriendService friendService;
     private UserService userService;
     private AuthService authService;
     private String uid;
@@ -56,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void initializeServices() {
         userService = UserService.getInstance();
         authService = AuthService.getInstance();
+        friendService = FriendService.getInstance();
     }
 
     private void initializeUI() {
@@ -100,11 +104,11 @@ public class ProfileActivity extends AppCompatActivity {
                         populateUserProfile(user);
 
                         if (uid.equals(authService.getCurrentUser().getUid())) {
-                            hideFriendshipButtons();
+                            showCurrentUserProfile();
                         } else if (userIsFriend(user)) {
-                            showUnfriendButton();
+                            showFriendUserProfile();
                         } else {
-                            showSendFriendRequestButton();
+                            showNonFriendUserProfile();
                         }
                     } else {
                         finish();
@@ -114,8 +118,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private boolean userIsFriend(User user) {
-        // Add logic to check if the user is a friend.
-        // Replace this with your actual implementation.
+        // TODO: Write method check is friend here
         return false;
     }
 
@@ -128,18 +131,49 @@ public class ProfileActivity extends AppCompatActivity {
         Picasso.get().load(user.getPhotoUrl()).into(photoUrlCircleImageView);
     }
 
-    private void hideFriendshipButtons() {
+    private void showCurrentUserProfile() {
         sendFriendRequestButton.setVisibility(View.GONE);
         unfriendButton.setVisibility(View.GONE);
+
+        sendMessageButton.setOnClickListener(v -> {
+            finish();
+        });
     }
 
-    private void showSendFriendRequestButton() {
+    private void showNonFriendUserProfile() {
         sendFriendRequestButton.setVisibility(View.VISIBLE);
         unfriendButton.setVisibility(View.GONE);
+
+        sendFriendRequestButton.setOnClickListener(v -> {
+            String senderId = authService.getCurrentUser().getUid();
+            String receiverId = uid;
+
+            friendService.sendFriendRequest(senderId, receiverId)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(this, "Friend request sent successfully", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to send friend request: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        });
     }
 
-    private void showUnfriendButton() {
+    private void showFriendUserProfile() {
         sendFriendRequestButton.setVisibility(View.GONE);
         unfriendButton.setVisibility(View.VISIBLE);
+
+        unfriendButton.setOnClickListener(v -> {
+            String senderId = authService.getCurrentUser().getUid();
+            String receiverId = uid;
+
+            friendService.unfriend(senderId, receiverId)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Unfriended successfully", Toast.LENGTH_SHORT).show();
+                        showNonFriendUserProfile();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Failed to unfriend: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        });
     }
 }
