@@ -26,19 +26,14 @@
             android:background="@drawable/ic_back" />
 
         <LinearLayout
-            android:id="@+id/SearchActivity_EditText_Search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
             android:gravity="center"
-            android:hint="Search here..."
-            android:maxLines="1"
             android:orientation="vertical"
             android:paddingHorizontal="10dp"
             android:paddingTop="22dp"
             android:paddingBottom="20dp"
-            android:textColor="@android:color/white"
             android:textSize="20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -69,31 +64,25 @@
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <com.google.android.flexbox.FlexboxLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                app:justifyContent="space_between">
 
                 <ImageButton
+                    android:id="@+id/ProfileActivity_ImageButton_SendMessage"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_message" />
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_weight="1" />
 
                 <ImageButton
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_add_friend" />
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_weight="1" />
 
                 <ImageButton
                     android:layout_width="44dp"
@@ -101,28 +90,18 @@
                     android:background="@drawable/ic_remove_friend"
                     android:visibility="visible" />
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_weight="1"
-                    android:visibility="visible" />
 
                 <ImageButton
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_scan_qr" />
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="44dp"
-                    android:layout_weight="1" />
 
                 <ImageButton
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_option" />
-
-            </LinearLayout>
+            </com.google.android.flexbox.FlexboxLayout>
         </LinearLayout>
 
 
