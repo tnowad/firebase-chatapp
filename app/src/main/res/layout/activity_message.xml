@@ -35,7 +35,7 @@
                 android:background="@drawable/ic_back" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ChatActivity_ImageView_avatar"
+                android:id="@+id/MessageActivity_ImageView_avatar"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:src="@drawable/ic_user"
@@ -44,7 +44,7 @@
                 app:civ_border_width="2dp" />
 
             <TextView
-                android:id="@+id/ChatActivity_TextView_username"
+                android:id="@+id/MessageActivity_TextView_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -69,7 +69,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ChatActivity_RecyclerView_listChat"
+                android:id="@+id/MessageActivity_RecyclerView_listChat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="20dp"
@@ -99,7 +99,7 @@
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <EditText
-                    android:id="@+id/ChatActivity_EditText_inputMess"
+                    android:id="@+id/MessageActivity_EditText_inputMess"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_weight="8"
@@ -110,7 +110,7 @@
                     android:textColorHint="@color/text_secondary" />
 
                 <ImageButton
-                    android:id="@+id/ChatActivity_ImageButton_sendMess"
+                    android:id="@+id/MessageActivity_ImageButton_sendMess"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
