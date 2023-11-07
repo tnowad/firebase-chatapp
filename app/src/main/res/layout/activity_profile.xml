@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:gravity="center_horizontal"
-                android:text="Display name"
+                android:text="Loading"
                 android:textColor="@color/white"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center_horizontal"
-                android:text="email@gmail.com"
+                android:text="Loading"
                 android:textColor="@color/gray"
                 android:textSize="12dp"
                 android:textStyle="bold" />
@@ -79,12 +79,14 @@
                     android:background="@drawable/ic_message" />
 
                 <ImageButton
+                    android:id="@+id/ProfileActivity_ImageButton_SendFriendRequest"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_add_friend" />
 
 
                 <ImageButton
+                    android:id="@+id/ProfileActivity_ImageButton_Unfriend"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_remove_friend"
@@ -92,12 +94,13 @@
 
 
                 <ImageButton
+                    android:id="@+id/ProfileActivity_ImageButton_GenerateQRCode"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_scan_qr" />
 
-
                 <ImageButton
+                    android:id="@+id/ProfileActivity_ImageButton_OtherOption"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_option" />
@@ -148,7 +151,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="serif"
-                    android:text="Nguyen Thinh Phat"
+                    android:text="Loading"
                     android:textSize="18dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -173,7 +176,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="serif"
-                    android:text="Nguyen Thinh Phat"
+                    android:text="Loading"
                     android:textSize="18dp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -198,7 +201,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="serif"
-                    android:text="Nguyen Thinh Phat"
+                    android:text="Loading"
                     android:textSize="18dp" />
             </LinearLayout>
         </LinearLayout>

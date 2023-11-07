@@ -2,6 +2,7 @@ package com.firebase.chat.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,6 +25,12 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView emailTextView;
     private TextView emailTextViewDetail;
     private TextView bioTextViewDetail;
+    private ImageButton sendMessageButton;
+    private ImageButton sendFriendRequestButton;
+    private ImageButton unfriendButton;
+    private ImageButton generateQRCodeButton;
+    private ImageButton otherOptionsButton;
+
     private UserService userService;
     private AuthService authService;
     private String uid;
@@ -33,20 +40,11 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        userService = UserService.getInstance();
-        authService = AuthService.getInstance();
-
-        Intent intent = getIntent();
-        if (intent != null) {
-            Bundle extras = intent.getExtras();
-            if (extras != null && extras.containsKey("uid")) {
-                uid = extras.getString("uid");
-            }
-        }
-
+        initializeServices();
         initializeUI();
+        initializeClickEvent();
 
-        backImageButton.setOnClickListener(v -> finish());
+        retrieveUserIdFromIntent();
 
         if (uid != null) {
             fetchUserAndPopulateUI(uid);
@@ -55,36 +53,93 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void initializeServices() {
+        userService = UserService.getInstance();
+        authService = AuthService.getInstance();
+    }
+
     private void initializeUI() {
         backImageButton = findViewById(R.id.ProfileActivity_ImageButton_Back);
         photoUrlCircleImageView = findViewById(R.id.ProfileActivity_CircleImageView_PhotoUrl);
         displayNameTextView = findViewById(R.id.ProfileActivity_TextView_DisplayName);
         displayNameTextViewDetail = findViewById(R.id.ProfileActivity_TextView_DisplayNameDetail);
-        emailTextViewDetail = findViewById(R.id.ProfileActivity_TextView_EmailDetail);
         emailTextView = findViewById(R.id.ProfileActivity_TextView_Email);
+        emailTextViewDetail = findViewById(R.id.ProfileActivity_TextView_EmailDetail);
         bioTextViewDetail = findViewById(R.id.ProfileActivity_TextView_BioDetail);
+        sendMessageButton = findViewById(R.id.ProfileActivity_ImageButton_SendMessage);
+        sendFriendRequestButton = findViewById(R.id.ProfileActivity_ImageButton_SendFriendRequest);
+        unfriendButton = findViewById(R.id.ProfileActivity_ImageButton_Unfriend);
+        generateQRCodeButton = findViewById(R.id.ProfileActivity_ImageButton_GenerateQRCode);
+        otherOptionsButton = findViewById(R.id.ProfileActivity_ImageButton_OtherOption);
+    }
+
+    private void initializeClickEvent() {
+        backImageButton.setOnClickListener(v -> finish());
+
+        generateQRCodeButton.setOnClickListener(v -> {
+            Intent generateQRCodeIntent = new Intent(this, GenerateQRCodeActivity.class);
+            generateQRCodeIntent.putExtra("content", uid);
+            startActivity(generateQRCodeIntent);
+        });
+    }
+
+    private void retrieveUserIdFromIntent() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if (extras != null && extras.containsKey("uid")) {
+                uid = extras.getString("uid");
+            }
+        }
     }
 
     private void fetchUserAndPopulateUI(String uid) {
         userService.getUserByUid(uid)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        User user = task.getResult();
-                        if (user != null) {
-                            displayNameTextView.setText(user.getDisplayName());
-                            displayNameTextViewDetail.setText(user.getDisplayName());
-                            emailTextView.setText(user.getEmail());
-                            emailTextViewDetail.setText(user.getEmail());
-                            bioTextViewDetail.setText(user.getBio());
-                            Picasso.get().load(user.getPhotoUrl()).into(photoUrlCircleImageView);
+                .addOnSuccessListener(user -> {
+                    if (user != null) {
+                        populateUserProfile(user);
+
+                        if (uid.equals(authService.getCurrentUser().getUid())) {
+                            hideFriendshipButtons();
+                        } else if (userIsFriend(user)) {
+                            showUnfriendButton();
                         } else {
-                            finish();
+                            showSendFriendRequestButton();
                         }
                     } else {
-                        Exception e = task.getException();
                         finish();
                     }
-                });
+                })
+                .addOnFailureListener(e -> finish());
     }
 
+    private boolean userIsFriend(User user) {
+        // Add logic to check if the user is a friend.
+        // Replace this with your actual implementation.
+        return false;
+    }
+
+    private void populateUserProfile(User user) {
+        displayNameTextView.setText(user.getDisplayName());
+        displayNameTextViewDetail.setText(user.getDisplayName());
+        emailTextView.setText(user.getEmail());
+        emailTextViewDetail.setText(user.getEmail());
+        bioTextViewDetail.setText(user.getBio());
+        Picasso.get().load(user.getPhotoUrl()).into(photoUrlCircleImageView);
+    }
+
+    private void hideFriendshipButtons() {
+        sendFriendRequestButton.setVisibility(View.GONE);
+        unfriendButton.setVisibility(View.GONE);
+    }
+
+    private void showSendFriendRequestButton() {
+        sendFriendRequestButton.setVisibility(View.VISIBLE);
+        unfriendButton.setVisibility(View.GONE);
+    }
+
+    private void showUnfriendButton() {
+        sendFriendRequestButton.setVisibility(View.GONE);
+        unfriendButton.setVisibility(View.VISIBLE);
+    }
 }
