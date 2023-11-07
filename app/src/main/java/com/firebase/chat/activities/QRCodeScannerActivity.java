@@ -62,6 +62,10 @@ public class QRCodeScannerActivity extends AppCompatActivity {
                 Toast.makeText(this, "Scan cancelled", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                Intent profileIntent = new Intent(this, ProfileActivity.class);
+                String uid = result.getContents();
+                profileIntent.putExtra("uid", uid);
+                startActivity(profileIntent);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
