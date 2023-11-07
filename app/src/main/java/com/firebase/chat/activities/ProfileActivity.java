@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.firebase.chat.Interfaces.OnUserFetchListener;
 import com.firebase.chat.R;
 import com.firebase.chat.models.User;
 import com.firebase.chat.services.AuthService;
@@ -67,26 +66,25 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void fetchUserAndPopulateUI(String uid) {
-        userService.getUserByUid(uid, new OnUserFetchListener() {
-            @Override
-            public void onUserFetchSuccess(User user) {
-                displayNameTextView.setText(user.getDisplayName());
-                displayNameTextViewDetail.setText(user.getDisplayName());
-                emailTextView.setText(user.getEmail());
-                emailTextViewDetail.setText(user.getEmail());
-                bioTextViewDetail.setText(user.getBio());
-                Picasso.get().load(user.getPhotoUrl()).into(photoUrlCircleImageView);
-            }
-
-            @Override
-            public void onUserNotFound() {
-                finish();
-            }
-
-            @Override
-            public void onUserFetchError(Exception e) {
-                finish();
-            }
-        });
+        userService.getUserByUid(uid)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        User user = task.getResult();
+                        if (user != null) {
+                            displayNameTextView.setText(user.getDisplayName());
+                            displayNameTextViewDetail.setText(user.getDisplayName());
+                            emailTextView.setText(user.getEmail());
+                            emailTextViewDetail.setText(user.getEmail());
+                            bioTextViewDetail.setText(user.getBio());
+                            Picasso.get().load(user.getPhotoUrl()).into(photoUrlCircleImageView);
+                        } else {
+                            finish();
+                        }
+                    } else {
+                        Exception e = task.getException();
+                        finish();
+                    }
+                });
     }
+
 }
