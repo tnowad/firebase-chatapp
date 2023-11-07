@@ -10,10 +10,11 @@ import android.widget.ImageButton;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.firebase.chat.activities.ProfileActivity;
 import com.firebase.chat.R;
+import com.firebase.chat.activities.ProfileActivity;
 import com.firebase.chat.activities.SearchActivity;
 import com.firebase.chat.databinding.FragmentChatBinding;
+import com.firebase.chat.services.AuthService;
 import com.firebase.chat.viewmodels.ChatViewModel;
 
 
@@ -55,8 +56,9 @@ public class ChatFragment extends Fragment {
 
     private void startProfileActivity() {
         Intent profileActivity = new Intent(getActivity(), ProfileActivity.class);
+        String uid = AuthService.getInstance().getCurrentUser().getUid();
+        profileActivity.putExtra("uid", uid);
         startActivity(profileActivity);
-        //getActivity().overridePendingTransition(0, 0);
     }
 
 }
