@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.firebase.chat.R;
+import com.firebase.chat.activities.GenerateQRCodeActivity;
 import com.firebase.chat.activities.SplashActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -17,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SettingFragment extends Fragment {
 
     Button signOutButton;
+    Button generateQRCodeButton;
     FirebaseAuth firebaseAuth;
 
 
@@ -36,6 +38,12 @@ public class SettingFragment extends Fragment {
             startActivity(splashIntent);
         });
 
+        generateQRCodeButton = rootView.findViewById(R.id.SettingFragment_Button_GenerateQRCode);
+        generateQRCodeButton.setOnClickListener(v -> {
+            Intent generateQRCodeIntent = new Intent(getActivity(), GenerateQRCodeActivity.class);
+
+            startActivity(generateQRCodeIntent);
+        });
         return rootView;
     }
 }

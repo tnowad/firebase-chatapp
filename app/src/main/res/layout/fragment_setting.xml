@@ -5,10 +5,22 @@
     android:layout_height="match_parent"
     tools:context=".fragments.SettingFragment">
 
-    <Button
-        android:id="@+id/SettingFragment_Button_SignOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Out" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/SettingFragment_Button_GenerateQRCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/SettingFragment_Button_SignOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Out" />
+    </LinearLayout>
 
 </FrameLayout>
