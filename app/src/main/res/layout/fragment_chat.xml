@@ -33,7 +33,7 @@
 
 
             <TextView
-                android:id="@+id/ChatFragment_TextView_Title"
+
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_weight="1"
@@ -43,11 +43,12 @@
                 android:textSize="20dp" />
 
 
-            <ImageButton
-                android:id="@+id/ChatFragment_ImageButton_Profile"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ChatFragment_CircleImageView_PhotoUrl"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_user" />
+                android:src="@drawable/ic_user" />
+
         </LinearLayout>
 
         <androidx.cardview.widget.CardView

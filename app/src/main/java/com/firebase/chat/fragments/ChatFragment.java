@@ -16,12 +16,15 @@ import com.firebase.chat.activities.SearchActivity;
 import com.firebase.chat.databinding.FragmentChatBinding;
 import com.firebase.chat.services.AuthService;
 import com.firebase.chat.viewmodels.ChatViewModel;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ChatFragment extends Fragment {
     private ChatViewModel chatViewModel;
     private ImageButton searchImageButton;
-    private ImageButton profileImageButton;
+    private CircleImageView profileCircleImageView;
 
     @Nullable
     @Override
@@ -38,9 +41,10 @@ public class ChatFragment extends Fragment {
             startSearchActivity();
         });
 
-        profileImageButton = fragmentChatBinding.getRoot().findViewById(R.id.ChatFragment_ImageButton_Profile);
+        profileCircleImageView = fragmentChatBinding.getRoot().findViewById(R.id.ChatFragment_CircleImageView_PhotoUrl);
+        Picasso.get().load(AuthService.getInstance().getCurrentUser().getPhotoUrl()).into(profileCircleImageView);
 
-        profileImageButton.setOnClickListener(v -> {
+        profileCircleImageView.setOnClickListener(v -> {
             startProfileActivity();
         });
 
