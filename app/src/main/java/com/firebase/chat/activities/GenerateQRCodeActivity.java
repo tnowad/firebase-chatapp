@@ -20,8 +20,7 @@ public class GenerateQRCodeActivity extends AppCompatActivity {
 
         ImageView qrCodeImageView = findViewById(R.id.GenerateQRCodeActivity_ImageView_GeneratedQRCode);
 
-        String content =
-                FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String content = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
 
