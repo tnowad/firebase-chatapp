@@ -42,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
                         binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Message);
                         break;
                     case 1:
-                        binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Profile);
+                        binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Contact);
                         break;
                     case 2:
+                        binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Request);
+                        break;
+                    case 3:
                         binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Setting);
                         break;
                 }
@@ -55,15 +58,18 @@ public class MainActivity extends AppCompatActivity {
     private void setupBottomNavigationBar(ActivityMainBinding binding) {
         binding.MainActivityBottomNav.setOnItemSelectedListener(item -> {
             int messageItemId = R.id.BottomNavMenu_Item_Message;
-            int profileItemId = R.id.BottomNavMenu_Item_Profile;
+            int contactItemId = R.id.BottomNavMenu_Item_Contact;
+            int requestItemId = R.id.BottomNavMenu_Item_Request;
             int settingItemId = R.id.BottomNavMenu_Item_Setting;
 
             if (item.getItemId() == messageItemId) {
                 binding.MainActivityViewPager2.setCurrentItem(0);
-            } else if (item.getItemId() == profileItemId) {
+            } else if (item.getItemId() == contactItemId) {
                 binding.MainActivityViewPager2.setCurrentItem(1);
-            } else if (item.getItemId() == settingItemId) {
+            } else if (item.getItemId() == requestItemId) {
                 binding.MainActivityViewPager2.setCurrentItem(2);
+            } else if (item.getItemId() == settingItemId) {
+                binding.MainActivityViewPager2.setCurrentItem(3);
             }
             return true;
         });

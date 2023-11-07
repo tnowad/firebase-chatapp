@@ -34,6 +34,7 @@ public class MessageViewModel {
 
         listMessageItemAdapter = new ListMessageItemAdapter(listMessage);
         recyclerView.setAdapter(listMessageItemAdapter);
+        recyclerView.scrollToPosition(listMessage.size() + 1);
     }
 
     public String getSelectedUser() {
