@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.firebase.chat.activities.ProfileActivity;
 import com.firebase.chat.R;
 import com.firebase.chat.activities.SearchActivity;
 import com.firebase.chat.databinding.FragmentChatBinding;
@@ -19,6 +20,7 @@ import com.firebase.chat.viewmodels.ChatViewModel;
 public class ChatFragment extends Fragment {
     private ChatViewModel chatViewModel;
     private ImageButton searchImageButton;
+    private ImageButton profileImageButton;
 
     @Nullable
     @Override
@@ -35,6 +37,12 @@ public class ChatFragment extends Fragment {
             startSearchActivity();
         });
 
+        profileImageButton = fragmentChatBinding.getRoot().findViewById(R.id.ChatFragment_ImageButton_Profile);
+
+        profileImageButton.setOnClickListener(v -> {
+            startProfileActivity();
+        });
+
 
         return fragmentChatBinding.getRoot();
     }
@@ -43,6 +51,12 @@ public class ChatFragment extends Fragment {
         Intent searchActivity = new Intent(getActivity(), SearchActivity.class);
         startActivity(searchActivity);
         getActivity().overridePendingTransition(0, 0);
+    }
+
+    private void startProfileActivity() {
+        Intent profileActivity = new Intent(getActivity(), ProfileActivity.class);
+        startActivity(profileActivity);
+        //getActivity().overridePendingTransition(0, 0);
     }
 
 }

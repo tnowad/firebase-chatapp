@@ -22,7 +22,7 @@
             android:name=".activities.QRCodeScannerActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SearchActivity"
