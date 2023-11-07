@@ -74,6 +74,7 @@ public class QRCodeScannerActivity extends AppCompatActivity {
                 startProfileActivity(uid);
             }
         }
+        finish();
     }
 
     private void startProfileActivity(String uid) {
