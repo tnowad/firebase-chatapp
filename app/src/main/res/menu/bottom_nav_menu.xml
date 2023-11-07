@@ -8,9 +8,15 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/BottomNavMenu_Item_Profile"
-        android:icon="@drawable/baseline_account_circle_24"
-        android:title="@string/BottomNav_title_profile"
+        android:id="@+id/BottomNavMenu_Item_Contact"
+        android:icon="@drawable/baseline_perm_contact_calendar_24"
+        android:title="@string/BottomNav_title_contact"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/BottomNavMenu_Item_Request"
+        android:icon="@drawable/baseline_person_add_alt_1_24"
+        android:title="@string/BottomNav_title_request"
         app:showAsAction="ifRoom" />
 
     <item

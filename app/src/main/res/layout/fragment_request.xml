@@ -5,10 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".fragments.SettingFragment">
 
-    <Button
-        android:id="@+id/SettingFragment_Button_SignOut"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Out" />
+        android:text="REQUEST" />
 
 </FrameLayout>

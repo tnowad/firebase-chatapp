@@ -2,9 +2,11 @@
     <string name="app_name">Firebase Chat</string>
 
     <string name="BottomNav_title_message">Chat</string>
-    <string name="BottomNav_title_profile">Profile</string>
+    <string name="BottomNav_title_contact">Contact</string>
+    <string name="BottomNav_title_request">Request</string>
     <string name="BottomNav_title_setting">Setting</string>
 
     <string name="default_web_client_id">270562782952-q7on4qvecartpjls249a3sjes25f1lu3.apps.googleusercontent.com</string>
+
 
 </resources>
