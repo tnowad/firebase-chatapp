@@ -5,8 +5,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class FriendService {
@@ -31,9 +33,11 @@ public class FriendService {
         Friend friend = new Friend(senderId, receiverId, "pending");
         TaskCompletionSource<DocumentReference> taskCompletionSource = new TaskCompletionSource<>();
 
-        friendsRef.add(friend)
-                .addOnSuccessListener(documentReference -> {
-                    taskCompletionSource.setResult(documentReference);
+        String documentId = senderId + "_" + receiverId;
+
+        friendsRef.document(documentId).set(friend)
+                .addOnSuccessListener(aVoid -> {
+                    taskCompletionSource.setResult(friendsRef.document(documentId));
                 })
                 .addOnFailureListener(e -> {
                     taskCompletionSource.setException(e);
@@ -45,19 +49,37 @@ public class FriendService {
     public Task<Void> unfriend(String senderId, String receiverId) {
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
-        friendsRef.whereEqualTo("senderId", senderId)
-                .whereEqualTo("receiverId", receiverId)
-                .get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (DocumentSnapshot document : queryDocumentSnapshots) {
-                        document.getReference().delete()
-                                .addOnSuccessListener(aVoid -> {
-                                    taskCompletionSource.setResult(null);
-                                })
-                                .addOnFailureListener(e -> {
-                                    taskCompletionSource.setException(e);
-                                });
-                    }
+        String documentId1 = senderId + "_" + receiverId;
+        String documentId2 = receiverId + "_" + senderId;
+
+        friendsRef.document(documentId1).delete()
+                .addOnSuccessListener(aVoid -> {
+                    taskCompletionSource.setResult(null);
+                })
+                .addOnFailureListener(e -> {
+                    friendsRef.document(documentId2).delete()
+                            .addOnSuccessListener(aVoid -> {
+                                taskCompletionSource.setResult(null);
+                            })
+                            .addOnFailureListener(e2 -> {
+                                taskCompletionSource.setException(e2);
+                            });
+                });
+
+        return taskCompletionSource.getTask();
+    }
+
+    public Task<Void> acceptFriendRequest(String senderId, String receiverId) {
+        TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
+
+        String documentId = senderId + "_" + receiverId;
+
+        Map<String, Object> updateData = new HashMap<>();
+        updateData.put("status", "accepted");
+
+        friendsRef.document(documentId).update(updateData)
+                .addOnSuccessListener(aVoid -> {
+                    taskCompletionSource.setResult(null);
                 })
                 .addOnFailureListener(e -> {
                     taskCompletionSource.setException(e);
