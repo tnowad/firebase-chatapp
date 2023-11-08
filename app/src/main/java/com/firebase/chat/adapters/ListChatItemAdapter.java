@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.chat.Interfaces.OnMessageItemListener;
-import com.firebase.chat.R;
+import com.firebase.chat.Interfaces.OnItemClickListener;
 import com.firebase.chat.activities.MessageActivity;
 import com.firebase.chat.databinding.ItemChatBinding;
 import com.firebase.chat.models.Chat;
@@ -21,8 +20,6 @@ import com.firebase.chat.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapter.ChatItemViewHolder> {
 
@@ -54,7 +51,7 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
         Picasso.get().load("https://lh3.googleusercontent.com/a/ACg8ocLIhqRgdV9L_YlarsQj4iJaSWFP2pQqg3oHdmchRiudZh8=s96-c")
                 .into(holder.itemMessageBinding.ChatItemImageViewAvatar);
 
-        holder.setOnMessageItemListener(new OnMessageItemListener() {
+        holder.setOnMessageItemListener(new OnItemClickListener() {
             @Override
             public void onMessageItem(View view, int pos) {
                 Intent intent = new Intent(context, MessageActivity.class);
@@ -62,6 +59,11 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
                 context.startActivity(intent);
                 Activity activity = (Activity) context;
                 activity.overridePendingTransition(0, 0);
+            }
+
+            @Override
+            public void onSearchItem(View view, int pos) {
+
             }
         });
         holder.itemMessageBinding.executePendingBindings();
@@ -77,7 +79,7 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
 
     public static class ChatItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ItemChatBinding itemMessageBinding;
-        private OnMessageItemListener onMessageItemListener;
+        private OnItemClickListener onItemClickListener;
 
         public ChatItemViewHolder(@NonNull ItemChatBinding itemMessageBinding) {
             super(itemMessageBinding.getRoot());
@@ -85,13 +87,13 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
             itemMessageBinding.getRoot().setOnClickListener(this);
         }
 
-        public void setOnMessageItemListener(OnMessageItemListener onMessageItemListener) {
-            this.onMessageItemListener = onMessageItemListener;
+        public void setOnMessageItemListener(OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
         }
 
         @Override
         public void onClick(View v) {
-            onMessageItemListener.onMessageItem(v, getAdapterPosition());
+            onItemClickListener.onMessageItem(v, getAdapterPosition());
         }
     }
 }

@@ -8,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableList;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.chat.Interfaces.OnMessageItemListener;
+import com.firebase.chat.Interfaces.OnItemClickListener;
 import com.firebase.chat.R;
-import com.firebase.chat.activities.MessageActivity;
-import com.firebase.chat.databinding.ItemChatBinding;
+import com.firebase.chat.activities.ProfileActivity;
+import com.firebase.chat.databinding.ItemSearchBinding;
 import com.firebase.chat.models.Chat;
 import com.firebase.chat.models.Message;
 import com.firebase.chat.models.User;
@@ -24,74 +25,78 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapter.ChatItemViewHolder> {
+public class ListSearchItemAdapter extends RecyclerView.Adapter<ListSearchItemAdapter.SearchItemViewHolder> {
 
     private final Context context;
-    private final List<Chat> listChat;
+    private final List<User> listUser;
 
-    public ListChatItemAdapter(Context context, List<Chat> listChat) {
+    public ListSearchItemAdapter(Context context, List<User> listUser) {
         this.context = context;
-        this.listChat = listChat;
+        this.listUser = listUser;
     }
 
     @NonNull
     @Override
-    public ChatItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemChatBinding itemChatBinding = ItemChatBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+    public SearchItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemSearchBinding itemSearchBinding = ItemSearchBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        return new ChatItemViewHolder(itemChatBinding);
+        return new SearchItemViewHolder(itemSearchBinding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatItemViewHolder holder, int position) {
-        Chat chat = listChat.get(position);
-        if (chat == null) {
+    public void onBindViewHolder(@NonNull SearchItemViewHolder holder, int position) {
+        User user = listUser.get(position);
+        if (user == null) {
             return;
         }
-        holder.itemMessageBinding.setChat(chat);
-        holder.itemMessageBinding.setMessage(new Message("123", "123", "Hello!", "3 seconds"));
-        holder.itemMessageBinding.setUser(new User("123", "123", "John Doe", ""));
-        CircleImageView profileCircleImageView = holder.itemMessageBinding.getRoot().findViewById(R.id.ChatItem_ImageView_Avatar);
-        Picasso.get().load("https://lh3.googleusercontent.com/a/ACg8ocLIhqRgdV9L_YlarsQj4iJaSWFP2pQqg3oHdmchRiudZh8=s96-c").into(profileCircleImageView);
+        //holder.itemSearchBinding.setUser(new User("123", "123", "John Doe", ""));
+        holder.itemSearchBinding.setUser(user);
+        Picasso.get().load(user.getPhotoUrl())
+                .into(holder.itemSearchBinding.SearchItemImageViewAvatar);
 
-        holder.setOnMessageItemListener(new OnMessageItemListener() {
+        holder.setOnMessageItemListener(new OnItemClickListener() {
             @Override
             public void onMessageItem(View view, int pos) {
-                Intent intent = new Intent(context, MessageActivity.class);
-                Utils.SELECTED_CHAT = chat;
-                context.startActivity(intent);
+
+            }
+
+            @Override
+            public void onSearchItem(View view, int pos) {
+                Intent profileActivity = new Intent(context, ProfileActivity.class);
+                profileActivity.putExtra("uid", user.getUid());
+                context.startActivity(profileActivity);
                 Activity activity = (Activity) context;
                 activity.overridePendingTransition(0, 0);
             }
         });
-        holder.itemMessageBinding.executePendingBindings();
+        holder.itemSearchBinding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
-        if (listChat == null) {
+        if (listUser == null) {
             return 0;
         }
-        return listChat.size();
+        return listUser.size();
     }
 
-    public static class ChatItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final ItemChatBinding itemMessageBinding;
-        private OnMessageItemListener onMessageItemListener;
+    public static class SearchItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final ItemSearchBinding itemSearchBinding;
+        private OnItemClickListener onItemClickListener;
 
-        public ChatItemViewHolder(@NonNull ItemChatBinding itemMessageBinding) {
-            super(itemMessageBinding.getRoot());
-            this.itemMessageBinding = itemMessageBinding;
-            itemMessageBinding.getRoot().setOnClickListener(this);
+        public SearchItemViewHolder(@NonNull ItemSearchBinding itemSearchBinding) {
+            super(itemSearchBinding.getRoot());
+            this.itemSearchBinding = itemSearchBinding;
+            itemSearchBinding.getRoot().setOnClickListener(this);
         }
 
-        public void setOnMessageItemListener(OnMessageItemListener onMessageItemListener) {
-            this.onMessageItemListener = onMessageItemListener;
+        public void setOnMessageItemListener(OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
         }
 
         @Override
         public void onClick(View v) {
-            onMessageItemListener.onMessageItem(v, getAdapterPosition());
+            onItemClickListener.onSearchItem(v, getAdapterPosition());
         }
     }
 }
