@@ -51,8 +51,8 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
         holder.itemMessageBinding.setChat(chat);
         holder.itemMessageBinding.setMessage(new Message("123", "123", "Hello!", "3 seconds"));
         holder.itemMessageBinding.setUser(new User("123", "123", "John Doe", ""));
-        Picasso.get().load("https://lh3.googleusercontent.com/a/ACg8ocLIhqRgdV9L_YlarsQj4iJaSWFP2pQqg3oHdmchRiudZh8=s96-c")
-                .into(holder.itemMessageBinding.ChatItemImageViewAvatar);
+        CircleImageView profileCircleImageView = holder.itemMessageBinding.getRoot().findViewById(R.id.ChatItem_ImageView_Avatar);
+        Picasso.get().load("https://lh3.googleusercontent.com/a/ACg8ocLIhqRgdV9L_YlarsQj4iJaSWFP2pQqg3oHdmchRiudZh8=s96-c").into(profileCircleImageView);
 
         holder.setOnMessageItemListener(new OnMessageItemListener() {
             @Override

@@ -22,7 +22,6 @@
         android:layout_marginVertical="10dp"
         android:background="@color/background"
         android:orientation="horizontal">
-
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ChatItem_ImageView_Avatar"
             android:layout_width="52dp"
@@ -37,7 +36,6 @@
             android:layout_marginTop="3dp"
             android:layout_weight="1"
             android:orientation="vertical">
-
             <TextView
                 android:id="@+id/ChatItem_TextView_DisplayName"
                 android:layout_width="wrap_content"
@@ -64,6 +62,5 @@
             android:layout_marginEnd="10dp"
             android:text="@{Message.timestamp}"
             android:textSize="13sp" />
-
     </LinearLayout>
 </layout>
