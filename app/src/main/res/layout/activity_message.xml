@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="MessageViewModel"
             type="com.firebase.chat.viewmodels.MessageViewModel" />
@@ -15,7 +14,6 @@
         android:layout_height="match_parent"
         tools:context=".activities.MessageActivity"
         android:background="@color/black">
-
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -27,7 +25,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
             <ImageButton
                 android:id="@+id/ChatActivity_ImageButton_back"
                 android:layout_width="44dp"
@@ -67,7 +64,6 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/MessageActivity_RecyclerView_listChat"
                 android:layout_width="match_parent"
@@ -88,7 +84,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -97,7 +92,6 @@
                 android:orientation="horizontal"
                 android:weightSum="10"
                 app:layout_constraintBottom_toBottomOf="parent">
-
                 <EditText
                     android:id="@+id/MessageActivity_EditText_inputMess"
                     android:layout_width="0dp"
@@ -118,6 +112,5 @@
                     android:background="@drawable/baseline_send_24" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

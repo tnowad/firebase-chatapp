@@ -23,8 +23,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatFragment extends Fragment {
     private ChatViewModel chatViewModel;
-    private ImageButton searchImageButton;
-    private CircleImageView profileCircleImageView;
 
     @Nullable
     @Override
@@ -35,16 +33,13 @@ public class ChatFragment extends Fragment {
         fragmentChatBinding.setChatViewModel(chatViewModel);
         fragmentChatBinding.executePendingBindings();
 
-        searchImageButton = fragmentChatBinding.getRoot().findViewById(R.id.ChatFragment_ImageButton_Search);
-
-        searchImageButton.setOnClickListener(v -> {
+        fragmentChatBinding.ChatFragmentImageButtonSearch.setOnClickListener(v -> {
             startSearchActivity();
         });
 
-        profileCircleImageView = fragmentChatBinding.getRoot().findViewById(R.id.ChatFragment_CircleImageView_PhotoUrl);
-        Picasso.get().load(AuthService.getInstance().getCurrentUser().getPhotoUrl()).into(profileCircleImageView);
+        Picasso.get().load(AuthService.getInstance().getCurrentUser().getPhotoUrl()).into(fragmentChatBinding.ChatFragmentCircleImageViewPhotoUrl);
 
-        profileCircleImageView.setOnClickListener(v -> {
+        fragmentChatBinding.ChatFragmentCircleImageViewPhotoUrl.setOnClickListener(v -> {
             startProfileActivity();
         });
 

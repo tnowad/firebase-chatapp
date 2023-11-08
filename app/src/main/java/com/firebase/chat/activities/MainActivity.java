@@ -9,22 +9,19 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.firebase.chat.R;
 import com.firebase.chat.adapters.ViewPagerAdapter;
 import com.firebase.chat.databinding.ActivityMainBinding;
-import com.firebase.chat.viewmodels.MainViewModel;
 
 public class MainActivity extends AppCompatActivity {
-    private MainViewModel mainViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mainViewModel = new MainViewModel();
-        binding.setMainViewModel(mainViewModel);
+        ActivityMainBinding activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(activityMainBinding.getRoot());
 
-        setupViewPager(binding);
+        setupViewPager(activityMainBinding);
 
-        setupBottomNavigationBar(binding);
+        setupBottomNavigationBar(activityMainBinding);
     }
 
     private void setupViewPager(ActivityMainBinding binding) {

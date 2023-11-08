@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".activities.ProfileActivity">
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -18,7 +18,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <ImageButton
             android:id="@+id/ProfileActivity_ImageButton_Back"
             android:layout_width="44dp"
@@ -35,7 +34,6 @@
             android:paddingTop="22dp"
             android:paddingBottom="20dp"
             android:textSize="20dp">
-
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ProfileActivity_CircleImageView_PhotoUrl"
                 android:layout_width="82dp"
@@ -71,7 +69,6 @@
                 android:orientation="horizontal"
                 android:showDividers="middle"
                 app:justifyContent="space_between">
-
                 <ImageButton
                     android:id="@+id/ProfileActivity_ImageButton_SendMessage"
                     android:layout_width="44dp"
@@ -84,14 +81,12 @@
                     android:layout_height="44dp"
                     android:background="@drawable/ic_add_friend" />
 
-
                 <ImageButton
                     android:id="@+id/ProfileActivity_ImageButton_Unfriend"
                     android:layout_width="44dp"
                     android:layout_height="44dp"
                     android:background="@drawable/ic_remove_friend"
                     android:visibility="visible" />
-
 
                 <ImageButton
                     android:id="@+id/ProfileActivity_ImageButton_GenerateQRCode"
@@ -106,7 +101,6 @@
                     android:background="@drawable/ic_option" />
             </com.google.android.flexbox.FlexboxLayout>
         </LinearLayout>
-
 
         <View
             android:layout_width="44dp"
@@ -124,7 +118,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="1.0">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -136,7 +129,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -161,7 +153,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -186,7 +177,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -205,7 +195,5 @@
                     android:textSize="18dp" />
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
