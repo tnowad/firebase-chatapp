@@ -63,7 +63,6 @@ public class ChatViewModel {
         Utils.LIST_CHAT.add(chat);
         Utils.LIST_CHAT.add(chat);
 
-        messageService.getList();
     }
 
     @SuppressLint("NotifyDataSetChanged")
