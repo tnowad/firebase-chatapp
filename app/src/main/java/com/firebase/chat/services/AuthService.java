@@ -43,4 +43,9 @@ public class AuthService {
     public FirebaseUser getCurrentUser() {
         return this.firebaseAuth.getCurrentUser();
     }
+
+    public void signOut() {
+        this.firebaseAuth.signOut();
+    }
+
 }
