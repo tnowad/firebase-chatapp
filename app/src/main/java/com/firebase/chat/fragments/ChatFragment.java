@@ -2,7 +2,6 @@ package com.firebase.chat.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,14 +32,24 @@ public class ChatFragment extends Fragment {
     @Override
     public View onCreateView(@Nullable LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentChatBinding fragmentChatBinding = FragmentChatBinding.inflate(inflater, container, false);
+        initViewModel(fragmentChatBinding);
+        initChatService();
+        setupListeners(fragmentChatBinding);
+        return fragmentChatBinding.getRoot();
+    }
 
-        chatService = ChatService.getInstance();
+    private void initViewModel(FragmentChatBinding fragmentChatBinding) {
         chatViewModel = new ChatViewModel(getActivity());
-
         fragmentChatBinding.setChatViewModel(chatViewModel);
         fragmentChatBinding.executePendingBindings();
+    }
 
+    private void initChatService() {
+        chatService = ChatService.getInstance();
+        observeChatDataChanges();
+    }
 
+    private void observeChatDataChanges() {
         chatService.getAllChatsForCurrentUser((queryDocumentSnapshots, e) -> {
             if (e != null) {
                 // Handle errors
@@ -50,41 +59,36 @@ public class ChatFragment extends Fragment {
             ObservableList<Chat> chatObservableList = new ObservableArrayList<>();
 
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                Chat chat = document.toObject(Chat.class);
-                chatObservableList.add(chat);
-
-                document.getReference().addSnapshotListener((snapshot, error) -> {
-                    if (error != null) {
-                        return;
-                    }
-
-                    if (snapshot != null && snapshot.exists()) {
-                        Chat updatedChat = snapshot.toObject(Chat.class);
-                        int index = chatObservableList.indexOf(chat);
-                        if (index != -1) {
-                            chatObservableList.set(index, updatedChat);
-                        }
-                    }
-                });
+                handleDocumentChanges(chatObservableList, document);
             }
 
-            Log.d(TAG, "Run");
             chatViewModel.setChatItems(chatObservableList);
         });
+    }
 
+    private void handleDocumentChanges(ObservableList<Chat> chatObservableList, QueryDocumentSnapshot document) {
+        Chat chat = document.toObject(Chat.class);
+        chatObservableList.add(chat);
 
-        fragmentChatBinding.ChatFragmentImageButtonSearch.setOnClickListener(v -> {
-            startSearchActivity();
+        document.getReference().addSnapshotListener((snapshot, error) -> {
+            if (error != null) {
+                return;
+            }
+
+            if (snapshot != null && snapshot.exists()) {
+                Chat updatedChat = snapshot.toObject(Chat.class);
+                int index = chatObservableList.indexOf(chat);
+                if (index != -1) {
+                    chatObservableList.set(index, updatedChat);
+                }
+            }
         });
+    }
 
+    private void setupListeners(FragmentChatBinding fragmentChatBinding) {
+        fragmentChatBinding.ChatFragmentImageButtonSearch.setOnClickListener(v -> startSearchActivity());
         Picasso.get().load(AuthService.getInstance().getCurrentUser().getPhotoUrl()).into(fragmentChatBinding.ChatFragmentCircleImageViewPhotoUrl);
-
-        fragmentChatBinding.ChatFragmentCircleImageViewPhotoUrl.setOnClickListener(v -> {
-            startProfileActivity();
-        });
-
-
-        return fragmentChatBinding.getRoot();
+        fragmentChatBinding.ChatFragmentCircleImageViewPhotoUrl.setOnClickListener(v -> startProfileActivity());
     }
 
     private void startSearchActivity() {
@@ -99,5 +103,4 @@ public class ChatFragment extends Fragment {
         profileActivity.putExtra("uid", uid);
         startActivity(profileActivity);
     }
-
 }
