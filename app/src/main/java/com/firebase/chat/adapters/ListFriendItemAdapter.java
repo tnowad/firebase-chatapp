@@ -11,11 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.Interfaces.OnItemClickListener;
-
 import com.firebase.chat.activities.ProfileActivity;
-import com.firebase.chat.databinding.ItemRequestBinding;
+import com.firebase.chat.databinding.ItemFriendBinding;
 import com.firebase.chat.models.Friend;
-
 import com.firebase.chat.models.User;
 import com.squareup.picasso.Picasso;
 
@@ -33,9 +31,9 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
     }
 
     public RequestItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemRequestBinding itemRequestBinding = ItemRequestBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        ItemFriendBinding itemFriendBinding = ItemFriendBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
 
-        return new RequestItemViewHolder(itemRequestBinding);
+        return new RequestItemViewHolder(itemFriendBinding);
     }
 
     @Override
@@ -72,8 +70,7 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
             @Override
             public void onRequestItem(View view, int pos, int type) {
                 if (type == 0) {
-                }
-                else if (type == 1) {
+                } else if (type == 1) {
                 }
             }
         });
@@ -88,15 +85,15 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
     }
 
     public static class RequestItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final ItemRequestBinding itemRequestBinding;
+        private final ItemFriendBinding itemRequestBinding;
         private OnItemClickListener onItemClickListener;
 
-        public RequestItemViewHolder(@NonNull ItemRequestBinding itemRequestBinding) {
-            super(itemRequestBinding.getRoot());
-            this.itemRequestBinding = itemRequestBinding;
-            itemRequestBinding.getRoot().setOnClickListener(this);
-            itemRequestBinding.RequestItemImageButtonAccept.setOnClickListener(this);
-            itemRequestBinding.RequestItemImageButtonDecline.setOnClickListener(this);
+        public RequestItemViewHolder(@NonNull ItemFriendBinding itemFriendBinding) {
+            super(itemFriendBinding.getRoot());
+            this.itemRequestBinding = itemFriendBinding;
+            itemFriendBinding.getRoot().setOnClickListener(this);
+            itemFriendBinding.RequestItemImageButtonAccept.setOnClickListener(this);
+            itemFriendBinding.RequestItemImageButtonDecline.setOnClickListener(this);
         }
 
         public void setOnMessageItemListener(OnItemClickListener onItemClickListener) {
@@ -111,8 +108,7 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
         public void onClick(View v) {
             if (v == itemRequestBinding.RequestItemImageButtonAccept) {
                 onItemClickListener.onRequestItem(v, getAdapterPosition(), 1);
-            }
-            else if (v == itemRequestBinding.RequestItemImageButtonDecline) {
+            } else if (v == itemRequestBinding.RequestItemImageButtonDecline) {
                 onItemClickListener.onRequestItem(v, getAdapterPosition(), 0);
             }
         }
