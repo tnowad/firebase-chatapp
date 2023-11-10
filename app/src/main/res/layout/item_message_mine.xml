@@ -31,7 +31,7 @@
             android:id="@+id/ItemMessage_TextView_MessageTimestamp"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{Message.timestamp}"
+            android:text="@{Message.getPrettyTimeTimestamp()}"
             android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="@+id/ItemMessage_TextView_MessageContent"
             app:layout_constraintTop_toBottomOf="@+id/ItemMessage_TextView_MessageContent" />

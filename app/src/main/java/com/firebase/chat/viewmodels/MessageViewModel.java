@@ -29,20 +29,12 @@ public class MessageViewModel {
     private static ListMessageItemAdapter listMessageItemAdapter;
     private final MessageService messageService = new MessageService();
     private final FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    private List<Message> listMessage = new ArrayList<>();
     public String selectedUser;
+    private List<Message> listMessage = new ArrayList<>();
 
     public MessageViewModel() {
         selectedUser = Utils.SELECTED_CHAT.getId();
         loadDataListMessage();
-    }
-
-    public void setListMessage(List<Message> listMessage) {
-        this.listMessage = listMessage;
-    }
-
-    public List<Message> getListMessage() {
-        return listMessage;
     }
 
     @BindingAdapter({"list_message"})
@@ -53,6 +45,14 @@ public class MessageViewModel {
         listMessageItemAdapter = new ListMessageItemAdapter(listMessage);
         recyclerView.setAdapter(listMessageItemAdapter);
         recyclerView.scrollToPosition(listMessage.size() - 1);
+    }
+
+    public List<Message> getListMessage() {
+        return listMessage;
+    }
+
+    public void setListMessage(List<Message> listMessage) {
+        this.listMessage = listMessage;
     }
 
     public String getSelectedUser() {
@@ -73,7 +73,7 @@ public class MessageViewModel {
         Message message = new Message();
         message.setChatId("123");
         message.setContent("Hello, Can I talk with you!");
-        message.setTimestamp(Timestamp.now().toDate().toString());
+        message.setTimestamp(Timestamp.now());
         message.setSenderId("123");
         listMessage.add(message);
         listMessage.add(message);
@@ -106,7 +106,7 @@ public class MessageViewModel {
         Message newMessage = new Message();
         newMessage.setChatId("123");
         newMessage.setContent(messageContent);
-        newMessage.setTimestamp(Timestamp.now().toDate().toString());
+        newMessage.setTimestamp(Timestamp.now());
         newMessage.setSenderId(Utils.CURRENT_UID);
         listMessage.add(newMessage);
 

@@ -1,15 +1,19 @@
 package com.firebase.chat.models;
 
+import com.google.firebase.Timestamp;
+
+import org.ocpsoft.prettytime.PrettyTime;
+
 public class Message {
     private String chatId;
     private String senderId;
     private String content;
-    private String timestamp;
+    private Timestamp timestamp;
 
     public Message() {
     }
 
-    public Message(String chatId, String senderId, String content, String timestamp) {
+    public Message(String chatId, String senderId, String content, Timestamp timestamp) {
         this.chatId = chatId;
         this.senderId = senderId;
         this.content = content;
@@ -40,11 +44,27 @@ public class Message {
         this.content = content;
     }
 
-    public String getTimestamp() {
+    public String getLimitLengthContent(int length) {
+        if (this.content.length() > length) {
+            return this.content.substring(0, length) + "...";
+        }
+        return this.content;
+    }
+
+    public String getPrettyTimeTimestamp() {
+        if (timestamp == null) {
+            return "";
+        }
+        PrettyTime prettyTime = new PrettyTime();
+        String timeAgo = prettyTime.format(timestamp.toDate());
+        return timeAgo;
+    }
+
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 }

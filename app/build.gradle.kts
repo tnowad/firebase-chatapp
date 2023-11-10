@@ -62,4 +62,6 @@ dependencies {
     implementation("com.google.zxing:core:3.3.3")
 
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+    implementation("org.ocpsoft.prettytime:prettytime:5.0.4.Final")
 }

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="Chat"
             type="com.firebase.chat.models.Chat" />
@@ -22,6 +23,7 @@
         android:layout_marginVertical="10dp"
         android:background="@color/background"
         android:orientation="horizontal">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ChatItem_ImageView_Avatar"
             android:layout_width="52dp"
@@ -36,6 +38,7 @@
             android:layout_marginTop="3dp"
             android:layout_weight="1"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/ChatItem_TextView_DisplayName"
                 android:layout_width="wrap_content"
@@ -50,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
-                android:text="@{Message.content}"
+                android:text="@{Message.getLimitLengthContent(50)}"
                 android:textSize="12dp" />
         </LinearLayout>
 
@@ -60,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="10dp"
-            android:text="@{Message.timestamp}"
+            android:text="@{Message.getPrettyTimeTimestamp()}"
             android:textSize="13sp" />
     </LinearLayout>
 </layout>

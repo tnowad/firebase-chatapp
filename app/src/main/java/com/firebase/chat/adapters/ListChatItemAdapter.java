@@ -19,6 +19,7 @@ import com.firebase.chat.models.User;
 import com.firebase.chat.services.AuthService;
 import com.firebase.chat.services.UserService;
 import com.firebase.chat.utils.Utils;
+import com.google.firebase.Timestamp;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
         });
 
 
-        holder.itemMessageBinding.setMessage(new Message("", "", "Loading", ""));
+        holder.itemMessageBinding.setMessage(new Message("", "", "Loading", Timestamp.now()));
         holder.itemMessageBinding.setUser(new User("", "", "Loading", ""));
 
 
