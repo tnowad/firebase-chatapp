@@ -103,17 +103,25 @@ public class FriendService {
     public Task<Void> acceptFriendRequest(String senderId, String receiverId) {
         TaskCompletionSource<Void> taskCompletionSource = new TaskCompletionSource<>();
 
-        String documentId = senderId + "_" + receiverId;
+        String documentId1 = senderId + "_" + receiverId;
+        String documentId2 = receiverId + "_" + senderId;
+
 
         Map<String, Object> updateData = new HashMap<>();
         updateData.put("status", "accepted");
 
-        friendsRef.document(documentId).update(updateData)
+        friendsRef.document(documentId1).update(updateData)
                 .addOnSuccessListener(aVoid -> {
                     taskCompletionSource.setResult(null);
                 })
                 .addOnFailureListener(e -> {
-                    taskCompletionSource.setException(e);
+                    friendsRef.document(documentId2).update(updateData)
+                            .addOnSuccessListener(aVoid -> {
+                                taskCompletionSource.setResult(null);
+                            })
+                            .addOnFailureListener(e2 -> {
+                                taskCompletionSource.setException(e2);
+                            });
                 });
 
         return taskCompletionSource.getTask();
