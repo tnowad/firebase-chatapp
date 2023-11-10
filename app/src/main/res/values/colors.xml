@@ -32,5 +32,7 @@
     <color name="background_icon">#DBDDE4</color>
     <color name="color_accept">#55FF5C</color>
     <color name="color_decline">#FF1100</color>
+    <color name="light_gray">#F3F6F6</color>
+    <color name="light_blue">#F2F7FB</color>
 
 </resources>

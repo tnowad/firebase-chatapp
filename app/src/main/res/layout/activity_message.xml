@@ -100,7 +100,7 @@
                 <EditText
                     android:id="@+id/MessageActivity_EditText_inputMess"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
+                    android:layout_height="40dp"
                     android:layout_weight="8"
                     android:background="@drawable/edittext_inputmess"
                     android:hint="Write your message"
@@ -111,7 +111,7 @@
                 <ImageButton
                     android:id="@+id/MessageActivity_ImageButton_sendMess"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1.5"
                     android:background="@drawable/baseline_send_24" />
