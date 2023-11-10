@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
 
         userService = UserService.getInstance();
         ActivitySearchBinding activitySearchBinding = DataBindingUtil.setContentView(this, R.layout.activity_search);
@@ -33,47 +35,45 @@ public class SearchActivity extends AppCompatActivity {
         activitySearchBinding.setUserViewModel(userViewModel);
 
         activitySearchBinding.SearchActivityEditTextSearch.requestFocus();
-        activitySearchBinding.SearchActivityImageButtonScanQR.setOnClickListener(v -> {
-            Intent scanQRIntent = new Intent(this, QRCodeScannerActivity.class);
-            startActivity(scanQRIntent);
-        });
+        activitySearchBinding.SearchActivityImageButtonScanQR.setOnClickListener(v -> startQRCodeScannerActivity());
 
-        activitySearchBinding.SearchActivityImageButtonBack.setOnClickListener(v -> {
-            finish();
-            overridePendingTransition(0, 0);
-        });
+        activitySearchBinding.SearchActivityImageButtonBack.setOnClickListener(v -> finishActivity());
 
         activitySearchBinding.SearchActivityEditTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                // Not used
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().contains("@")) {
-                    userService.getAllUserByEmail(s.toString(), (queryDocumentSnapshots, e) -> {
-                        if (e != null) {
-                            Toast.makeText(activitySearchBinding.getRoot().getContext(), "Failed to fetch data", Toast.LENGTH_SHORT);
-                            return;
-                        }
-
-                        ObservableList<User> userObservableList = new ObservableArrayList<>();
-
-
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            handleDocumentChanges(userObservableList, document);
-                        }
-
-                        userViewModel.setUserItems(userObservableList);
-                    });
+                    searchUsersByEmail(s.toString());
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                // Not used
             }
+        });
+    }
+
+    private void searchUsersByEmail(String email) {
+        userService.getAllUserByEmail(email, (queryDocumentSnapshots, e) -> {
+            if (e != null) {
+                Log.e(TAG, e.toString());
+                Toast.makeText(this, "Failed to fetch data", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ObservableList<User> userObservableList = new ObservableArrayList<>();
+
+            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                handleDocumentChanges(userObservableList, document);
+            }
+
+            userViewModel.setUserItems(userObservableList);
         });
     }
 
@@ -96,5 +96,13 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+    private void startQRCodeScannerActivity() {
+        Intent scanQRIntent = new Intent(this, QRCodeScannerActivity.class);
+        startActivity(scanQRIntent);
+    }
 
+    private void finishActivity() {
+        finish();
+        overridePendingTransition(0, 0);
+    }
 }
