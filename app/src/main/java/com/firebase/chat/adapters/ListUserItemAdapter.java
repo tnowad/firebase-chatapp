@@ -8,29 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableList;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.Interfaces.OnItemClickListener;
-import com.firebase.chat.R;
 import com.firebase.chat.activities.ProfileActivity;
 import com.firebase.chat.databinding.ItemSearchBinding;
-import com.firebase.chat.models.Chat;
-import com.firebase.chat.models.Message;
 import com.firebase.chat.models.User;
-import com.firebase.chat.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ListSearchItemAdapter extends RecyclerView.Adapter<ListSearchItemAdapter.SearchItemViewHolder> {
+public class ListUserItemAdapter extends RecyclerView.Adapter<ListUserItemAdapter.SearchItemViewHolder> {
 
     private final Context context;
     private final List<User> listUser;
 
-    public ListSearchItemAdapter(Context context, List<User> listUser) {
+    public ListUserItemAdapter(Context context, List<User> listUser) {
         this.context = context;
         this.listUser = listUser;
     }
@@ -49,7 +43,6 @@ public class ListSearchItemAdapter extends RecyclerView.Adapter<ListSearchItemAd
         if (user == null) {
             return;
         }
-        //holder.itemSearchBinding.setUser(new User("123", "123", "John Doe", ""));
         holder.itemSearchBinding.setUser(user);
         Picasso.get().load(user.getPhotoUrl())
                 .into(holder.itemSearchBinding.SearchItemImageViewAvatar);
