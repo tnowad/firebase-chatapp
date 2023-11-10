@@ -1,7 +1,6 @@
 package com.firebase.chat.activities;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-
                 switch (position) {
                     case 0:
                         binding.MainActivityBottomNav.setSelectedItemId(R.id.BottomNavMenu_Item_Message);

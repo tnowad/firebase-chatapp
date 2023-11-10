@@ -63,7 +63,10 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="20dp"
             android:backgroundTint="@color/background"
+            android:drawableLeft="@drawable/common_google_signin_btn_icon_dark"
             android:text="Login with Google"
-            android:textColor="@color/text_primary" />
+            android:textColor="@color/text_primary"
+            android:textStyle="bold" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
