@@ -5,7 +5,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +18,13 @@ import java.util.Map;
 public class FriendService {
 
     private static FriendService instance;
+    private final AuthService authService;
     FirebaseFirestore firestore;
     CollectionReference friendsRef;
 
     public FriendService() {
         firestore = FirebaseFirestore.getInstance();
+        authService = AuthService.getInstance();
         friendsRef = firestore.collection("friends");
     }
 
@@ -27,6 +33,31 @@ public class FriendService {
             instance = new FriendService();
         }
         return instance;
+    }
+
+    public void getAllPendingRequestsForCurrentUser(EventListener<QuerySnapshot> listener) {
+
+        String uid = authService.getCurrentUser().getUid();
+        Query query = friendsRef.whereEqualTo("status", "pending")
+                .where(Filter.and(
+                        Filter.or(
+                                Filter.equalTo("senderId", uid),
+                                Filter.equalTo("receiverId", uid)
+                        )
+                ));
+        query.addSnapshotListener(listener);
+    }
+
+    public void getAllAcceptedRequestsForCurrentUser(EventListener<QuerySnapshot> listener) {
+        String uid = authService.getCurrentUser().getUid();
+        Query query = friendsRef.whereEqualTo("status", "accepted")
+                .where(Filter.and(
+                        Filter.or(
+                                Filter.equalTo("senderId", uid),
+                                Filter.equalTo("receiverId", uid)
+                        )
+                ));
+        query.addSnapshotListener(listener);
     }
 
     public Task<DocumentReference> sendFriendRequest(String senderId, String receiverId) {

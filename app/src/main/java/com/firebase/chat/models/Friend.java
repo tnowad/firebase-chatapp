@@ -18,4 +18,14 @@ public class Friend {
         this.receiverId = receiverId;
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Friend{" +
+                "senderId='" + senderId + '\'' +
+                ", receiverId='" + receiverId + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
 }
