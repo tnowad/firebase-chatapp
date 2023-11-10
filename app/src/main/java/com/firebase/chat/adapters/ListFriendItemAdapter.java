@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.chat.activities.MessageActivity;
 import com.firebase.chat.activities.ProfileActivity;
 import com.firebase.chat.databinding.ItemFriendBinding;
+import com.firebase.chat.models.Chat;
 import com.firebase.chat.models.Friend;
 import com.firebase.chat.services.AuthService;
 import com.firebase.chat.services.ChatService;
 import com.firebase.chat.services.FriendService;
 import com.firebase.chat.services.UserService;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -81,19 +83,34 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
 
             holder.setOnItemClickListener(v -> {
                 Intent messageActivityIntent = new Intent(context, MessageActivity.class);
-                ChatService.getInstance().createChatIfNotExists(
-                        Arrays.asList(friend.getReceiverId(), friend.getSenderId())
-                ).addOnCompleteListener((Activity) context, task -> {
-                    if (task.isComplete()) {
-                        messageActivityIntent.putExtra("chatId",
-                                task.getResult().getId()
-                        );
-                        context.startActivity(messageActivityIntent);
-                        Activity activity = (Activity) context;
-                        activity.overridePendingTransition(0, 0);
-                    }
-                });
+                ChatService.getInstance().getAllChatsForCurrentUser((value, error) -> {
+                    for (DocumentSnapshot documentSnapshot : value.getDocuments()) {
+                        Chat chat = documentSnapshot.toObject(Chat.class);
+                        chat.setId(documentSnapshot.getId());
 
+                        if (chat.getParticipants().containsAll(
+                                Arrays.asList(friend.getReceiverId(), friend.getSenderId())
+                        )) {
+                            messageActivityIntent.putExtra("chatId", documentSnapshot.getId());
+                            context.startActivity(messageActivityIntent);
+                            return;
+                        }
+                    }
+
+                    ChatService.getInstance().createChat(
+                            Arrays.asList(friend.getReceiverId(), friend.getSenderId())
+                    ).addOnCompleteListener((Activity) context, task -> {
+                        if (task.isComplete()) {
+                            messageActivityIntent.putExtra("chatId",
+                                    task.getResult().getId()
+                            );
+
+                            context.startActivity(messageActivityIntent);
+                            Activity activity = (Activity) context;
+                            activity.overridePendingTransition(0, 0);
+                        }
+                    });
+                });
 
             });
 

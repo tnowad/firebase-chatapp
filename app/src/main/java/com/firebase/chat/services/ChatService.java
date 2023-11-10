@@ -38,8 +38,9 @@ public class ChatService {
     }
 
 
-    public Task<DocumentReference> createChatIfNotExists(List<String> participants) {
-        Query query = chatsRef;
+    public Task<DocumentReference> createChat(List<String> participants) {
+
+        Query query = chatsRef.whereArrayContains("participants", participants);
 
         return query.get().continueWithTask(task -> {
             QuerySnapshot querySnapshot = task.getResult();
