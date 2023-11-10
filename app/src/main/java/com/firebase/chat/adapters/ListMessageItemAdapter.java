@@ -1,25 +1,25 @@
 package com.firebase.chat.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableList;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.databinding.ItemMessageMineBinding;
 import com.firebase.chat.databinding.ItemMessageOtherBinding;
 import com.firebase.chat.models.Message;
-import com.firebase.chat.utils.Utils;
-
-import java.util.List;
+import com.firebase.chat.services.AuthService;
 
 public class ListMessageItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int MESSAGE_TYPE_SENDING = 0;
     private static final int MESSAGE_TYPE_RECEIVING = 1;
-    private final List<Message> listMessage;
+    private final ObservableList<Message> messageObservableList;
 
-    public ListMessageItemAdapter(List<Message> listMessage) {
-        this.listMessage = listMessage;
+    public ListMessageItemAdapter(Context context, ObservableList<Message> messageObservableList) {
+        this.messageObservableList = messageObservableList;
     }
 
     @NonNull
@@ -37,7 +37,7 @@ public class ListMessageItemAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Message message = listMessage.get(position);
+        Message message = messageObservableList.get(position);
         if (message == null) {
             return;
         }
@@ -51,16 +51,15 @@ public class ListMessageItemAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public int getItemViewType(int position) {
         // TODO: check current user from firebase
-        return (listMessage.get(position).getSenderId().equals(Utils.CURRENT_UID)) ? MESSAGE_TYPE_SENDING : MESSAGE_TYPE_RECEIVING;
-        //return MESSAGE_TYPE_SENDING;
+        return (messageObservableList.get(position).getSenderId().equals(AuthService.getInstance().getCurrentUser().getUid())) ? MESSAGE_TYPE_SENDING : MESSAGE_TYPE_RECEIVING;
     }
 
     @Override
     public int getItemCount() {
-        if (listMessage == null) {
+        if (messageObservableList == null) {
             return 0;
         }
-        return listMessage.size();
+        return messageObservableList.size();
     }
 
     public class ItemMessageMineViewHolder extends RecyclerView.ViewHolder {

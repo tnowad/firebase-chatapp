@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="MessageViewModel"
             type="com.firebase.chat.viewmodels.MessageViewModel" />
+
+        <variable
+            name="User"
+            type="com.firebase.chat.models.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activities.MessageActivity"
-        android:background="@color/black">
+        android:background="@color/black"
+        tools:context=".activities.MessageActivity">
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -25,6 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <ImageButton
                 android:id="@+id/ChatActivity_ImageButton_back"
                 android:layout_width="44dp"
@@ -35,8 +42,8 @@
                 android:id="@+id/MessageActivity_ImageView_avatar"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:src="@drawable/ic_user"
                 android:layout_marginLeft="20dp"
+                android:src="@drawable/ic_user"
                 app:civ_border_color="@color/black"
                 app:civ_border_width="2dp" />
 
@@ -45,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="@{MessageViewModel.selectedUser}"
+                android:text="@{User.displayName}"
                 android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -64,17 +71,19 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
             <FrameLayout
                 android:id="@+id/MessageActivity_FrameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/MessageActivity_RecyclerView_listChat"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="20dp"
-                    app:list_message="@{MessageViewModel.listMessage}"
+                    app:messageItems="@{MessageViewModel.messageObservableList}"
                     tools:layout_editor_absoluteX="20dp" />
             </FrameLayout>
         </LinearLayout>
@@ -89,6 +98,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -97,6 +107,7 @@
                 android:orientation="horizontal"
                 android:weightSum="10"
                 app:layout_constraintBottom_toBottomOf="parent">
+
                 <EditText
                     android:id="@+id/MessageActivity_EditText_inputMess"
                     android:layout_width="0dp"
@@ -106,7 +117,7 @@
                     android:hint="Write your message"
                     android:paddingLeft="20dp"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/text_secondary"/>
+                    android:textColorHint="@color/text_secondary" />
 
                 <ImageButton
                     android:id="@+id/MessageActivity_ImageButton_sendMess"
