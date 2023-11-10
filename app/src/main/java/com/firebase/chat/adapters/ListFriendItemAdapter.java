@@ -45,28 +45,27 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
         }
 
         String uid = null;
-        if (friend.senderId != AuthService.getInstance().getCurrentUser().getUid()) {
+        if (friend.senderId.equals(AuthService.getInstance().getCurrentUser().getUid())) {
             uid = friend.receiverId;
         } else {
             uid = friend.senderId;
         }
 
-        if (uid != null && !uid.equals("")) {
-            UserService.getInstance().getUserByUid(uid).addOnSuccessListener(user -> {
-                if (user != null) {
-                    holder.itemRequestBinding.setUser(user);
-                    Picasso.get().load(user.getPhotoUrl())
-                            .into(holder.itemRequestBinding.RequestItemImageViewAvatar);
-                }
-            });
-        }
+        UserService.getInstance().getUserByUid(uid).addOnSuccessListener(user -> {
+            if (user != null && !user.getUid().equals(AuthService.getInstance().getCurrentUser().getUid())) {
+                holder.itemRequestBinding.setUser(user);
+                Picasso.get().load(user.getPhotoUrl())
+                        .into(holder.itemRequestBinding.RequestItemImageViewAvatar);
+            }
+        });
 
 
         String finalUid3 = uid;
         holder.setOnDeclineButtonListener(v -> {
             FriendService.getInstance().unfriend(AuthService.getInstance().getCurrentUser().getUid(), finalUid3);
         });
-        if (friend.getStatus().equals("accepted")) {
+
+        if (friend.getStatus().equals("accepted") || friend.getSenderId().equals(AuthService.getInstance().getCurrentUser().getUid())) {
             holder.setVisibleAcceptButton();
             String finalUid1 = uid;
         } else {
@@ -75,7 +74,7 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
                 FriendService.getInstance().acceptFriendRequest(AuthService.getInstance().getCurrentUser().getUid(), finalUid2);
             });
         }
-
+        holder.setOnItemClickListener();
 
         String finalUid = uid;
         holder.setOnItemClickListener(new OnItemClickListener() {
@@ -112,7 +111,7 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
 
     public static class RequestItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ItemFriendBinding itemRequestBinding;
-        private OnItemClickListener onItemClickListener;
+        private View.OnItemClickListener onItemClickListener;
 
         public RequestItemViewHolder(@NonNull ItemFriendBinding itemFriendBinding) {
             super(itemFriendBinding.getRoot());
@@ -120,7 +119,7 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
             itemFriendBinding.getRoot().setOnClickListener(this);
         }
 
-        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        public void setOnItemClickListener(View.OnItemClickListener onItemClickListener) {
             this.onItemClickListener = onItemClickListener;
         }
 
