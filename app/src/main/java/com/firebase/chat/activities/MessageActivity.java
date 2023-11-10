@@ -1,5 +1,6 @@
 package com.firebase.chat.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -32,13 +33,24 @@ public class MessageActivity extends AppCompatActivity {
         messageService = MessageService.getInstance();
         chatService = ChatService.getInstance();
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle extras = intent.getExtras();
+            if (extras != null && extras.containsKey("chatId")) {
+                chatId = extras.getString("chatId");
+            }
+            if (chatId == null) {
+                finish();
+            }
+        }
+
         activityMessageBinding = DataBindingUtil
                 .setContentView(this, R.layout.activity_message);
         messageViewModel = new MessageViewModel(this);
 
         activityMessageBinding.setMessageViewModel(messageViewModel);
 
-        messageService.getAllMessagesByChatId("R1eJEUgHJjFdQdK0Ya1A", (queryDocumentSnapshots, e) -> {
+        messageService.getAllMessagesByChatId(chatId, (queryDocumentSnapshots, e) -> {
             if (e != null) {
                 Toast.makeText(this, "Failed to fetch data", Toast.LENGTH_SHORT);
                 return;
@@ -60,6 +72,7 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         activityMessageBinding.MessageActivityImageButtonSendMess.setOnClickListener(v -> {
+
         });
 
         activityMessageBinding.MessageActivityEditTextInputMess.setOnClickListener(v -> {

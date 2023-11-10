@@ -68,6 +68,7 @@ public class ChatFragment extends Fragment {
 
     private void handleDocumentChanges(ObservableList<Chat> chatObservableList, QueryDocumentSnapshot document) {
         Chat chat = document.toObject(Chat.class);
+        chat.setId(document.getId());
         chatObservableList.add(chat);
 
         document.getReference().addSnapshotListener((snapshot, error) -> {
@@ -77,6 +78,7 @@ public class ChatFragment extends Fragment {
 
             if (snapshot != null && snapshot.exists()) {
                 Chat updatedChat = snapshot.toObject(Chat.class);
+                updatedChat.setId(snapshot.getId());
                 int index = chatObservableList.indexOf(chat);
                 if (index != -1) {
                     chatObservableList.set(index, updatedChat);

@@ -39,7 +39,7 @@
                 android:background="@drawable/ic_back" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/MessageActivity_ImageView_avatar"
+                android:id="@+id/MessageActivity_ImageView_PhotoUrl"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:layout_marginLeft="20dp"
@@ -48,7 +48,7 @@
                 app:civ_border_width="2dp" />
 
             <TextView
-                android:id="@+id/MessageActivity_TextView_username"
+                android:id="@+id/MessageActivity_TextView_DisplayName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"

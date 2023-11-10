@@ -1,10 +1,17 @@
 package com.firebase.chat.services;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChatService {
     public static ChatService instance;
@@ -30,4 +37,20 @@ public class ChatService {
         query.addSnapshotListener(listener);
     }
 
+
+    public Task<DocumentReference> createChatIfNotExists(List<String> participants) {
+        Query query = chatsRef;
+
+        return query.get().continueWithTask(task -> {
+            QuerySnapshot querySnapshot = task.getResult();
+            if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                return Tasks.forResult(querySnapshot.getDocuments().get(0).getReference());
+            } else {
+                Map<String, Object> newChatData = new HashMap<>();
+                newChatData.put("participants", participants);
+
+                return chatsRef.add(newChatData);
+            }
+        });
+    }
 }

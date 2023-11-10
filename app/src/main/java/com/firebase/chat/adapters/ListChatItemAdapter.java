@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.chat.Interfaces.OnItemClickListener;
 import com.firebase.chat.R;
 import com.firebase.chat.activities.MessageActivity;
 import com.firebase.chat.databinding.ItemChatBinding;
@@ -21,7 +20,6 @@ import com.firebase.chat.models.User;
 import com.firebase.chat.services.AuthService;
 import com.firebase.chat.services.MessageService;
 import com.firebase.chat.services.UserService;
-import com.firebase.chat.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -76,26 +74,14 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
         holder.itemMessageBinding.setUser(new User("", "", "Loading", ""));
 
 
-        holder.setOnMessageItemListener(new OnItemClickListener() {
-            @Override
-            public void onMessageItem(View view, int pos) {
-                Intent intent = new Intent(context, MessageActivity.class);
-                Utils.SELECTED_CHAT = chat;
-                context.startActivity(intent);
-                Activity activity = (Activity) context;
-                activity.overridePendingTransition(0, 0);
-            }
-
-            @Override
-            public void onSearchItem(View view, int pos) {
-
-            }
-
-            @Override
-            public void onRequestItem(View view, int pos, int type) {
-
-            }
+        holder.setOnItemListener(v -> {
+            Intent intent = new Intent(context, MessageActivity.class);
+            intent.putExtra("chatId", chat.getId());
+            context.startActivity(intent);
+            Activity activity = (Activity) context;
+            activity.overridePendingTransition(0, 0);
         });
+
         holder.itemMessageBinding.executePendingBindings();
     }
 
@@ -107,30 +93,23 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
         return listChat.size();
     }
 
-    public static class ChatItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ChatItemViewHolder extends RecyclerView.ViewHolder {
         private final ItemChatBinding itemMessageBinding;
         private final TextView textView;
-        private OnItemClickListener onItemClickListener;
 
         public ChatItemViewHolder(@NonNull ItemChatBinding itemMessageBinding) {
             super(itemMessageBinding.getRoot());
             this.itemMessageBinding = itemMessageBinding;
             textView = itemMessageBinding.getRoot().findViewById(R.id.ChatItem_TextView_LastMessageContent);
-
-            itemMessageBinding.getRoot().setOnClickListener(this);
         }
 
-        public void setOnMessageItemListener(OnItemClickListener onItemClickListener) {
-            this.onItemClickListener = onItemClickListener;
+        public void setOnItemListener(View.OnClickListener onClickListener) {
+            this.itemMessageBinding.getRoot().setOnClickListener(onClickListener);
         }
 
         public void setContentTextViewBold() {
             textView.setTypeface(null, Typeface.BOLD);
         }
 
-        @Override
-        public void onClick(View v) {
-            onItemClickListener.onMessageItem(v, getAdapterPosition());
-        }
     }
 }
