@@ -4,25 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/BottomNavMenu_Item_Message"
-        android:icon="@drawable/baseline_message_24"
+        android:icon="@drawable/ic_message"
         android:title="@string/BottomNav_title_message"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/BottomNavMenu_Item_Contact"
-        android:icon="@drawable/baseline_perm_contact_calendar_24"
+        android:icon="@drawable/ic_user"
         android:title="@string/BottomNav_title_contact"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/BottomNavMenu_Item_Request"
-        android:icon="@drawable/baseline_person_add_alt_1_24"
+        android:icon="@drawable/ic_option"
         android:title="@string/BottomNav_title_request"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/BottomNavMenu_Item_Setting"
-        android:icon="@drawable/baseline_settings_24"
+        android:icon="@drawable/ic_settings"
         android:title="@string/BottomNav_title_setting"
         app:showAsAction="ifRoom" />
 </menu>

@@ -111,8 +111,8 @@
                 android:id="@+id/SettingFragment_ImageButton_signout"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/background_circle"
-                android:src="@drawable/baseline_logout_24"
+                android:background="@drawable/background_round_top"
+                android:src="@drawable/ic_logout"
                 app:civ_border_color="@color/black" />
 
             <LinearLayout
