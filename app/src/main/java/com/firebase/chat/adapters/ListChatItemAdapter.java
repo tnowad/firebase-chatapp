@@ -16,10 +16,13 @@ import com.firebase.chat.databinding.ItemChatBinding;
 import com.firebase.chat.models.Chat;
 import com.firebase.chat.models.Message;
 import com.firebase.chat.models.User;
+import com.firebase.chat.services.AuthService;
+import com.firebase.chat.services.UserService;
 import com.firebase.chat.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapter.ChatItemViewHolder> {
 
@@ -46,10 +49,21 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
             return;
         }
         holder.itemMessageBinding.setChat(chat);
-        holder.itemMessageBinding.setMessage(new Message("123", "123", "Hello!", "3 seconds"));
-        holder.itemMessageBinding.setUser(new User("123", "123", "John Doe", ""));
-        Picasso.get().load("https://lh3.googleusercontent.com/a/ACg8ocLIhqRgdV9L_YlarsQj4iJaSWFP2pQqg3oHdmchRiudZh8=s96-c")
-                .into(holder.itemMessageBinding.ChatItemImageViewAvatar);
+
+
+        String uid = chat.getParticipants().stream().filter(s -> !s.equals(AuthService.getInstance().getCurrentUser().getUid())).collect(Collectors.toList()).get(0);
+        UserService.getInstance().getUserByUid(uid).addOnSuccessListener(user -> {
+            if (user != null) {
+                holder.itemMessageBinding.setUser(user);
+                Picasso.get().load(user.getPhotoUrl())
+                        .into(holder.itemMessageBinding.ChatItemImageViewAvatar);
+            }
+        });
+
+
+        holder.itemMessageBinding.setMessage(new Message("", "", "Loading", ""));
+        holder.itemMessageBinding.setUser(new User("", "", "Loading", ""));
+
 
         holder.setOnMessageItemListener(new OnItemClickListener() {
             @Override
