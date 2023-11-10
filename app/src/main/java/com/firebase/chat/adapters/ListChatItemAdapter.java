@@ -79,6 +79,11 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
             public void onSearchItem(View view, int pos) {
 
             }
+
+            @Override
+            public void onRequestItem(View view, int pos, int type) {
+
+            }
         });
         holder.itemMessageBinding.executePendingBindings();
     }

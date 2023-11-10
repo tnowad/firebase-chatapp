@@ -11,19 +11,30 @@ import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 import androidx.fragment.app.Fragment;
 
-import com.firebase.chat.R;
+import com.firebase.chat.databinding.FragmentRequestBinding;
 import com.firebase.chat.models.Friend;
 import com.firebase.chat.services.FriendService;
+import com.firebase.chat.viewmodels.FriendViewModel;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 
 public class RequestFragment extends Fragment {
     private static final String TAG = RequestFragment.class.getSimpleName();
     private FriendService friendService;
+    private FriendViewModel friendViewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        FragmentRequestBinding fragmentRequestBinding = FragmentRequestBinding.inflate(inflater, container, false);
+        initViewModel(fragmentRequestBinding);
+        initChatService();
+        //setupListeners(fragmentRequestBinding);
+        ObservableList<Friend> requestItems = new ObservableArrayList<>();
+        requestItems.add(new Friend("", "", "pending"));
+        friendViewModel.setFriendItems(requestItems);
+
         friendService = FriendService.getInstance();
         friendService.getAllPendingRequestsForCurrentUser((queryDocumentSnapshots, e) -> {
             if (e != null) {
@@ -41,9 +52,18 @@ public class RequestFragment extends Fragment {
             // Update model view here
         });
 
-        View rootView = inflater.inflate(R.layout.fragment_request, container, false);
+        return fragmentRequestBinding.getRoot();
+    }
 
-        return rootView;
+    private void initViewModel(FragmentRequestBinding fragmentRequestBinding) {
+        friendViewModel = new FriendViewModel(getActivity());
+        fragmentRequestBinding.setFriendViewModel(friendViewModel);
+        fragmentRequestBinding.executePendingBindings();
+    }
+
+    private void initChatService() {
+        friendService = FriendService.getInstance();
+        //observeChatDataChanges();
     }
 
     private void handleDocumentChanges(ObservableList<Friend> friendObservableList, QueryDocumentSnapshot document) {

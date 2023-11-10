@@ -61,6 +61,11 @@ public class ListUserItemAdapter extends RecyclerView.Adapter<ListUserItemAdapte
                 Activity activity = (Activity) context;
                 activity.overridePendingTransition(0, 0);
             }
+
+            @Override
+            public void onRequestItem(View view, int pos, int type) {
+
+            }
         });
         holder.itemSearchBinding.executePendingBindings();
     }
