@@ -41,6 +41,7 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
     @Override
     public void onBindViewHolder(@NonNull RequestItemViewHolder holder, int position) {
         Friend request = listRequest.get(position);
+        //request.setStatus("accepted");
         User senderUser = new User("GpwYBAEvmoS56upYsosYSujcODk2", "Sender Email", "Sender Name", "https://lh3.googleusercontent.com/a/ACg8ocLIhqRgdV9L_YlarsQj4iJaSWFP2pQqg3oHdmchRiudZh8=s96-c");
         if (request == null) {
             return;
@@ -48,6 +49,10 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
         holder.itemRequestBinding.setUser(senderUser);
         Picasso.get().load(senderUser.getPhotoUrl())
                 .into(holder.itemRequestBinding.RequestItemImageViewAvatar);
+
+        if (request.getStatus().equals("accepted")) {
+            holder.setVisibleAcceptButton();
+        }
 
         holder.setOnMessageItemListener(new OnItemClickListener() {
             @Override
@@ -96,6 +101,10 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
 
         public void setOnMessageItemListener(OnItemClickListener onItemClickListener) {
             this.onItemClickListener = onItemClickListener;
+        }
+
+        public void setVisibleAcceptButton() {
+            itemRequestBinding.RequestItemImageButtonAccept.setVisibility(View.GONE);
         }
 
         @Override
