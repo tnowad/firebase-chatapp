@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,8 +25,6 @@ public class ChatViewModel {
     public static void bindChatItems(RecyclerView recyclerView, ObservableList<Chat> chatObservableList) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
 
         listChatItemAdapter = new ListChatItemAdapter(context, chatObservableList);
         recyclerView.setAdapter(listChatItemAdapter);

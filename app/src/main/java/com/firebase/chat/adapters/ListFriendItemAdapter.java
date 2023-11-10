@@ -8,26 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableList;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.Interfaces.OnItemClickListener;
 import com.firebase.chat.activities.ProfileActivity;
 import com.firebase.chat.databinding.ItemFriendBinding;
 import com.firebase.chat.models.Friend;
-import com.firebase.chat.models.User;
+import com.firebase.chat.services.AuthService;
+import com.firebase.chat.services.FriendService;
+import com.firebase.chat.services.UserService;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 
 public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAdapter.RequestItemViewHolder> {
 
     private final Context context;
-    private final List<Friend> listRequest;
+    private final ObservableList<Friend> friendObservableList;
 
-    public ListFriendItemAdapter(Context context, List<Friend> listRequest) {
+    public ListFriendItemAdapter(Context context, ObservableList<Friend> friendObservableList) {
         this.context = context;
-        this.listRequest = listRequest;
+        this.friendObservableList = friendObservableList;
     }
 
     public RequestItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,21 +39,46 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
 
     @Override
     public void onBindViewHolder(@NonNull RequestItemViewHolder holder, int position) {
-        Friend request = listRequest.get(position);
-        //request.setStatus("accepted");
-        User senderUser = new User("GpwYBAEvmoS56upYsosYSujcODk2", "Sender Email", "Sender Name", "https://lh3.googleusercontent.com/a/ACg8ocLIhqRgdV9L_YlarsQj4iJaSWFP2pQqg3oHdmchRiudZh8=s96-c");
-        if (request == null) {
+        Friend friend = friendObservableList.get(position);
+        if (friend == null) {
             return;
         }
-        holder.itemRequestBinding.setUser(senderUser);
-        Picasso.get().load(senderUser.getPhotoUrl())
-                .into(holder.itemRequestBinding.RequestItemImageViewAvatar);
 
-        if (request.getStatus().equals("accepted")) {
-            holder.setVisibleAcceptButton();
+        String uid = null;
+        if (friend.senderId != AuthService.getInstance().getCurrentUser().getUid()) {
+            uid = friend.receiverId;
+        } else {
+            uid = friend.senderId;
         }
 
-        holder.setOnMessageItemListener(new OnItemClickListener() {
+        if (uid != null && !uid.equals("")) {
+            UserService.getInstance().getUserByUid(uid).addOnSuccessListener(user -> {
+                if (user != null) {
+                    holder.itemRequestBinding.setUser(user);
+                    Picasso.get().load(user.getPhotoUrl())
+                            .into(holder.itemRequestBinding.RequestItemImageViewAvatar);
+                }
+            });
+        }
+
+
+        String finalUid3 = uid;
+        holder.setOnDeclineButtonListener(v -> {
+            FriendService.getInstance().unfriend(AuthService.getInstance().getCurrentUser().getUid(), finalUid3);
+        });
+        if (friend.getStatus().equals("accepted")) {
+            holder.setVisibleAcceptButton();
+            String finalUid1 = uid;
+        } else {
+            String finalUid2 = uid;
+            holder.setOnAcceptButtonListener(v -> {
+                FriendService.getInstance().acceptFriendRequest(AuthService.getInstance().getCurrentUser().getUid(), finalUid2);
+            });
+        }
+
+
+        String finalUid = uid;
+        holder.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onMessageItem(View view, int pos) {
 
@@ -61,7 +87,7 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
             @Override
             public void onSearchItem(View view, int pos) {
                 Intent profileActivity = new Intent(context, ProfileActivity.class);
-                profileActivity.putExtra("uid", senderUser.getUid());
+                profileActivity.putExtra("uid", finalUid);
                 context.startActivity(profileActivity);
                 Activity activity = (Activity) context;
                 activity.overridePendingTransition(0, 0);
@@ -78,10 +104,10 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
 
     @Override
     public int getItemCount() {
-        if (listRequest == null) {
+        if (friendObservableList == null) {
             return 0;
         }
-        return listRequest.size();
+        return friendObservableList.size();
     }
 
     public static class RequestItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -92,12 +118,18 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
             super(itemFriendBinding.getRoot());
             this.itemRequestBinding = itemFriendBinding;
             itemFriendBinding.getRoot().setOnClickListener(this);
-            itemFriendBinding.RequestItemImageButtonAccept.setOnClickListener(this);
-            itemFriendBinding.RequestItemImageButtonDecline.setOnClickListener(this);
         }
 
-        public void setOnMessageItemListener(OnItemClickListener onItemClickListener) {
+        public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
             this.onItemClickListener = onItemClickListener;
+        }
+
+        public void setOnAcceptButtonListener(View.OnClickListener onClickListener) {
+            itemRequestBinding.RequestItemImageButtonAccept.setOnClickListener(onClickListener);
+        }
+
+        public void setOnDeclineButtonListener(View.OnClickListener onClickListener) {
+            itemRequestBinding.RequestItemImageButtonDecline.setOnClickListener(onClickListener);
         }
 
         public void setVisibleAcceptButton() {

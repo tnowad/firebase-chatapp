@@ -5,14 +5,11 @@ import android.content.Context;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.chat.adapters.ListFriendItemAdapter;
 import com.firebase.chat.models.Friend;
-
-import java.util.List;
 
 public class FriendViewModel {
     private static final String TAG = FriendViewModel.class.getSimpleName();
@@ -25,13 +22,11 @@ public class FriendViewModel {
     }
 
     @BindingAdapter({"friendItems"})
-    public static void bindFriendItems(RecyclerView recyclerView, List<Friend> list) {
+    public static void bindFriendItems(RecyclerView recyclerView, ObservableList<Friend> friendObservableList) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(recyclerView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
 
-        listFriendItemAdapter = new ListFriendItemAdapter(context, list);
+        listFriendItemAdapter = new ListFriendItemAdapter(context, friendObservableList);
         recyclerView.setAdapter(listFriendItemAdapter);
     }
 

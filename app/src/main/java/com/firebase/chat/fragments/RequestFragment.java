@@ -31,9 +31,6 @@ public class RequestFragment extends Fragment {
         initViewModel(fragmentRequestBinding);
         initChatService();
         //setupListeners(fragmentRequestBinding);
-        ObservableList<Friend> requestItems = new ObservableArrayList<>();
-        requestItems.add(new Friend("", "", "pending"));
-        friendViewModel.setFriendItems(requestItems);
 
         friendService = FriendService.getInstance();
         friendService.getAllPendingRequestsForCurrentUser((queryDocumentSnapshots, e) -> {
@@ -49,7 +46,7 @@ public class RequestFragment extends Fragment {
                 handleDocumentChanges(friendObservableList, document);
             }
 
-            // Update model view here
+            friendViewModel.setFriendItems(friendObservableList);
         });
 
         return fragmentRequestBinding.getRoot();

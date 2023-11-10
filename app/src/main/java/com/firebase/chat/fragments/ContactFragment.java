@@ -11,7 +11,6 @@ import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 import androidx.fragment.app.Fragment;
 
-import com.firebase.chat.R;
 import com.firebase.chat.databinding.FragmentRequestBinding;
 import com.firebase.chat.models.Friend;
 import com.firebase.chat.services.FriendService;
@@ -32,13 +31,9 @@ public class ContactFragment extends Fragment {
         FragmentRequestBinding fragmentRequestBinding = FragmentRequestBinding.inflate(inflater, container, false);
         initViewModel(fragmentRequestBinding);
         initChatService();
-        //setupListeners(fragmentRequestBinding);
-        ObservableList<Friend> requestItems = new ObservableArrayList<>();
-        requestItems.add(new Friend("", "", "pending"));
-        friendViewModel.setFriendItems(requestItems);
 
         friendService = FriendService.getInstance();
-        friendService.getAllPendingRequestsForCurrentUser((queryDocumentSnapshots, e) -> {
+        friendService.getAllAcceptedRequestsForCurrentUser((queryDocumentSnapshots, e) -> {
             if (e != null) {
                 Toast.makeText(getContext(), "Failed to fetch data", Toast.LENGTH_SHORT);
                 return;
@@ -51,7 +46,7 @@ public class ContactFragment extends Fragment {
                 handleDocumentChanges(friendObservableList, document);
             }
 
-            // Update model view here
+            friendViewModel.setFriendItems(friendObservableList);
         });
 
         return fragmentRequestBinding.getRoot();
@@ -65,7 +60,6 @@ public class ContactFragment extends Fragment {
 
     private void initChatService() {
         friendService = FriendService.getInstance();
-        //observeChatDataChanges();
     }
 
     private void handleDocumentChanges(ObservableList<Friend> friendObservableList, QueryDocumentSnapshot document) {
