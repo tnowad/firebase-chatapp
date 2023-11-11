@@ -60,11 +60,14 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
                         .into(holder.itemMessageBinding.ChatItemImageViewAvatar);
             }
         });
+
         if (chat.getLastMessageId() != null) {
             MessageService.getInstance().getMessageById(chat.getLastMessageId()).addOnSuccessListener(message -> {
                 if (message != null) {
                     holder.itemMessageBinding.setMessage(message);
-                    if (!chat.getLastMessageSeen().get(AuthService.getInstance().getCurrentUser().getUid()).equals(chat.getLastMessageId())) {
+                    if (chat.getLastMessageSeen() != null &&
+                            chat.getLastMessageSeen().get(AuthService.getInstance().getCurrentUser().getUid()) != null &&
+                            !chat.getLastMessageSeen().get(AuthService.getInstance().getCurrentUser().getUid()).equals(chat.getLastMessageId())) {
                         holder.setContentTextViewBold();
                     }
                 }

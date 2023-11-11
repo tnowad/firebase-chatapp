@@ -31,6 +31,7 @@ public class MessageViewModel {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         listMessageItemAdapter = new ListMessageItemAdapter(context, messageObservableList);
+        linearLayoutManager.setStackFromEnd(true);
         recyclerView.setAdapter(listMessageItemAdapter);
     }
 
