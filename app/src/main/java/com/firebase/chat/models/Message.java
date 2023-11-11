@@ -45,6 +45,9 @@ public class Message {
     }
 
     public String getLimitLengthContent(int length) {
+        if (this.content == null || this.content == "") {
+            return "";
+        }
         if (this.content.length() > length) {
             return this.content.substring(0, length) + "...";
         }

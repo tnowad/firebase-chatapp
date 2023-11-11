@@ -30,6 +30,10 @@ public class MessageService {
         return instance;
     }
 
+    public CollectionReference getMessagesRef() {
+        return messagesRef;
+    }
+
     public Task<Message> getMessageById(String messageId) {
         TaskCompletionSource<Message> taskCompletionSource = new TaskCompletionSource<>();
 
@@ -57,4 +61,6 @@ public class MessageService {
         Query chatMessagesQuery = messagesRef.whereEqualTo("chatId", chatId);
         chatMessagesQuery.addSnapshotListener(listener);
     }
+
+
 }

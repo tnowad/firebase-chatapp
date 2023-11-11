@@ -52,4 +52,20 @@ public class Friend {
                 '}';
     }
 
+    public String getFriendUid(String uid) {
+        if (senderId == null || senderId == "" || receiverId == null || receiverId == "") {
+            return "";
+        }
+        if (senderId.equals(uid)) {
+            return receiverId;
+        }
+        return senderId;
+    }
+
+    public boolean isAccepted() {
+        if (status == null || status == "") {
+            return false;
+        }
+        return status.equals("accepted");
+    }
 }

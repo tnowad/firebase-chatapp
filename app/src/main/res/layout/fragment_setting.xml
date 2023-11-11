@@ -89,7 +89,9 @@
                 android:id="@+id/SettingFragment_Button_GenerateQRCode"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:background="@drawable/ic_scan_qr" />
+                android:background="@drawable/ic_scan_qr"
+                android:backgroundTint="@color/black"
+                android:backgroundTintMode="src_atop" />
         </LinearLayout>
 
         <View

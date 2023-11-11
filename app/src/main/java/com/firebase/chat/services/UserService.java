@@ -9,6 +9,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class UserService {
@@ -52,6 +53,25 @@ public class UserService {
 
     public void getAllUserByEmail(String email, EventListener<QuerySnapshot> listener) {
         usersRef.whereEqualTo("email", email).addSnapshotListener(listener);
+    }
+
+    public void getUserById(String userId, EventListener<DocumentSnapshot> eventListener) {
+        // Assuming you have a users collection in Firestore
+        CollectionReference usersRef = firestore.collection("users");
+
+        DocumentReference userRef = usersRef.document(userId);
+        userRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if (documentSnapshot.exists()) {
+                    eventListener.onEvent(documentSnapshot, null);
+                } else {
+                    eventListener.onEvent(null, null); // User not found
+                }
+            } else {
+                eventListener.onEvent(null, (FirebaseFirestoreException) task.getException());
+            }
+        });
     }
 }
 
