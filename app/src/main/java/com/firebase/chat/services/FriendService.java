@@ -1,10 +1,18 @@
 package com.firebase.chat.services;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.firebase.chat.exceptions.UserNotFoundException;
 import com.firebase.chat.models.Friend;
+import com.firebase.chat.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.Filter;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -58,6 +66,39 @@ public class FriendService {
                         )
                 ));
         query.addSnapshotListener(listener);
+    }
+
+    public Task<Friend> getUserIsFriend(String ortherUid) {
+        TaskCompletionSource<Friend> taskCompletionSource = new TaskCompletionSource<>();
+
+        String uid = authService.getCurrentUser().getUid();
+        Query query = friendsRef.whereEqualTo("status", "accepted")
+                .where(Filter.and(
+                        Filter.or(
+                                Filter.equalTo("senderId", uid),
+                                Filter.equalTo("receiverId", uid)
+                        ),
+                        Filter.or(
+                                Filter.equalTo("senderId", ortherUid),
+                                Filter.equalTo("receiverId", ortherUid)
+                        )
+                ));
+        query.get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        QuerySnapshot querySnapshot = task.getResult();
+                        if (querySnapshot.size() == 1) {
+                            Friend friend = querySnapshot.getDocuments().get(0).toObject(Friend.class);
+                            taskCompletionSource.setResult(friend);
+                        } else {
+                            taskCompletionSource.setException(new UserNotFoundException());
+                        }
+                    } else {
+                        taskCompletionSource.setException(task.getException());
+                    }
+                });
+
+        return taskCompletionSource.getTask();
     }
 
     public Task<DocumentReference> sendFriendRequest(String senderId, String receiverId) {

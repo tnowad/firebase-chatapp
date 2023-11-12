@@ -1,9 +1,9 @@
 package com.firebase.chat.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -16,7 +16,10 @@ import com.firebase.chat.models.User;
 import com.firebase.chat.services.AuthService;
 import com.firebase.chat.services.FriendService;
 import com.firebase.chat.services.UserService;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     private UserService userService;
     private AuthService authService;
     private String uid;
+    private boolean isFriend = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,27 +105,34 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void fetchUserAndPopulateUI(String uid) {
         userService.getUserByUid(uid)
-                .addOnSuccessListener(user -> {
-                    if (user != null) {
-                        populateUserProfile(user);
+            .addOnSuccessListener(user -> {
+                if (user != null) {
+                    populateUserProfile(user);
+                    //userIsFriend(user);
 
-                        if (uid.equals(authService.getCurrentUser().getUid())) {
-                            showCurrentUserProfile();
-                        } else if (userIsFriend(user)) {
-                            showFriendUserProfile();
-                        } else {
-                            showNonFriendUserProfile();
-                        }
+                    if (uid.equals(authService.getCurrentUser().getUid())) {
+                        showCurrentUserProfile();
+                    } else if (isFriend) {
+                        showFriendUserProfile();
                     } else {
-                        finish();
+                        showNonFriendUserProfile();
                     }
-                })
-                .addOnFailureListener(e -> finish());
+                } else {
+                    finish();
+                }
+            })
+            .addOnFailureListener(e -> finish());
     }
 
-    private boolean userIsFriend(User user) {
+    private void userIsFriend(User user) {
         // TODO: Write method check is friend here
-        return false;
+        friendService.getUserIsFriend(user.getUid())
+            .addOnSuccessListener(friend -> {
+                if (friend != null) {
+                    isFriend = true;
+                }
+            })
+            .addOnFailureListener(e -> finish());
     }
 
     private void populateUserProfile(User user) {
