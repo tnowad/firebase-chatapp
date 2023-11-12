@@ -15,6 +15,7 @@ import androidx.databinding.ObservableList;
 import com.firebase.chat.R;
 import com.firebase.chat.databinding.ActivitySearchBinding;
 import com.firebase.chat.models.User;
+import com.firebase.chat.services.FriendService;
 import com.firebase.chat.services.UserService;
 import com.firebase.chat.viewmodels.UserViewModel;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -22,6 +23,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = SearchActivity.class.getSimpleName();
     private UserService userService;
+    private FriendService friendService;
     private UserViewModel userViewModel;
 
     @Override
@@ -72,7 +74,6 @@ public class SearchActivity extends AppCompatActivity {
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                 handleDocumentChanges(userObservableList, document);
             }
-
             userViewModel.setUserItems(userObservableList);
         });
     }

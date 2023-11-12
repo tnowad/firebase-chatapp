@@ -8,7 +8,6 @@ public class User {
     private String displayName;
     private String bio;
     private String photoUrl;
-    private List<String> listFriend;
 
     public User() {
     }
@@ -60,12 +59,5 @@ public class User {
         this.photoUrl = photoUrl;
     }
 
-    public List<String> getListFriend() {
-        return listFriend;
-    }
-
-    public void setListFriend(List<String> listFriend) {
-        this.listFriend = listFriend;
-    }
 }
 

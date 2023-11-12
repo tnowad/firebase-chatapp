@@ -145,6 +145,7 @@
                     android:fontFamily="serif"
                     android:text="Loading"
                     android:textSize="18dp"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -169,6 +170,7 @@
                     android:fontFamily="serif"
                     android:text="Loading"
                     android:textSize="18dp"
+                    android:textColor="@color/black"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -192,6 +194,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="serif"
                     android:text="Loading"
+                    android:textColor="@color/black"
                     android:textSize="18dp" />
             </LinearLayout>
         </LinearLayout>

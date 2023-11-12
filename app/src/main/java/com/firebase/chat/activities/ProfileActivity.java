@@ -1,6 +1,8 @@
 package com.firebase.chat.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -127,7 +129,13 @@ public class ProfileActivity extends AppCompatActivity {
         displayNameTextViewDetail.setText(user.getDisplayName());
         emailTextView.setText(user.getEmail());
         emailTextViewDetail.setText(user.getEmail());
-        bioTextViewDetail.setText(user.getBio());
+        if (user.getBio() == null) {
+            bioTextViewDetail.setText("Empty...");
+            bioTextViewDetail.setTextColor(getResources().getColor(R.color.divider));
+            bioTextViewDetail.setTypeface(bioTextViewDetail.getTypeface(), Typeface.NORMAL);
+        } else {
+            bioTextViewDetail.setText(user.getBio());
+        }
         Picasso.get().load(user.getPhotoUrl()).into(photoUrlCircleImageView);
     }
 

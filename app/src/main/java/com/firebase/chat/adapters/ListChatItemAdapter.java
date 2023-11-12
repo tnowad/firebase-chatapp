@@ -52,7 +52,9 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
         holder.itemMessageBinding.setChat(chat);
 
 
-        String uid = chat.getParticipants().stream().filter(s -> !s.equals(AuthService.getInstance().getCurrentUser().getUid())).collect(Collectors.toList()).get(0);
+        String uid = chat.getParticipants().stream().filter(s -> !s.equals(AuthService.getInstance().getCurrentUser().getUid()))
+                .collect(Collectors.toList()).get(0);
+
         UserService.getInstance().getUserByUid(uid).addOnSuccessListener(user -> {
             if (user != null) {
                 holder.itemMessageBinding.setUser(user);

@@ -11,6 +11,7 @@ import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 import androidx.fragment.app.Fragment;
 
+import com.firebase.chat.databinding.FragmentContactBinding;
 import com.firebase.chat.databinding.FragmentRequestBinding;
 import com.firebase.chat.models.Friend;
 import com.firebase.chat.services.FriendService;
@@ -28,8 +29,8 @@ public class ContactFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        FragmentRequestBinding fragmentRequestBinding = FragmentRequestBinding.inflate(inflater, container, false);
-        initViewModel(fragmentRequestBinding);
+        FragmentContactBinding fragmentContactBinding = FragmentContactBinding.inflate(inflater, container, false);
+        initViewModel(fragmentContactBinding);
         initChatService();
 
         friendService = FriendService.getInstance();
@@ -49,13 +50,13 @@ public class ContactFragment extends Fragment {
             friendViewModel.setFriendItems(friendObservableList);
         });
 
-        return fragmentRequestBinding.getRoot();
+        return fragmentContactBinding.getRoot();
     }
 
-    private void initViewModel(FragmentRequestBinding fragmentRequestBinding) {
+    private void initViewModel(FragmentContactBinding fragmentContactBinding) {
         friendViewModel = new FriendViewModel(getActivity());
-        fragmentRequestBinding.setFriendViewModel(friendViewModel);
-        fragmentRequestBinding.executePendingBindings();
+        fragmentContactBinding.setFriendViewModel(friendViewModel);
+        fragmentContactBinding.executePendingBindings();
     }
 
     private void initChatService() {
