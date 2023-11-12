@@ -49,7 +49,7 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
         if (chat == null) {
             return;
         }
-        holder.itemMessageBinding.setChat(chat);
+        holder.itemChatBinding.setChat(chat);
 
 
         String uid = chat.getParticipants().stream().filter(s -> !s.equals(AuthService.getInstance().getCurrentUser().getUid()))
@@ -57,16 +57,16 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
 
         UserService.getInstance().getUserByUid(uid).addOnSuccessListener(user -> {
             if (user != null) {
-                holder.itemMessageBinding.setUser(user);
+                holder.itemChatBinding.setUser(user);
                 Picasso.get().load(user.getPhotoUrl())
-                        .into(holder.itemMessageBinding.ChatItemImageViewAvatar);
+                        .into(holder.itemChatBinding.ChatItemImageViewAvatar);
             }
         });
 
         if (chat.getLastMessageId() != null) {
             MessageService.getInstance().getMessageById(chat.getLastMessageId()).addOnSuccessListener(message -> {
                 if (message != null) {
-                    holder.itemMessageBinding.setMessage(message);
+                    holder.itemChatBinding.setMessage(message);
                     if (chat.getLastMessageSeen() != null &&
                             chat.getLastMessageSeen().get(AuthService.getInstance().getCurrentUser().getUid()) != null &&
                             !chat.getLastMessageSeen().get(AuthService.getInstance().getCurrentUser().getUid()).equals(chat.getLastMessageId())) {
@@ -76,7 +76,7 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
             });
         }
 
-        holder.itemMessageBinding.setUser(new User("", "", "Loading", ""));
+        holder.itemChatBinding.setUser(new User("", "", "Loading", ""));
 
 
         holder.setOnItemListener(v -> {
@@ -87,7 +87,7 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
             activity.overridePendingTransition(0, 0);
         });
 
-        holder.itemMessageBinding.executePendingBindings();
+        holder.itemChatBinding.executePendingBindings();
     }
 
     @Override
@@ -99,21 +99,19 @@ public class ListChatItemAdapter extends RecyclerView.Adapter<ListChatItemAdapte
     }
 
     public static class ChatItemViewHolder extends RecyclerView.ViewHolder {
-        private final ItemChatBinding itemMessageBinding;
-        private final TextView textView;
+        private final ItemChatBinding itemChatBinding;
 
-        public ChatItemViewHolder(@NonNull ItemChatBinding itemMessageBinding) {
-            super(itemMessageBinding.getRoot());
-            this.itemMessageBinding = itemMessageBinding;
-            textView = itemMessageBinding.getRoot().findViewById(R.id.ChatItem_TextView_LastMessageContent);
+        public ChatItemViewHolder(@NonNull ItemChatBinding itemChatBinding) {
+            super(itemChatBinding.getRoot());
+            this.itemChatBinding = itemChatBinding;
         }
 
         public void setOnItemListener(View.OnClickListener onClickListener) {
-            this.itemMessageBinding.getRoot().setOnClickListener(onClickListener);
+            this.itemChatBinding.getRoot().setOnClickListener(onClickListener);
         }
 
         public void setContentTextViewBold() {
-            textView.setTypeface(null, Typeface.BOLD);
+            itemChatBinding.ChatItemTextViewLastMessageContent.setTypeface(null, Typeface.BOLD);
         }
 
     }
