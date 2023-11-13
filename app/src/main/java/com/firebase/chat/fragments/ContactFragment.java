@@ -12,7 +12,6 @@ import androidx.databinding.ObservableList;
 import androidx.fragment.app.Fragment;
 
 import com.firebase.chat.databinding.FragmentContactBinding;
-import com.firebase.chat.databinding.FragmentRequestBinding;
 import com.firebase.chat.models.Friend;
 import com.firebase.chat.services.FriendService;
 import com.firebase.chat.viewmodels.FriendViewModel;
@@ -41,7 +40,6 @@ public class ContactFragment extends Fragment {
             }
 
             ObservableList<Friend> friendObservableList = new ObservableArrayList<>();
-
 
             for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
                 handleDocumentChanges(friendObservableList, document);

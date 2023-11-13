@@ -23,12 +23,14 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MessageActivity extends AppCompatActivity {
 
+    private static final List<MessageActivity> activeMessageActivities = new ArrayList<>();
     private ActivityMessageBinding activityMessageBinding;
     private MessageService messageService;
     private ChatService chatService;
@@ -41,6 +43,12 @@ public class MessageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (activeMessageActivities.size() == 0) {
+            activeMessageActivities.add(this);
+        } else {
+            finish();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
         initializeServices();
@@ -49,6 +57,14 @@ public class MessageActivity extends AppCompatActivity {
         fetchMessages();
         getChatData();
         setClickListeners();
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        activeMessageActivities.remove(this);
     }
 
     private void initializeServices() {
