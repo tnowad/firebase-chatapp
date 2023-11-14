@@ -63,7 +63,11 @@ public class ListFriendItemAdapter extends RecyclerView.Adapter<ListFriendItemAd
         });
         holder.setDeclineButtonListener((v) -> FriendService.getInstance().unfriend(currentUserUid, friendUid));
 
-        if (friend.isAccepted() || friend.getSenderId().equals(currentUserUid)) {
+        if (friend.getSenderId().equals(currentUserUid)) {
+            holder.setAcceptButtonVisibility(View.GONE);
+        }
+
+        if (friend.isAccepted()) {
             holder.setAcceptButtonVisibility(View.GONE);
             holder.setOnItemClickListener((v) -> openMessageActivity(friend));
         } else {

@@ -58,7 +58,7 @@ public class MessageService {
 
 
     public void getAllMessagesByChatId(String chatId, EventListener<QuerySnapshot> listener) {
-        Query chatMessagesQuery = messagesRef.whereEqualTo("chatId", chatId);
+        Query chatMessagesQuery = messagesRef.whereEqualTo("chatId", chatId).orderBy("timestamp", Query.Direction.ASCENDING);
         chatMessagesQuery.addSnapshotListener(listener);
     }
 

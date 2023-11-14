@@ -64,6 +64,9 @@ public class ChatService {
 
     public void findChatByParticipants(String senderId, String receiverId, EventListener<Chat> eventListener) {
         ChatService.getInstance().getAllChatsForCurrentUser((value, error) -> {
+            if (value == null) {
+                return;
+            }
             for (DocumentSnapshot documentSnapshot : value.getDocuments()) {
                 Chat chat = documentSnapshot.toObject(Chat.class);
                 chat.setId(documentSnapshot.getId());

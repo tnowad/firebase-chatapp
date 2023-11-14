@@ -24,7 +24,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -175,48 +174,54 @@ public class MessageActivity extends AppCompatActivity {
         // Logic for handling keyboard
     }
 
-    private void handleDocumentChanges(List<Message> messages, QueryDocumentSnapshot document) {
-        Message message = document.toObject(Message.class);
-        Date newMessageDate = message.getTimestamp().toDate();
-        int index = -1;
+//    private void handleDocumentChanges(List<Message> messages, QueryDocumentSnapshot document) {
+//        Message message = document.toObject(Message.class);
+//        Date newMessageDate = message.getTimestamp().toDate();
+//        int index = -1;
+//
+//        for (int i = 0; i < messages.size(); i++) {
+//            Date currentMessageDate = messages.get(i).getTimestamp().toDate();
+//            if (currentMessageDate != null && currentMessageDate.after(newMessageDate)) {
+//                index = i;
+//                break;
+//            }
+//        }
+//
+//        if (index != -1) {
+//            messages.add(index, message);
+//        } else {
+//            messages.add(message);
+//        }
+//
+//        document.getReference().addSnapshotListener((snapshot, error) -> {
+//            if (error != null) {
+//                return;
+//            }
+//
+//            if (snapshot != null && snapshot.exists()) {
+//                Message updatedMessage = snapshot.toObject(Message.class);
+//                Date updatedMessageDate = updatedMessage.getTimestamp().toDate();
+//
+//                int updatedIndex = -1;
+//                for (int i = 0; i < messages.size(); i++) {
+//                    Date currentMessageDate = messages.get(i).getTimestamp().toDate();
+//                    if (currentMessageDate != null && currentMessageDate.equals(updatedMessageDate)) {
+//                        updatedIndex = i;
+//                        break;
+//                    }
+//                }
+//
+//                if (updatedIndex != -1) {
+//                    messages.set(updatedIndex, updatedMessage);
+//                }
+//            }
+//        });
+//    }
 
-        for (int i = 0; i < messages.size(); i++) {
-            Date currentMessageDate = messages.get(i).getTimestamp().toDate();
-            if (currentMessageDate != null && currentMessageDate.after(newMessageDate)) {
-                index = i;
-                break;
-            }
-        }
+    private void handleDocumentChanges(ObservableList<Message> messages, QueryDocumentSnapshot document) {
+        Message newMessage = document.toObject(Message.class);
 
-        if (index != -1) {
-            messages.add(index, message);
-        } else {
-            messages.add(message);
-        }
-
-        document.getReference().addSnapshotListener((snapshot, error) -> {
-            if (error != null) {
-                return;
-            }
-
-            if (snapshot != null && snapshot.exists()) {
-                Message updatedMessage = snapshot.toObject(Message.class);
-                Date updatedMessageDate = updatedMessage.getTimestamp().toDate();
-
-                int updatedIndex = -1;
-                for (int i = 0; i < messages.size(); i++) {
-                    Date currentMessageDate = messages.get(i).getTimestamp().toDate();
-                    if (currentMessageDate != null && currentMessageDate.equals(updatedMessageDate)) {
-                        updatedIndex = i;
-                        break;
-                    }
-                }
-
-                if (updatedIndex != -1) {
-                    messages.set(updatedIndex, updatedMessage);
-                }
-            }
-        });
+        messages.add(newMessage);
     }
 
 
